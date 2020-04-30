@@ -1,13 +1,13 @@
 <template>
   <div>
     <h1>Actual Data Test</h1>
-    <!--    <div id="line-chart" style="width: 954px; margin: auto" />-->
     <svg
       id="line-chart"
       :width="width"
       :height="height"
-      style="background: #eeeeee"
+      style="background: #fafafa"
     >
+      <g id="x-axis"></g>
       <path
         v-for="(line, index) in lines"
         :key="'l-' + index"
@@ -25,8 +25,9 @@
       id="nav-bar"
       :width="width"
       :height="navHeight"
-      style="background: #eeeeee"
+      style="background: #fafafa"
     >
+      <g id="x-axis-nav"></g>
       <path
         v-for="(line, index) in navLines"
         :key="'nl-' + index"
@@ -78,7 +79,13 @@ export default {
         "#7f7f7f",
         "#bcbd22",
         "#17becf"
-      ]
+      ],
+      brush: "",
+      currentSelection: "",
+      downscaleFactor: 2,
+      navDownscaleFactor: 4,
+      defaultRangeInSeconds: 10, // seconds
+      enabledKeys: []
     }
   },
   mounted() {
@@ -95,11 +102,41 @@ export default {
         .domain(d3.extent(jsonData[keys[0]], d => d[0]))
         .range([this.margin.left, this.width - this.margin.right])
 
-      // xScale will change, so keep the xScale for the nav separate
+      // add the xAxis tick marks
+      let xAxis = (g, x) =>
+        g
+          .attr("transform", `translate(0,${this.height - this.margin.bottom})`)
+          .call(
+            d3
+              .axisBottom(x)
+              .ticks(this.width / 80)
+              // .ticks(10)
+              .tickSizeOuter(0)
+              .tickFormat(this.toMMSS)
+          )
+      d3.select("#x-axis").call(xAxis, xScale)
+
+      // x scale of nav is static, so keep it separate
       let xScaleNav = d3
         .scaleLinear()
         .domain(d3.extent(jsonData[keys[0]], d => d[0]))
         .range([this.margin.left, this.width - this.margin.right])
+
+      // set up the x axis tick marks for the nav
+      let xAxisNav = g =>
+        g
+          .attr(
+            "transform",
+            `translate(0,${this.navHeight - this.margin.bottom})`
+          )
+          .call(
+            d3
+              .axisBottom(xScaleNav)
+              .ticks(this.width / 80)
+              .tickSizeOuter(0)
+              .tickFormat(this.toMMSS)
+          )
+      d3.select("#x-axis-nav").call(xAxisNav)
 
       let yScales = []
       let yNavScales = []
@@ -121,10 +158,8 @@ export default {
         lineGenerators.push(lineGenerator)
         // add the lines
         this.lines.push(lineGenerator(jsonData[key]))
+        this.enabledKeys.push(key)
 
-        // TODO for now just add one line
-        // if (this.navLines.length < 1) {
-        console.log("Nav line has " + jsonData[key].length + " points")
         // set up each lines yScale for the nav chart
         let yNavScale = d3
           .scaleLinear()
@@ -138,15 +173,12 @@ export default {
           .y(d => yNavScale(d[1]))
           .curve(d3.curveMonotoneX)
         navLineGenerators.push(navLineGenerator)
-
         // downscale the nav lines further than the main chart
         let points = this.largestTriangleThreeBuckets(
           jsonData[key],
-          this.width / 2
+          Math.round(this.width / this.navDownscaleFactor)
         )
-        console.log("Nav line reduce to " + points.length + " points")
         this.navLines.push(navLineGenerator(points))
-        // this.navLines.push(navLineGenerator(jsonData[key]))
       }
       // }
 
@@ -155,36 +187,74 @@ export default {
         [this.margin.left, this.margin.top],
         [this.width - this.margin.right, this.navHeight - this.margin.bottom]
       ])
+      this.brush = brush
 
       brush.on("brush", () => {
         // let start = window.performance.now()
+        this.currentSelection = d3.event.selection
         this.lines = []
         if (d3.event.selection) {
           let newDomain = d3.event.selection.map(xScaleNav.invert)
           xScale.domain(newDomain)
-          for (let [index, key] of keys.entries()) {
+          for (let [index, key] of this.enabledKeys.entries()) {
             // filter to only the portion of the line within the visible time frame
             let points = jsonData[key]
-            // TODO update the filtering to keep one point outside the range
-            points = points.filter(
-              a => a[0] >= newDomain[0] - 1 && a[0] <= newDomain[1] + 1
-            )
+            // TODO add a clipPath
+            // keep any points that are within the visible range, or where the next point before or after is in the visible range
+            points = points.filter((a, index) => {
+              // point in visible range
+              if (a[0] >= newDomain[0] && a[0] <= newDomain[1]) {
+                return true
+              } else if (
+                // next point in visible range
+                points[index + 1] &&
+                points[index + 1][0] >= newDomain[0] &&
+                points[index + 1][0] <= newDomain[1]
+              ) {
+                return true
+              } else if (
+                // next point in visible range
+                points[index + 2] &&
+                points[index + 2][0] >= newDomain[0] &&
+                points[index + 2][0] <= newDomain[1]
+              ) {
+                return true
+              } else if (
+                // next point in visible range
+                points[index - 2] &&
+                points[index - 2][0] >= newDomain[0] &&
+                points[index - 2][0] <= newDomain[1]
+              ) {
+                return true
+              } else {
+                return (
+                  // previous point in visible range
+                  points[index - 1] &&
+                  points[index - 1][0] >= newDomain[0] &&
+                  points[index - 1][0] <= newDomain[1]
+                )
+              }
+            })
             // downscale the lines
             points = this.largestTriangleThreeBuckets(
               points,
-              Math.round(this.width / 4)
+              Math.round(this.width / this.downscaleFactor)
             )
             this.lines.push(lineGenerators[index](points))
           }
+          d3.select("#x-axis").call(xAxis, xScale)
         }
         // let end = window.performance.now()
         // console.log("time for brush update: " + (end - start))
       })
 
+      // recenter the brush on a click
+      // TODO fix needing this
+      let defaultRange = this.defaultRangeInSeconds
       let beforeBrushStarted = function() {
         // Use a fixed width when re-centering
-        // TODO update to use the current width if set
-        const dx = xScaleNav(60) - xScaleNav(0)
+        // TODO update to use the current width rather than the default width
+        const dx = xScaleNav(defaultRange) - xScaleNav(0)
         const [cx] = d3.mouse(this)
         const [x0, x1] = [cx - dx / 2, cx + dx / 2]
         const [X0, X1] = xScaleNav.range()
@@ -194,19 +264,28 @@ export default {
         )
       }
 
+      // initialize the brush
       const g = d3.select("#brush")
       g.call(brush)
-        .call(brush.move, [0, 60].map(xScaleNav))
+        .call(brush.move, [0, this.defaultRangeInSeconds].map(xScaleNav))
         .call(g =>
           g
             .select(".overlay")
             .datum({ type: "selection" })
             .on("mousedown touchstart", beforeBrushStarted)
         )
+
+      // TODO move this somewhere else
+      // move the brush for playback
+      // setInterval(() => {
+      //   // TODO clean this up
+      //   let c = this.currentSelection.map(xScaleNav.invert)
+      //   let newC = [c[0] + 0.1, c[1] + 0.1]
+      //   // TODO add a transition to make it smoother?
+      //   g.call(brush.move, newC.map(xScaleNav))
+      // }, 100)
     },
-    startPlaying() {
-      setInterval(() => {}, 100)
-    },
+    startPlaying() {},
     largestTriangleThreeBuckets(data, threshold) {
       let floor = Math.floor
       let abs = Math.abs
@@ -280,161 +359,18 @@ export default {
 
       return sampled
     },
-    // testing creating a chart with real data
-    loadFromJson() {
-      // prepare the data
-      let jsonData = JSON.parse(DATAFILE)
-      const keys = Object.keys(jsonData)
+    toMMSS(second) {
+      // second = parseInt(second, 10)
 
-      let xScale = d3
-        .scaleLinear()
-        .domain(d3.extent(jsonData[keys[0]], d => d[0]))
-        // .domain([0, 60])
-        .range([this.margin.left, this.width - this.margin.right])
-
-      // add the lines
-      let totalPoints = 0
-      for (const key of keys) {
-        xScale = d3
-          .scaleLinear()
-          .domain(d3.extent(jsonData[key], d => d[0]))
-          .range([this.margin.left, this.width - this.margin.right])
-
-        let yScale = d3
-          .scaleLinear()
-          .domain(d3.extent(jsonData[key], d => d[1]))
-          .range([this.height - this.margin.bottom, this.margin.top])
-
-        let line = d3
-          .line()
-          .x(d => xScale(d[0]))
-          .y(d => yScale(d[1]))
-          .curve(d3.curveMonotoneX)
-
-        this.lines.push(line(jsonData[key]))
-
-        console.log("length of " + key + " data: " + jsonData[key].length)
-        totalPoints += jsonData[key].length
-      }
-      console.log("Total points: " + totalPoints)
-
-      let xScaleNav = d3
-        .scaleLinear()
-        .domain(d3.extent(jsonData[keys[0]], d => d[0]))
-        .range([this.margin.left, this.width - this.margin.right])
-
-      for (const key of keys) {
-        // create the nav bar
-
-        let yScaleNav = d3
-          .scaleLinear()
-          .domain(d3.extent(jsonData[key], d => d[1]))
-          .range([this.navHeight - this.margin.bottom, this.margin.top])
-
-        // TODO add the xAxis tick marks
-        // let xAxis = g =>
-        //   g
-        //     .attr(
-        //       "transform",
-        //       `translate(0,${this.height - this.lineChartMargin.bottom})`
-        //     )
-        //     .call(
-        //       d3
-        //         .axisBottom(xScale)
-        //         .ticks(this.width / 80)
-        //         .tickSizeOuter(0)co
-        //     )
-
-        let line = d3
-          .line()
-          .x(d => xScaleNav(d[0]))
-          .y(d => yScaleNav(d[1]))
-          .curve(d3.curveMonotoneX)
-
-        this.navLines.push(line(jsonData[key]))
-        break
+      let seconds = second % 60
+      if (seconds < 10) {
+        seconds = "0" + seconds
       }
 
-      const brush = d3.brushX().extent([
-        [this.margin.left, this.margin.top],
-        [this.width - this.margin.right, this.navHeight - this.margin.bottom]
-      ])
-
-      // TODO this works, but it's slow...
-      brush.on("brush", () => {
-        let start = window.performance.now()
-        if (d3.event.selection) {
-          let newDomain = d3.event.selection.map(xScaleNav.invert)
-          xScale.domain(newDomain)
-
-          this.lines = []
-          for (const key of keys) {
-            let yScale = d3
-              .scaleLinear()
-              .domain(d3.extent(jsonData[key], d => d[1]))
-              .range([this.height - this.margin.bottom, this.margin.top])
-            let line = d3
-              .line()
-              .x(d => xScale(d[0]))
-              .y(d => yScale(d[1]))
-              .curve(d3.curveMonotoneX)
-            this.lines.push(line(jsonData[key]))
-            // break
-          }
-        }
-        let end = window.performance.now()
-        console.log("time for brush update: " + (start - end))
-      })
-
-      // Use a fixed width when re-centering.
-      let beforeBrushStarted = function() {
-        const dx = xScaleNav(600) - xScaleNav(0)
-        const [cx] = d3.mouse(this)
-        const [x0, x1] = [cx - dx / 2, cx + dx / 2]
-        const [X0, X1] = xScaleNav.range()
-        d3.select(this.parentNode).call(
-          brush.move,
-          x1 > X1 ? [X1 - dx, X1] : x0 < X0 ? [X0, X0 + dx] : [x0, x1]
-        )
-      }
-
-      const g = d3.select("#brush")
-      g.call(brush)
-        .call(brush.move, [0, 10].map(xScaleNav))
-        .call(
-          g =>
-            g
-              .select(".overlay")
-              .datum({ type: "selection" })
-              .on("mousedown touchstart", beforeBrushStarted)
-          // .on("mousedown touchstart", () => console.log("brushStarted"))
-        )
-
-      // // test out a sample zoom function
-      // const zoom = d3
-      //   .zoom()
-      //   .scaleExtent([1, 32])
-      //   .extent([
-      //     [this.margin.left, 0],
-      //     [this.width - this.margin.right, this.height]
-      //   ])
-      //   .translateExtent([
-      //     [this.margin.left, -Infinity],
-      //     [this.width - this.margin.right, Infinity]
-      //   ])
-      //   .on("zoom", () => {
-      //     let l = d3.selectAll("path").filter(".line")
-      //     l.attr("transform", d3.event.transform)
-      //   })
-      //
-      // d3.select("#line-chart")
-      //   .call(zoom)
-      //   .transition()
-      //   .duration(750)
-      //   .call(zoom.scaleTo, 4, [xScale(0), xScale(60)])
+      return Math.floor(second / 60) + ":" + seconds
     }
   }
 }
 </script>
 
-<style scoped />
+<style scoped></style>
