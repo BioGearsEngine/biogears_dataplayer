@@ -97,7 +97,7 @@ export default {
         dates: rawData.columns.slice(1).map(d3.utcParse("%Y-%m"))
       }
 
-      let x = d3
+      let xScale = d3
         .scaleUtc()
         .domain(d3.extent(data.dates))
         .range([
@@ -105,7 +105,7 @@ export default {
           this.width - this.lineChartMargin.right
         ])
 
-      let y = d3
+      let yScale = d3
         .scaleLinear()
         .domain([0, d3.max(data.series, d => d3.max(d.values))])
         .nice()
@@ -122,7 +122,7 @@ export default {
           )
           .call(
             d3
-              .axisBottom(x)
+              .axisBottom(xScale)
               .ticks(this.width / 80)
               .tickSizeOuter(0)
           )
@@ -130,7 +130,7 @@ export default {
       // let yAxis = g =>
       //   g
       //     .attr("transform", `translate(${this.lineChartMargin.left},0)`)
-      //     .call(d3.axisLeft(y))
+      //     .call(d3.axisLeft(yScale))
       //     .call(g => g.select(".domain").remove())
       //     .call(g =>
       //       g
@@ -139,14 +139,14 @@ export default {
       //         .attr("x", 3)
       //         .attr("text-anchor", "start")
       //         .attr("font-weight", "bold")
-      //         .text(data.y)
+      //         .text(data.yScale)
       //     )
 
       let line = d3
         .line()
         .defined(d => !isNaN(d))
-        .x((d, i) => x(data.dates[i]))
-        .y(d => y(d))
+        .x((d, i) => xScale(data.dates[i]))
+        .y(d => yScale(d))
 
       const svg = d3
         .select("#p-nav-bar")
@@ -180,6 +180,12 @@ export default {
 
       brush.on("brush", () => {
         // console.log("brush moved")
+        // console.log(brush.extent()(0))
+        // console.log(brush.extent()(1))
+        // console.log(d3.brushSelection(svg.node()))
+        if (d3.event.selection) {
+          console.table(d3.event.selection)
+        }
       })
 
       svg.append("g").call(xAxis)
@@ -187,7 +193,7 @@ export default {
       svg
         .append("g")
         .call(brush)
-        .call(brush.move, [3, 5].map(x))
+        .call(brush.move, [3, 5].map(xScale))
         .call(g =>
           g
             .select(".overlay")
@@ -199,13 +205,13 @@ export default {
       function beforeBrushStarted() {
         let dateParser = d3.utcParse("%Y-%m")
         // console.log(dateParser("2002-01"))
-        // console.log(x(dateParser("2002-01")))
-        // console.log(x(dateParser("2001-01")))
+        // console.log(xScale(dateParser("2002-01")))
+        // console.log(xScale(dateParser("2001-01")))
 
-        const dx = x(dateParser("2002-01")) - x(dateParser("2001-01"))
+        const dx = xScale(dateParser("2002-01")) - xScale(dateParser("2001-01"))
         const [cx] = d3.mouse(this)
         const [x0, x1] = [cx - dx / 2, cx + dx / 2]
-        const [X0, X1] = x.range()
+        const [X0, X1] = xScale.range()
         d3.select(this.parentNode).call(
           brush.move,
           x1 > X1 ? [X1 - dx, X1] : x0 < X0 ? [X0, X0 + dx] : [x0, x1]
@@ -216,22 +222,22 @@ export default {
     },
     // old nav bar using random data
     createNavBar() {
-      let x = d3.scaleLinear(
+      let xScale = d3.scaleLinear(
         [0, 100],
         [this.margin.left, this.width - this.margin.right]
       )
 
-      // let x = d3
+      // let xScale = d3
       //   .scaleLinear()
       //   .domain([10, 130])
       //   .range([0, 960])
 
-      // let rx = d3.randomUniform(...x.domain())
+      // let rx = d3.randomUniform(...xScale.domain())
       // let ry = d3.randomNormal(this.height / 2, this.height / 12)
       let xAxis = g =>
         g
           .attr("transform", `translate(0,${this.height - this.margin.bottom})`)
-          .call(d3.axisBottom(x))
+          .call(d3.axisBottom(xScale))
 
       const svg = d3
         .select("#p-nav-bar")
@@ -250,7 +256,7 @@ export default {
       //   .selectAll("circle")
       //   .data(Float64Array.from({ length: 800 }, rx))
       //   .join("circle")
-      //   .attr("transform", d => `translate(${x(d)},${ry()})`)
+      //   .attr("transform", d => `translate(${xScale(d)},${ry()})`)
       //   .attr("r", 3.5)
 
       svg.append("g").call(xAxis)
@@ -258,7 +264,7 @@ export default {
       svg
         .append("g")
         .call(brush)
-        .call(brush.move, [3, 5].map(x))
+        .call(brush.move, [3, 5].map(xScale))
         .call(g =>
           g
             .select(".overlay")
@@ -267,10 +273,10 @@ export default {
         )
 
       function beforeBrushStarted() {
-        const dx = x(1) - x(0) // Use a fixed width when recentering.
+        const dx = xScale(1) - xScale(0) // Use a fixed width when recentering.
         const [cx] = d3.mouse(this)
         const [x0, x1] = [cx - dx / 2, cx + dx / 2]
-        const [X0, X1] = x.range()
+        const [X0, X1] = xScale.range()
         d3.select(this.parentNode).call(
           brush.move,
           x1 > X1 ? [X1 - dx, X1] : x0 < X0 ? [X0, X0 + dx] : [x0, x1]
@@ -282,7 +288,7 @@ export default {
       //   if (selection === null) {
       //     circle.attr("stroke", null)
       //   } else {
-      //     const [x0, x1] = selection.map(x.invert)
+      //     const [x0, x1] = selection.map(xScale.invert)
       //     circle.attr("stroke", d => (x0 <= d && d <= x1 ? "red" : null))
       //   }
       // }
@@ -303,7 +309,7 @@ export default {
         dates: rawData.columns.slice(1).map(d3.utcParse("%Y-%m"))
       }
 
-      let x = d3
+      let xScale = d3
         .scaleUtc()
         .domain(d3.extent(data.dates))
         .range([
@@ -311,7 +317,7 @@ export default {
           this.width - this.lineChartMargin.right
         ])
 
-      let y = d3
+      let yScale = d3
         .scaleLinear()
         .domain([0, d3.max(data.series, d => d3.max(d.values))])
         .nice()
@@ -328,7 +334,7 @@ export default {
           )
           .call(
             d3
-              .axisBottom(x)
+              .axisBottom(xScale)
               .ticks(this.width / 80)
               .tickSizeOuter(0)
           )
@@ -336,7 +342,7 @@ export default {
       let yAxis = g =>
         g
           .attr("transform", `translate(${this.lineChartMargin.left},0)`)
-          .call(d3.axisLeft(y))
+          .call(d3.axisLeft(yScale))
           .call(g => g.select(".domain").remove())
           .call(g =>
             g
@@ -351,8 +357,8 @@ export default {
       let line = d3
         .line()
         .defined(d => !isNaN(d))
-        .x((d, i) => x(data.dates[i]))
-        .y(d => y(d))
+        .x((d, i) => xScale(data.dates[i]))
+        .y(d => yScale(d))
 
       const svg = d3
         .select("#p-line-chart")
@@ -396,7 +402,7 @@ export default {
             .on("mouseleave", left)
 
         const dot = svg.append("g").attr("display", "none")
-        // const gx = svg.append("g").call(xAxis, x)
+        // const gx = svg.append("g").call(xAxis, xScale)
 
         dot.append("circle").attr("r", 2.5)
 
@@ -408,8 +414,8 @@ export default {
 
         function moved() {
           d3.event.preventDefault()
-          const ym = y.invert(d3.event.layerY)
-          const xm = x.invert(d3.event.layerX)
+          const ym = yScale.invert(d3.event.layerY)
+          const xm = xScale.invert(d3.event.layerX)
           const i1 = d3.bisectLeft(data.dates, xm, 1)
           const i0 = i1 - 1
           const i = xm - data.dates[i0] > data.dates[i1] - xm ? i1 : i0
@@ -422,7 +428,7 @@ export default {
             .raise()
           dot.attr(
             "transform",
-            `translate(${x(data.dates[i])},${y(s.values[i])})`
+            `translate(${xScale(data.dates[i])},${yScale(s.values[i])})`
           )
           dot.select("text").text(s.name)
         }
@@ -436,25 +442,6 @@ export default {
           path.style("mix-blend-mode", "multiply").attr("stroke", null)
           dot.attr("display", "none")
         }
-
-        // const zoom = d3
-        //   .zoom()
-        //   .scaleExtent([1, 32])
-        //   .extent([
-        //     [this.lineChartMargin.left, 0],
-        //     [this.width - this.lineChartMargin.right, this.height]
-        //   ])
-        //   .translateExtent([
-        //     [this.lineChartMargin.left, -Infinity],
-        //     [this.width - this.lineChartMargin.right, Infinity]
-        //   ])
-        //   .on("zoom", zoomed)
-        //
-        // function zoomed() {
-        //   const xz = d3.event.transform.rescaleX(x)
-        //   // path.attr("d", area(data, xz));
-        //   gx.call(xAxis, xz)
-        // }
       }
     }
   }

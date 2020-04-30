@@ -1,20 +1,20 @@
 <template>
   <div id="app">
     <!--    <img alt="BioGears logo" src="./assets/logo_410.png" />-->
-    <prototype />
+    <!--    <prototype />-->
     <chart />
   </div>
 </template>
 
 <script>
 import Chart from "./components/Chart"
-import Prototype from "./components/Prototype"
+// import Prototype from "./components/Prototype"
 
 export default {
   name: "App",
   components: {
-    Chart,
-    Prototype
+    Chart
+    // Prototype
   }
 }
 </script>
