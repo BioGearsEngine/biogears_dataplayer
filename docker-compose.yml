@@ -1,0 +1,34 @@
+version: "2"
+
+services:
+
+    # NOTE: If building for production make sure to set the env values to production ones before building
+    build-gen:
+        image: node:14
+        user: "node"
+        command: bash -c "npm install && npm run build"
+        working_dir: /biogears/showcase
+        volumes:
+          - ./:/biogears/showcase
+
+    workspace:
+        image: node:14
+        user: "node"
+#        command: npm run dev # during development you may want to comment this out and bash in to run this for fast server reloading
+        working_dir: /biogears/showcase
+        volumes:
+          - ./:/biogears/showcase
+        ports:
+          - "8080:8080"
+        tty: true
+
+    showcase-player:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: showcase-player
+        ports:
+            - "80:80"
+        networks:
+            - default
+        tty: true
