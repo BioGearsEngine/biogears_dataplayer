@@ -39,13 +39,13 @@
             </clipPath>
             <g id="x-axis"></g>
             <path
-              v-for="(line, index) in lines"
+              v-for="(line, index) in enabledLines"
               :key="'l-' + index"
-              :d="line"
+              :d="line.points"
               fill="none"
               opacity="1"
-              :stroke="colors[index % colors.length]"
-              stroke-width="1.5"
+              :stroke="line.color"
+              stroke-width="2"
               stroke-miterlimit="1"
               class="line"
               clip-path="url(#clip)"
@@ -59,12 +59,12 @@
           >
             <g id="x-axis-nav"></g>
             <path
-              v-for="(line, index) in navLines"
+              v-for="(line, index) in enabledNavLines"
               :key="'nl-' + index"
-              :d="line"
+              :d="line.points"
               fill="none"
               opacity="0.5"
-              :stroke="colors[index % colors.length]"
+              :stroke="line.color"
               stroke-width="1"
               stroke-miterlimit="1"
               class="nav-line"
@@ -152,7 +152,6 @@ export default {
       margin: { top: 20, right: 20, bottom: 30, left: 30 },
       lines: [],
       navLines: [],
-      lineData: "",
       colors: [
         "#56a0bf",
         "#494c7c",
@@ -183,6 +182,14 @@ export default {
       playbackFrequency: 10,
       isPlaying: false,
       xScaleNav: ""
+    }
+  },
+  computed: {
+    enabledLines() {
+      return this.lines.filter(l => this.enabledKeys.includes(l.key))
+    },
+    enabledNavLines() {
+      return this.navLines.filter(l => this.enabledKeys.includes(l.key))
     }
   },
   mounted() {
@@ -257,7 +264,12 @@ export default {
           .curve(d3.curveMonotoneX)
         lineGenerators.push(lineGenerator)
         // add the lines
-        this.lines.push(lineGenerator(jsonData[key]))
+        this.lines.push({
+          points: lineGenerator(jsonData[key]),
+          key: key,
+          color: this.colors[this.lines.length % this.colors.length],
+          generator: lineGenerator
+        })
         this.enabledKeys.push(key)
 
         // set up each lines yScale for the nav chart
@@ -278,7 +290,11 @@ export default {
           jsonData[key],
           Math.round(this.width / this.navDownscaleFactor)
         )
-        this.navLines.push(navLineGenerator(points))
+        this.navLines.push({
+          points: navLineGenerator(points),
+          key: key,
+          color: this.colors[this.navLines.length % this.colors.length]
+        })
       }
       // }
 
@@ -291,17 +307,15 @@ export default {
 
       brush.on("brush", () => {
         this.currentSelection = d3.event.selection
-        this.lines = []
         if (d3.event.selection) {
           let newDomain = d3.event.selection.map(this.xScaleNav.invert)
           xScale.domain(newDomain)
-          for (let [index, key] of this.keys.entries()) {
-            // TODO could probably do this a better way
-            if (this.enabledKeys.includes(key)) {
-              // filter to only the portion of the line within the visible time frame
-              let points = jsonData[key]
-              // TODO add a clipPath
-              // keep any points that are within the visible range, or where the next point before or after is in the visible range
+          for (let line of this.lines) {
+            if (this.enabledKeys.includes(line.key)) {
+              // filter to only the portion of the line within the visible time frame, keeping any points that are
+              // within the visible range, or where the next point before or after is in the visible range
+              // TODO try doing the filter based on the number of points/second to get the indices of the new range
+              let points = jsonData[line.key]
               points = points.filter((a, index) => {
                 // point in visible range
                 if (a[0] >= newDomain[0] && a[0] <= newDomain[1]) {
@@ -311,20 +325,6 @@ export default {
                   points[index + 1] &&
                   points[index + 1][0] >= newDomain[0] &&
                   points[index + 1][0] <= newDomain[1]
-                ) {
-                  return true
-                } else if (
-                  // next point in visible range
-                  points[index + 2] &&
-                  points[index + 2][0] >= newDomain[0] &&
-                  points[index + 2][0] <= newDomain[1]
-                ) {
-                  return true
-                } else if (
-                  // next point in visible range
-                  points[index - 2] &&
-                  points[index - 2][0] >= newDomain[0] &&
-                  points[index - 2][0] <= newDomain[1]
                 ) {
                   return true
                 } else {
@@ -341,7 +341,7 @@ export default {
                 points,
                 Math.round(this.width / this.downscaleFactor)
               )
-              this.lines.push(lineGenerators[index](points))
+              line.points = line.generator(points)
             }
           }
           d3.select("#x-axis").call(xAxis, xScale)
@@ -381,13 +381,14 @@ export default {
       // TODO enable the mouse hover events
     },
     toggleKey(key) {
-      // TODO need to actually add/remove the lines... right now they only update on brush movement
       // TODO also needs to toggle the yAxis for each line
       // console.log("toggling key: " + key)
       let index = this.enabledKeys.indexOf(key)
       if (index !== -1) {
         this.enabledKeys.splice(index, 1)
+        this.lines[this.keys.indexOf(key)].points = ""
       } else {
+        // TODO need to update the line
         this.enabledKeys.push(key)
       }
     },
