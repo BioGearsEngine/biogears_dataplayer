@@ -1,46 +1,122 @@
 <template>
   <div>
-    <h1>Actual Data Test</h1>
-    <svg
-      id="line-chart"
-      :width="width"
-      :height="height"
-      style="background: #fafafa"
-    >
-      <g id="x-axis"></g>
-      <path
-        v-for="(line, index) in lines"
-        :key="'l-' + index"
-        :d="line"
-        fill="none"
-        opacity="0.85"
-        :stroke="colors[index]"
-        stroke-width="1.5"
-        stroke-miterlimit="1"
-        class="line"
-      />
-    </svg>
-    <br />
-    <svg
-      id="nav-bar"
-      :width="width"
-      :height="navHeight"
-      style="background: #fafafa"
-    >
-      <g id="x-axis-nav"></g>
-      <path
-        v-for="(line, index) in navLines"
-        :key="'nl-' + index"
-        :d="line"
-        fill="none"
-        opacity="0.75"
-        :stroke="colors[index]"
-        stroke-width="1"
-        stroke-miterlimit="1"
-        class="nav-line"
-      />
-      <g id="brush" />
-    </svg>
+    <b-container fluid>
+      <h3>Explore a Scenario</h3>
+      <b-nav tabs class="mb-2">
+        <b-nav-item>Multi-Trauma</b-nav-item>
+        <b-nav-item>Exposure</b-nav-item>
+        <b-nav-item active>Asthma</b-nav-item>
+        <b-nav-item>Heat Stroke</b-nav-item>
+        <b-nav-item>Sepsis</b-nav-item>
+        <b-nav-item>Upload a Scenario</b-nav-item>
+      </b-nav>
+      <b-card class="mb-2" no-body>
+        <!--        <b-card-header header-tag="nav">-->
+        <!--          <b-nav card-header tabs>-->
+        <!--            <b-nav-item>Multi-Trauma</b-nav-item>-->
+        <!--            <b-nav-item>Exposure</b-nav-item>-->
+        <!--            <b-nav-item active>Asthma</b-nav-item>-->
+        <!--            <b-nav-item>Heat Stroke</b-nav-item>-->
+        <!--            <b-nav-item>Sepsis</b-nav-item>-->
+        <!--            <b-nav-item>Upload a Scenario</b-nav-item>-->
+        <!--          </b-nav>-->
+        <!--        </b-card-header>-->
+        <b-card-body>
+          <svg
+            id="line-chart"
+            :width="width"
+            :height="height"
+            style="background: #fafafa"
+            class="mb-2"
+          >
+            <g id="x-axis"></g>
+            <path
+              v-for="(line, index) in lines"
+              :key="'l-' + index"
+              :d="line"
+              fill="none"
+              opacity="1"
+              :stroke="colors[index % colors.length]"
+              stroke-width="1.5"
+              stroke-miterlimit="1"
+              class="line"
+            />
+          </svg>
+          <svg
+            id="nav-bar"
+            :width="width"
+            :height="navHeight"
+            style="background: #fafafa"
+          >
+            <g id="x-axis-nav"></g>
+            <path
+              v-for="(line, index) in navLines"
+              :key="'nl-' + index"
+              :d="line"
+              fill="none"
+              opacity="0.5"
+              :stroke="colors[index % colors.length]"
+              stroke-width="1"
+              stroke-miterlimit="1"
+              class="nav-line"
+            />
+            <g id="brush" />
+          </svg>
+        </b-card-body>
+        <b-card-footer>
+          <b-button-toolbar class="justify-content-center">
+            <b-button-group size="sm" class="mx-1">
+              <b-button variant="outline-dark" @click.stop="jumpToBeginning()">
+                <fa-icon icon="fast-backward"></fa-icon>
+              </b-button>
+            </b-button-group>
+            <b-button-group size="sm" class="mx-1">
+              <b-button
+                variant="outline-dark"
+                :disabled="playbackSpeed === -maxPlaybackSpeed"
+                @click.stop="decreaseSpeed()"
+              >
+                <fa-icon icon="backward"></fa-icon>
+              </b-button>
+              <b-button variant="outline-dark" @click.stop="togglePlayback()">
+                <fa-icon :icon="isPlaying ? 'pause' : 'play'"></fa-icon>
+              </b-button>
+              <b-button
+                variant="outline-dark"
+                :disabled="playbackSpeed === maxPlaybackSpeed"
+                @click.stop="increaseSpeed()"
+              >
+                <fa-icon icon="forward"></fa-icon>
+              </b-button>
+            </b-button-group>
+            <b-button-group size="sm" class="mx-1">
+              <b-button variant="outline-dark" @click.stop="jumpToEnd()">
+                <fa-icon icon="fast-forward"></fa-icon>
+              </b-button>
+            </b-button-group>
+            <b-button-group size="sm" class="mx-1">
+              <b-button variant="outline-dark" style="width: 46px" disabled>
+                {{ playbackSpeed }}x
+              </b-button>
+            </b-button-group>
+          </b-button-toolbar>
+        </b-card-footer>
+      </b-card>
+      <b-card>
+        <b-button
+          v-for="(key, i) in keys"
+          :key="'toggle-key-' + i"
+          variant="light"
+          @click.stop="toggleKey(key)"
+        >
+          <fa-icon
+            :icon="[enabledKeys.includes(key) ? 'fas' : 'far', 'circle']"
+            :style="{ color: colors[i % colors.length] }"
+          ></fa-icon>
+          {{ key }}
+        </b-button>
+      </b-card>
+    </b-container>
   </div>
 </template>
 
@@ -48,8 +124,8 @@
 import * as d3 from "d3"
 
 // import { SEPSIS_JSON as DATAFILE } from "../static/sepsis-datafile"
-// import { EXPOSURE_JSON as DATAFILE } from "../static/exposure-datafile"
-import { ASTHMA_JSON as DATAFILE } from "../static/asthma-datafile"
+import { EXPOSURE_JSON as DATAFILE } from "../static/exposure-datafile"
+// import { ASTHMA_JSON as DATAFILE } from "../static/asthma-datafile"
 
 export default {
   name: "Chart.vue",
@@ -69,23 +145,35 @@ export default {
       navLines: [],
       lineData: "",
       colors: [
-        "#1f77b4",
-        "#ff7f0e",
-        "#2ca02c",
-        "#d62728",
-        "#9467bd",
-        "#8c564b",
-        "#e377c2",
-        "#7f7f7f",
-        "#bcbd22",
-        "#17becf"
+        "#56a0bf",
+        "#494c7c",
+        "#bf8bb9",
+        "#506631",
+        "#c48466",
+        "#76332d",
+        "#67b389",
+        "#723076",
+        "#c49b3f",
+        "#7175d6",
+        "#d14a76",
+        "#73b643",
+        "#d24e30",
+        "#d151c3",
+        "#763cc8"
       ],
       brush: "",
       currentSelection: "",
       downscaleFactor: 2,
       navDownscaleFactor: 4,
-      defaultRangeInSeconds: 10, // seconds
-      enabledKeys: []
+      defaultRangeInSeconds: 10,
+      keys: [],
+      enabledKeys: [],
+      playbackIntervalId: "",
+      playbackSpeed: 1,
+      maxPlaybackSpeed: 16,
+      playbackFrequency: 10,
+      isPlaying: false,
+      xScaleNav: ""
     }
   },
   mounted() {
@@ -94,12 +182,12 @@ export default {
   methods: {
     drawCharts() {
       let jsonData = JSON.parse(DATAFILE)
-      const keys = Object.keys(jsonData)
+      this.keys = Object.keys(jsonData)
 
       // TODO may need to check for actual min/max
       let xScale = d3
         .scaleLinear()
-        .domain(d3.extent(jsonData[keys[0]], d => d[0]))
+        .domain(d3.extent(jsonData[this.keys[0]], d => d[0]))
         .range([this.margin.left, this.width - this.margin.right])
 
       // add the xAxis tick marks
@@ -117,9 +205,9 @@ export default {
       d3.select("#x-axis").call(xAxis, xScale)
 
       // x scale of nav is static, so keep it separate
-      let xScaleNav = d3
+      this.xScaleNav = d3
         .scaleLinear()
-        .domain(d3.extent(jsonData[keys[0]], d => d[0]))
+        .domain(d3.extent(jsonData[this.keys[0]], d => d[0]))
         .range([this.margin.left, this.width - this.margin.right])
 
       // set up the x axis tick marks for the nav
@@ -131,7 +219,7 @@ export default {
           )
           .call(
             d3
-              .axisBottom(xScaleNav)
+              .axisBottom(this.xScaleNav)
               .ticks(this.width / 80)
               .tickSizeOuter(0)
               .tickFormat(this.toMMSS)
@@ -142,13 +230,16 @@ export default {
       let yNavScales = []
       let navLineGenerators = []
       let lineGenerators = []
-      for (let key of keys) {
+      for (let key of this.keys) {
         // set up each lines yScale for the full chart
         let yScale = d3
           .scaleLinear()
           .domain(d3.extent(jsonData[key], d => d[1]))
           .range([this.height - this.margin.bottom, this.margin.top])
         yScales.push(yScale)
+
+        // TODO add the yAxis for each line
+
         // set up each lines generator for the full chart
         let lineGenerator = d3
           .line()
@@ -169,7 +260,7 @@ export default {
         // set up each lines generator for the nav chart
         let navLineGenerator = d3
           .line()
-          .x(d => xScaleNav(d[0]))
+          .x(d => this.xScaleNav(d[0]))
           .y(d => yNavScale(d[1]))
           .curve(d3.curveMonotoneX)
         navLineGenerators.push(navLineGenerator)
@@ -190,74 +281,77 @@ export default {
       this.brush = brush
 
       brush.on("brush", () => {
-        // let start = window.performance.now()
         this.currentSelection = d3.event.selection
         this.lines = []
         if (d3.event.selection) {
-          let newDomain = d3.event.selection.map(xScaleNav.invert)
+          let newDomain = d3.event.selection.map(this.xScaleNav.invert)
           xScale.domain(newDomain)
-          for (let [index, key] of this.enabledKeys.entries()) {
-            // filter to only the portion of the line within the visible time frame
-            let points = jsonData[key]
-            // TODO add a clipPath
-            // keep any points that are within the visible range, or where the next point before or after is in the visible range
-            points = points.filter((a, index) => {
-              // point in visible range
-              if (a[0] >= newDomain[0] && a[0] <= newDomain[1]) {
-                return true
-              } else if (
-                // next point in visible range
-                points[index + 1] &&
-                points[index + 1][0] >= newDomain[0] &&
-                points[index + 1][0] <= newDomain[1]
-              ) {
-                return true
-              } else if (
-                // next point in visible range
-                points[index + 2] &&
-                points[index + 2][0] >= newDomain[0] &&
-                points[index + 2][0] <= newDomain[1]
-              ) {
-                return true
-              } else if (
-                // next point in visible range
-                points[index - 2] &&
-                points[index - 2][0] >= newDomain[0] &&
-                points[index - 2][0] <= newDomain[1]
-              ) {
-                return true
-              } else {
-                return (
-                  // previous point in visible range
-                  points[index - 1] &&
-                  points[index - 1][0] >= newDomain[0] &&
-                  points[index - 1][0] <= newDomain[1]
-                )
-              }
-            })
-            // downscale the lines
-            points = this.largestTriangleThreeBuckets(
-              points,
-              Math.round(this.width / this.downscaleFactor)
-            )
-            this.lines.push(lineGenerators[index](points))
+          for (let [index, key] of this.keys.entries()) {
+            // TODO could probably do this a better way
+            if (this.enabledKeys.includes(key)) {
+              // filter to only the portion of the line within the visible time frame
+              let points = jsonData[key]
+              // TODO add a clipPath
+              // keep any points that are within the visible range, or where the next point before or after is in the visible range
+              points = points.filter((a, index) => {
+                // point in visible range
+                if (a[0] >= newDomain[0] && a[0] <= newDomain[1]) {
+                  return true
+                } else if (
+                  // next point in visible range
+                  points[index + 1] &&
+                  points[index + 1][0] >= newDomain[0] &&
+                  points[index + 1][0] <= newDomain[1]
+                ) {
+                  return true
+                } else if (
+                  // next point in visible range
+                  points[index + 2] &&
+                  points[index + 2][0] >= newDomain[0] &&
+                  points[index + 2][0] <= newDomain[1]
+                ) {
+                  return true
+                } else if (
+                  // next point in visible range
+                  points[index - 2] &&
+                  points[index - 2][0] >= newDomain[0] &&
+                  points[index - 2][0] <= newDomain[1]
+                ) {
+                  return true
+                } else {
+                  return (
+                    // previous point in visible range
+                    points[index - 1] &&
+                    points[index - 1][0] >= newDomain[0] &&
+                    points[index - 1][0] <= newDomain[1]
+                  )
+                }
+              })
+              // downscale the lines
+              points = this.largestTriangleThreeBuckets(
+                points,
+                Math.round(this.width / this.downscaleFactor)
+              )
+              this.lines.push(lineGenerators[index](points))
+            }
           }
           d3.select("#x-axis").call(xAxis, xScale)
         }
-        // let end = window.performance.now()
-        // console.log("time for brush update: " + (end - start))
       })
 
+      // TODO fix needing this?
+      let self = this
       // recenter the brush on a click
-      // TODO fix needing this
-      let defaultRange = this.defaultRangeInSeconds
       let beforeBrushStarted = function() {
-        // Use a fixed width when re-centering
-        // TODO update to use the current width rather than the default width
-        const dx = xScaleNav(defaultRange) - xScaleNav(0)
+        let range = self.defaultRangeInSeconds
+        if (self.currentSelection) {
+          let selection = self.currentSelection.map(self.xScaleNav.invert)
+          range = selection[1] - selection[0]
+        }
+        const dx = self.xScaleNav(range) - self.xScaleNav(0)
         const [cx] = d3.mouse(this)
         const [x0, x1] = [cx - dx / 2, cx + dx / 2]
-        const [X0, X1] = xScaleNav.range()
+        const [X0, X1] = self.xScaleNav.range()
         d3.select(this.parentNode).call(
           brush.move,
           x1 > X1 ? [X1 - dx, X1] : x0 < X0 ? [X0, X0 + dx] : [x0, x1]
@@ -267,7 +361,7 @@ export default {
       // initialize the brush
       const g = d3.select("#brush")
       g.call(brush)
-        .call(brush.move, [0, this.defaultRangeInSeconds].map(xScaleNav))
+        .call(brush.move, [0, this.defaultRangeInSeconds].map(this.xScaleNav))
         .call(g =>
           g
             .select(".overlay")
@@ -275,17 +369,97 @@ export default {
             .on("mousedown touchstart", beforeBrushStarted)
         )
 
-      // TODO move this somewhere else
-      // move the brush for playback
-      // setInterval(() => {
-      //   // TODO clean this up
-      //   let c = this.currentSelection.map(xScaleNav.invert)
-      //   let newC = [c[0] + 0.1, c[1] + 0.1]
-      //   // TODO add a transition to make it smoother?
-      //   g.call(brush.move, newC.map(xScaleNav))
-      // }, 100)
+      // TODO enable the mouse hover events
     },
-    startPlaying() {},
+    toggleKey(key) {
+      // TODO need to actually add/remove the lines... right now they only update on brush movement
+      // TODO also needs to toggle the yAxis for each line
+      console.log("toggling key: " + key)
+      let index = this.enabledKeys.indexOf(key)
+      if (index !== -1) {
+        this.enabledKeys.splice(index, 1)
+      } else {
+        this.enabledKeys.push(key)
+      }
+    },
+    togglePlayback() {
+      if (this.isPlaying) {
+        this.stopPlayback()
+      } else {
+        this.startPlayback()
+      }
+    },
+    stopPlayback() {
+      if (this.isPlaying) {
+        clearInterval(this.playbackIntervalId)
+        this.isPlaying = false
+      }
+    },
+    startPlayback() {
+      this.playbackIntervalId = setInterval(() => {
+        let range = this.currentSelection.map(this.xScaleNav.invert)
+        let newRange = [
+          range[0] + (1 / this.playbackFrequency) * this.playbackSpeed,
+          range[1] + (1 / this.playbackFrequency) * this.playbackSpeed
+        ]
+        // check for the beginning and end
+        let domain = this.xScaleNav.domain()
+        if (newRange[0] < domain[0]) {
+          let rangeSize = newRange[1] - newRange[0]
+          newRange = [domain[0], domain[0] + rangeSize]
+          this.stopPlayback()
+        } else if (newRange[1] > domain[1]) {
+          let rangeSize = newRange[1] - newRange[0]
+          newRange = [domain[1] - rangeSize, domain[1]]
+          this.stopPlayback()
+        }
+        // TODO add a transition to make it smoother?
+        d3.select("#brush").call(this.brush.move, newRange.map(this.xScaleNav))
+      }, 1000 / this.playbackFrequency)
+      this.isPlaying = true
+    },
+    increaseSpeed() {
+      if (this.playbackSpeed > 0) {
+        this.playbackSpeed *= 2
+      } else {
+        if (this.playbackSpeed === -1) {
+          this.playbackSpeed *= -1
+        } else {
+          this.playbackSpeed /= 2
+        }
+      }
+    },
+    decreaseSpeed() {
+      if (this.playbackSpeed < 0) {
+        this.playbackSpeed *= 2
+      } else {
+        if (this.playbackSpeed === 1) {
+          this.playbackSpeed *= -1
+        } else {
+          this.playbackSpeed /= 2
+        }
+      }
+    },
+    jumpToBeginning() {
+      this.stopPlayback()
+      let domain = this.xScaleNav.domain()
+      let range = this.currentSelection.map(this.xScaleNav.invert)
+      let rangeSize = range[1] - range[0]
+      d3.select("#brush").call(
+        this.brush.move,
+        [domain[0], domain[0] + rangeSize].map(this.xScaleNav)
+      )
+    },
+    jumpToEnd() {
+      this.stopPlayback()
+      let domain = this.xScaleNav.domain()
+      let range = this.currentSelection.map(this.xScaleNav.invert)
+      let rangeSize = range[1] - range[0]
+      d3.select("#brush").call(
+        this.brush.move,
+        [domain[1] - rangeSize, domain[1]].map(this.xScaleNav)
+      )
+    },
     largestTriangleThreeBuckets(data, threshold) {
       let floor = Math.floor
       let abs = Math.abs
@@ -361,12 +535,10 @@ export default {
     },
     toMMSS(second) {
       // second = parseInt(second, 10)
-
       let seconds = second % 60
       if (seconds < 10) {
         seconds = "0" + seconds
       }
-
       return Math.floor(second / 60) + ":" + seconds
     }
   }
