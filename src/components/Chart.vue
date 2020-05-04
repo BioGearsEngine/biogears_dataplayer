@@ -29,6 +29,14 @@
             style="background: #fafafa"
             class="mb-2"
           >
+            <clipPath id="clip">
+              <rect
+                :x="margin.left"
+                :y="margin.top"
+                :width="width - margin.left - margin.right"
+                :height="height - margin.top - margin.bottom"
+              ></rect>
+            </clipPath>
             <g id="x-axis"></g>
             <path
               v-for="(line, index) in lines"
@@ -40,6 +48,7 @@
               stroke-width="1.5"
               stroke-miterlimit="1"
               class="line"
+              clip-path="url(#clip)"
             />
           </svg>
           <svg
@@ -374,7 +383,7 @@ export default {
     toggleKey(key) {
       // TODO need to actually add/remove the lines... right now they only update on brush movement
       // TODO also needs to toggle the yAxis for each line
-      console.log("toggling key: " + key)
+      // console.log("toggling key: " + key)
       let index = this.enabledKeys.indexOf(key)
       if (index !== -1) {
         this.enabledKeys.splice(index, 1)
