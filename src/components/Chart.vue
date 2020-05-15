@@ -41,15 +41,35 @@
             <path
               v-for="(line, index) in enabledLines"
               :key="'l-' + index"
+              :id="'line-' + keys.indexOf(line.key)"
               :d="line.points"
               fill="none"
               opacity="1"
-              :stroke="line.color"
-              stroke-width="2"
+              :stroke="
+                isHovering && !(line.key === activeKey) ? '#ddd' : line.color
+              "
+              stroke-width="2.5"
               stroke-miterlimit="1"
               class="line"
               clip-path="url(#clip)"
             />
+            <g
+              id="dot"
+              v-if="showDot"
+              :transform="'translate(' + dotPos[0] + ',' + dotPos[1] + ')'"
+            >
+              <circle :r="dotRadius + 4" opacity="0.25"></circle>
+              <circle :r="dotRadius + 1.5" fill="white"></circle>
+              <circle :r="dotRadius" :fill="activeColor"></circle>
+              <text
+                font-family="sans-serif"
+                font-size="10"
+                text-anchor="middle"
+                y="-8"
+              >
+                {{ dotText }}: {{ dotVal }}
+              </text>
+            </g>
           </svg>
           <svg
             id="nav-bar"
@@ -176,12 +196,23 @@ export default {
       defaultRangeInSeconds: 10,
       keys: [],
       enabledKeys: [],
+      activeKey: "",
+      activeColor: "",
       playbackIntervalId: "",
       playbackSpeed: 1,
       maxPlaybackSpeed: 16,
       playbackFrequency: 10,
       isPlaying: false,
-      xScaleNav: ""
+      xScale: "",
+      xScaleNav: "",
+      isHovering: false,
+      lastMouseX: "",
+      lastMouseY: "",
+      dotPos: [],
+      dotText: "",
+      dotVal: "",
+      dotRadius: 3.25,
+      showDot: false
     }
   },
   computed: {
@@ -201,7 +232,7 @@ export default {
       this.keys = Object.keys(jsonData)
 
       // TODO may need to check for actual min/max
-      let xScale = d3
+      this.xScale = d3
         .scaleLinear()
         .domain(d3.extent(jsonData[this.keys[0]], d => d[0]))
         .range([this.margin.left, this.width - this.margin.right])
@@ -218,7 +249,7 @@ export default {
               .tickSizeOuter(0)
               .tickFormat(this.toMMSS)
           )
-      d3.select("#x-axis").call(xAxis, xScale)
+      d3.select("#x-axis").call(xAxis, this.xScale)
 
       // x scale of nav is static, so keep it separate
       this.xScaleNav = d3
@@ -259,7 +290,7 @@ export default {
         // set up each lines generator for the full chart
         let lineGenerator = d3
           .line()
-          .x(d => xScale(d[0]))
+          .x(d => this.xScale(d[0]))
           .y(d => yScale(d[1]))
           .curve(d3.curveMonotoneX)
         lineGenerators.push(lineGenerator)
@@ -268,7 +299,9 @@ export default {
           points: lineGenerator(jsonData[key]),
           key: key,
           color: this.colors[this.lines.length % this.colors.length],
-          generator: lineGenerator
+          generator: lineGenerator,
+          yScale: yScale,
+          dataPoints: jsonData[key]
         })
         this.enabledKeys.push(key)
 
@@ -306,10 +339,11 @@ export default {
       this.brush = brush
 
       brush.on("brush", () => {
+        // console.log("brush")
         this.currentSelection = d3.event.selection
         if (d3.event.selection) {
           let newDomain = d3.event.selection.map(this.xScaleNav.invert)
-          xScale.domain(newDomain)
+          this.xScale.domain(newDomain)
           for (let line of this.lines) {
             if (this.enabledKeys.includes(line.key)) {
               // filter to only the portion of the line within the visible time frame, keeping any points that are
@@ -341,10 +375,14 @@ export default {
                 points,
                 Math.round(this.width / this.downscaleFactor)
               )
+              line.dataPoints = points
               line.points = line.generator(points)
             }
           }
-          d3.select("#x-axis").call(xAxis, xScale)
+          d3.select("#x-axis").call(xAxis, this.xScale)
+          if (this.isHovering) {
+            this.updateTooltip()
+          }
         }
       })
 
@@ -379,6 +417,70 @@ export default {
         )
 
       // TODO enable the mouse hover events
+      d3.select("#line-chart")
+        .on("mousemove", this.moved)
+        .on("mouseenter", this.entered)
+        .on("mouseleave", this.left)
+    },
+    updateTooltip() {
+      this.showDot = false
+      let min = Infinity
+      const xm = this.lastMouseX - (this.margin.left + this.dotRadius)
+      const ym = this.lastMouseY - (this.margin.top + this.dotRadius)
+      let xmi = this.xScale.invert(xm)
+
+      for (let line of this.enabledLines) {
+        // find the closest x index to this point
+        let i1 = d3.bisectLeft(
+          line.dataPoints.map(d => d[0]),
+          xmi,
+          1
+        )
+        let i0 = i1 - 1
+
+        let i
+        if (i1 >= line.dataPoints.length) {
+          i = i0
+        } else {
+          i =
+            xm - this.xScale(line.dataPoints[i0][0]) >
+            this.xScale(line.dataPoints[i1][0]) - xm
+              ? i1
+              : i0
+        }
+
+        let yDist = Math.abs(line.yScale(line.dataPoints[i][1]) - ym)
+
+        if (yDist < min) {
+          min = yDist
+          this.activeKey = line.key
+          this.activeColor = line.color
+          this.dotPos = [
+            this.xScale(line.dataPoints[i][0]),
+            line.yScale(line.dataPoints[i][1])
+          ]
+          this.dotText = line.key
+          this.dotVal = line.dataPoints[i][1]
+          d3.select("#line-" + this.keys.indexOf(line.key)).raise()
+          d3.select("#dot").raise()
+        }
+      }
+      this.showDot = true
+    },
+    moved() {
+      d3.event.preventDefault()
+      this.lastMouseX = d3.event.layerX
+      this.lastMouseY = d3.event.layerY
+      this.updateTooltip()
+    },
+    entered() {
+      // console.log("entered")
+      this.isHovering = true
+    },
+    left() {
+      // console.log("left")
+      this.isHovering = false
+      this.showDot = false
     },
     toggleKey(key) {
       // TODO also needs to toggle the yAxis for each line
