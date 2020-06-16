@@ -1,218 +1,228 @@
 <template>
   <div>
-    <b-container fluid>
-      <h3>Explore a Scenario</h3>
-      <b-nav tabs class="mb-2">
-        <b-nav-item>Multi-Trauma</b-nav-item>
-        <b-nav-item>Exposure</b-nav-item>
-        <b-nav-item active>Asthma</b-nav-item>
-        <b-nav-item>Heat Stroke</b-nav-item>
-        <b-nav-item>Sepsis</b-nav-item>
-        <b-nav-item>Upload a Scenario</b-nav-item>
-      </b-nav>
-      <b-card class="mb-2" no-body>
-        <!--        <b-card-header header-tag="nav">-->
-        <!--          <b-nav card-header tabs>-->
-        <!--            <b-nav-item>Multi-Trauma</b-nav-item>-->
-        <!--            <b-nav-item>Exposure</b-nav-item>-->
-        <!--            <b-nav-item active>Asthma</b-nav-item>-->
-        <!--            <b-nav-item>Heat Stroke</b-nav-item>-->
-        <!--            <b-nav-item>Sepsis</b-nav-item>-->
-        <!--            <b-nav-item>Upload a Scenario</b-nav-item>-->
-        <!--          </b-nav>-->
-        <!--        </b-card-header>-->
-        <b-card-body>
-          <svg
-            id="line-chart"
-            :width="width"
-            :height="height"
-            style="background: #fafafa"
-            class="mb-2"
-          >
-            <clipPath id="clip">
-              <rect
-                :x="margin.left"
-                :y="margin.top"
-                :width="width - margin.left - margin.right"
-                :height="height - margin.top - margin.bottom"
-              ></rect>
-            </clipPath>
-            <g id="x-axis"></g>
-            <path
-              v-for="(line, index) in enabledLines"
-              :key="'l-' + index"
-              :id="'line-' + keys.indexOf(line.key)"
-              :d="line.points"
-              fill="none"
-              opacity="1"
-              :stroke="
-                isHovering && !(line.key === activeKey) ? '#ddd' : line.color
-              "
-              stroke-width="2.5"
-              stroke-miterlimit="1"
-              class="line"
-              clip-path="url(#clip)"
-            />
-            <g
-              id="dot"
-              v-if="showDot"
-              :transform="'translate(' + dotPos[0] + ',' + dotPos[1] + ')'"
-            >
-              <circle :r="dotRadius + 4" opacity="0.25"></circle>
-              <circle :r="dotRadius + 1.5" fill="white"></circle>
-              <circle :r="dotRadius" :fill="activeColor"></circle>
-              <text
-                font-family="sans-serif"
-                font-size="10"
-                text-anchor="middle"
-                y="-8"
-              >
-                {{ dotText }}: {{ dotVal }}
-              </text>
-            </g>
-          </svg>
-          <svg
-            id="nav-bar"
-            :width="width"
-            :height="navHeight"
-            style="background: #fafafa"
-          >
-            <g id="x-axis-nav"></g>
-            <path
-              v-for="(line, index) in enabledNavLines"
-              :key="'nl-' + index"
-              :d="line.points"
-              fill="none"
-              opacity="0.5"
-              :stroke="line.color"
-              stroke-width="1"
-              stroke-miterlimit="1"
-              class="nav-line"
-            />
-            <g id="brush" />
-          </svg>
-        </b-card-body>
-        <b-card-footer>
-          <b-button-toolbar class="justify-content-center">
-            <b-button-group size="sm" class="mx-1">
-              <b-button variant="outline-dark" @click.stop="jumpToBeginning()">
-                <fa-icon icon="fast-backward"></fa-icon>
-              </b-button>
-            </b-button-group>
-            <b-button-group size="sm" class="mx-1">
-              <b-button
-                variant="outline-dark"
-                :disabled="playbackSpeed === -maxPlaybackSpeed"
-                @click.stop="decreaseSpeed()"
-              >
-                <fa-icon icon="backward"></fa-icon>
-              </b-button>
-              <b-button variant="outline-dark" @click.stop="togglePlayback()">
-                <fa-icon :icon="isPlaying ? 'pause' : 'play'"></fa-icon>
-              </b-button>
-              <b-button
-                variant="outline-dark"
-                :disabled="playbackSpeed === maxPlaybackSpeed"
-                @click.stop="increaseSpeed()"
-              >
-                <fa-icon icon="forward"></fa-icon>
-              </b-button>
-            </b-button-group>
-            <b-button-group size="sm" class="mx-1">
-              <b-button variant="outline-dark" @click.stop="jumpToEnd()">
-                <fa-icon icon="fast-forward"></fa-icon>
-              </b-button>
-            </b-button-group>
-            <b-button-group size="sm" class="mx-1">
-              <b-button variant="outline-dark" style="width: 46px" disabled>
-                {{ playbackSpeed }}x
-              </b-button>
-            </b-button-group>
-          </b-button-toolbar>
-        </b-card-footer>
-      </b-card>
-      <b-card>
-        <b-button
-          v-for="(key, i) in keys"
-          :key="'toggle-key-' + i"
-          variant="light"
-          @click.stop="toggleKey(key)"
+    <b-card class="mb-2" no-body>
+      <b-card-body>
+        <svg
+          id="line-chart"
+          :viewBox="'0 0 ' + width + ' ' + height"
+          style="background: #fff"
+          class="mb-2"
         >
-          <fa-icon
-            :icon="[enabledKeys.includes(key) ? 'fas' : 'far', 'circle']"
-            :style="{ color: colors[i % colors.length] }"
-          ></fa-icon>
-          {{ key }}
-        </b-button>
-      </b-card>
-    </b-container>
+          <clipPath id="clip">
+            <rect
+              :x="margin.left"
+              :y="margin.top"
+              :width="width - margin.left - margin.right"
+              :height="height - margin.top - margin.bottom"
+            ></rect>
+          </clipPath>
+          <g id="y-axis" :transform="'translate(' + margin.left + ',0)'"></g>
+          <g
+            v-for="key in enabledKeys"
+            :key="'ya-' + keys.indexOf(key)"
+            :id="'ya-' + keys.indexOf(key)"
+            :transform="'translate(' + margin.left + ',0)'"
+          ></g>
+          <g id="x-axis"></g>
+          <path
+            v-for="(line, index) in enabledLines"
+            :key="'l-' + index"
+            :id="'line-' + keys.indexOf(line.key)"
+            :d="line.points"
+            fill="none"
+            opacity="0.75"
+            style="mix-blend-mode: darken"
+            :stroke="
+              isHovering && !(line.key === activeKey) ? '#ddd' : line.color
+            "
+            stroke-width="2"
+            stroke-miterlimit="1"
+            class="line"
+            clip-path="url(#clip)"
+          />
+          <g
+            id="dot"
+            v-if="isHovering"
+            :transform="'translate(' + dotPos[0] + ',' + dotPos[1] + ')'"
+          >
+            <circle :r="dotRadius + 4" opacity="0.25"></circle>
+            <circle :r="dotRadius + 1.5" fill="white"></circle>
+            <circle :r="dotRadius" :fill="activeColor"></circle>
+            <text
+              font-family="sans-serif"
+              font-size="10"
+              text-anchor="middle"
+              y="-25"
+              style="background-color: white"
+            >
+              <!--{{ dotText }}: {{ dotVal }}-->
+              <tspan x="0" dy="0">{{ dotText }}</tspan>
+              <tspan x="0" dy="1.2em" class="font-weight-bold">
+                {{ dotVal }}
+              </tspan>
+            </text>
+          </g>
+        </svg>
+        <svg
+          id="nav-bar"
+          :viewBox="'0 0 ' + width + ' ' + navHeight"
+          style="background: #fff"
+        >
+          <g id="x-axis-nav"></g>
+          <path
+            v-for="(line, index) in enabledNavLines"
+            :key="'nl-' + index"
+            :d="line.points"
+            fill="none"
+            opacity="0.5"
+            :stroke="line.color"
+            stroke-width="1"
+            stroke-miterlimit="1"
+            class="nav-line"
+          />
+          <g id="brush" />
+        </svg>
+      </b-card-body>
+      <b-card-footer>
+        <b-button-toolbar class="justify-content-center">
+          <b-button-group size="sm" class="mx-1">
+            <b-button variant="outline-dark" @click.stop="jumpToBeginning()">
+              <fa-icon icon="fast-backward"></fa-icon>
+            </b-button>
+          </b-button-group>
+          <b-button-group size="sm" class="mx-1">
+            <b-button
+              variant="outline-dark"
+              :disabled="playbackSpeed === -maxPlaybackSpeed"
+              @click.stop="decreaseSpeed()"
+            >
+              <fa-icon icon="backward"></fa-icon>
+            </b-button>
+            <b-button variant="outline-dark" @click.stop="togglePlayback()">
+              <fa-icon :icon="isPlaying ? 'pause' : 'play'"></fa-icon>
+            </b-button>
+            <b-button
+              variant="outline-dark"
+              :disabled="playbackSpeed === maxPlaybackSpeed"
+              @click.stop="increaseSpeed()"
+            >
+              <fa-icon icon="forward"></fa-icon>
+            </b-button>
+          </b-button-group>
+          <b-button-group size="sm" class="mx-1">
+            <b-button variant="outline-dark" @click.stop="jumpToEnd()">
+              <fa-icon icon="fast-forward"></fa-icon>
+            </b-button>
+          </b-button-group>
+          <b-button-group size="sm" class="mx-1">
+            <b-button variant="outline-dark" style="width: 46px" disabled>
+              {{ playbackSpeed }}x
+            </b-button>
+          </b-button-group>
+        </b-button-toolbar>
+      </b-card-footer>
+    </b-card>
+    <b-card>
+      <b-button
+        v-for="(key, i) in keys"
+        :key="'toggle-key-' + i"
+        variant="light"
+        size="sm"
+        @click.stop="toggleKey(key)"
+      >
+        <fa-icon
+          :icon="[enabledKeys.includes(key) ? 'fas' : 'far', 'circle']"
+          :style="{ color: colors[i % colors.length] }"
+        ></fa-icon>
+        {{ key }}
+      </b-button>
+    </b-card>
   </div>
 </template>
 
 <script>
 import * as d3 from "d3"
 
-// import { SEPSIS_JSON as DATAFILE } from "../static/sepsis-datafile"
-import { EXPOSURE_JSON as DATAFILE } from "../static/exposure-datafile"
-// import { ASTHMA_JSON as DATAFILE } from "../static/asthma-datafile"
+// const JSON_DATA = require("../../public/datafiles/1/datafile.json")
 
 export default {
-  name: "Chart.vue",
+  name: "Chart",
+  props: {
+    scenario: {
+      required: true
+    }
+  },
   data() {
     return {
-      width: 1600,
-      navMargin: {
-        top: 10,
-        right: 20,
-        bottom: 20,
-        left: 20
-      },
-      navHeight: 120,
-      height: 600,
-      margin: { top: 20, right: 20, bottom: 30, left: 30 },
-      lines: [],
-      navLines: [],
+      // width: 1600,
+      // height: 600,
+      // navHeight: 120,
+      width: 1200,
+      height: 425,
+      navHeight: 115,
+      margin: { top: 40, right: 40, bottom: 30, left: 40 },
       colors: [
-        "#56a0bf",
-        "#494c7c",
-        "#bf8bb9",
-        "#506631",
-        "#c48466",
-        "#76332d",
-        "#67b389",
-        "#723076",
-        "#c49b3f",
-        "#7175d6",
-        "#d14a76",
-        "#73b643",
-        "#d24e30",
-        "#d151c3",
-        "#763cc8"
+        "#BF4141",
+        "#D9BC4A",
+        "#4EE662",
+        "#96DCFF",
+        "#A187E6",
+        "#FF579A",
+        "#FF8457",
+        "#998C5A",
+        "#57B0FF",
+        "#3DB39B",
+        "#FF96A4",
+        "#9F4EE6",
+        "#C6E687",
+        "#996A34",
+        "#30308C",
+        "#347799"
       ],
-      brush: "",
-      currentSelection: "",
-      downscaleFactor: 2,
+      // colors: [
+      //   "#56a0bf",
+      //   "#494c7c",
+      //   "#bf8bb9",
+      //   "#506631",
+      //   "#c48466",
+      //   "#76332d",
+      //   "#67b389",
+      //   "#723076",
+      //   "#c49b3f",
+      //   "#7175d6",
+      //   "#d14a76",
+      //   "#73b643",
+      //   "#d24e30",
+      //   "#d151c3",
+      //   "#763cc8"
+      // ],
+      downscaleFactor: 1,
       navDownscaleFactor: 4,
       defaultRangeInSeconds: 10,
-      keys: [],
-      enabledKeys: [],
-      activeKey: "",
-      activeColor: "",
       playbackIntervalId: "",
       playbackSpeed: 1,
       maxPlaybackSpeed: 16,
       playbackFrequency: 10,
       isPlaying: false,
-      xScale: "",
-      xScaleNav: "",
       isHovering: false,
+      showDot: false,
       lastMouseX: "",
       lastMouseY: "",
       dotPos: [],
       dotText: "",
       dotVal: "",
       dotRadius: 3.25,
-      showDot: false
+      brush: "",
+      currentSelection: "",
+      lines: [],
+      navLines: [],
+      keys: [],
+      enabledKeys: [],
+      activeKey: "",
+      activeColor: "",
+      xScale: "",
+      xScaleNav: "",
+      yScales: []
     }
   },
   computed: {
@@ -226,9 +236,17 @@ export default {
   mounted() {
     this.drawCharts()
   },
+  watch: {
+    enabledKeys() {
+      this.updateAxes()
+    },
+    selectedScenario() {
+      this.drawCharts()
+    }
+  },
   methods: {
     drawCharts() {
-      let jsonData = JSON.parse(DATAFILE)
+      let jsonData = JSON.parse(this.scenario.data)
       this.keys = Object.keys(jsonData)
 
       // TODO may need to check for actual min/max
@@ -273,19 +291,37 @@ export default {
           )
       d3.select("#x-axis-nav").call(xAxisNav)
 
-      let yScales = []
       let yNavScales = []
       let navLineGenerators = []
       let lineGenerators = []
-      for (let key of this.keys) {
+      for (const [i, key] of this.keys.entries()) {
+        console.log(i)
+        // if (i > 3) {
+        //   break
+        // }
         // set up each lines yScale for the full chart
+        let domain = d3.extent(jsonData[key], d => d[1])
+        domain[0] -= Math.abs(domain[1] - domain[0]) * 0.025
+        domain[1] += Math.abs(domain[1] - domain[0]) * 0.025
         let yScale = d3
           .scaleLinear()
-          .domain(d3.extent(jsonData[key], d => d[1]))
+          // .domain(d3.extent(jsonData[key], d => d[1]))
+          .domain(domain)
           .range([this.height - this.margin.bottom, this.margin.top])
-        yScales.push(yScale)
+        this.yScales.push(yScale)
 
         // TODO add the yAxis for each line
+        // if (this.yScales.length === 1) {
+        //   d3.select("#y-axis")
+        //     .call(d3.axisLeft(yScale).ticks(2))
+        //     .call(g =>
+        //       g
+        //         .selectAll(".tick line")
+        //         .clone()
+        //         .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
+        //         .attr("x2", this.width - this.margin.left - this.margin.right)
+        //     )
+        // }
 
         // set up each lines generator for the full chart
         let lineGenerator = d3
@@ -305,10 +341,25 @@ export default {
         })
         this.enabledKeys.push(key)
 
+        // // TODO set up the y-axis for each line after it is added
+        // let selector = "#ya-" + this.keys.indexOf(key)
+        // console.log(selector)
+        // let axis = d3.select("#ya-" + this.keys.indexOf(key))
+        // console.log(axis)
+        // d3.select("#ya-" + this.keys.indexOf(key))
+        //   .call(d3.axisLeft(yScale))
+        //   .call(g =>
+        //     g
+        //       .selectAll(".tick line")
+        //       .clone()
+        //       .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
+        //       .attr("x2", this.width - this.margin.left - this.margin.right)
+        //   )
+
         // set up each lines yScale for the nav chart
         let yNavScale = d3
           .scaleLinear()
-          .domain(d3.extent(jsonData[key], d => d[1]))
+          .domain(domain)
           .range([this.navHeight - this.margin.bottom, this.margin.top])
         yNavScales.push(yNavScale)
         // set up each lines generator for the nav chart
@@ -329,6 +380,8 @@ export default {
           color: this.colors[this.navLines.length % this.colors.length]
         })
       }
+
+      // this.updateAxes()
       // }
 
       // set up the brush
@@ -416,18 +469,39 @@ export default {
             .on("mousedown touchstart", beforeBrushStarted)
         )
 
+      let moved = function() {
+        // console.log()
+        let mousePos = d3.mouse(this)
+        console.table(mousePos)
+
+        self.lastMouseX = mousePos[0]
+        self.lastMouseY = mousePos[1]
+        self.updateTooltip()
+      }
+
       // TODO enable the mouse hover events
       d3.select("#line-chart")
-        .on("mousemove", this.moved)
-        .on("mouseenter", this.entered)
-        .on("mouseleave", this.left)
+        .on("mousemove", moved)
+        .on("mouseenter", () => {
+          this.isHovering = true
+        })
+        .on("mouseleave", () => {
+          this.isHovering = false
+          // this.showDot = false
+        })
     },
     updateTooltip() {
-      this.showDot = false
+      // this.showDot = false
       let min = Infinity
-      const xm = this.lastMouseX - (this.margin.left + this.dotRadius)
-      const ym = this.lastMouseY - (this.margin.top + this.dotRadius)
+      // const xm = this.lastMouseX - (this.margin.left + this.dotRadius)
+      // const ym = this.lastMouseY - (this.margin.top + this.dotRadius)
+
+      const xm = this.lastMouseX
+      const ym = this.lastMouseY
+
+      console.log("x: " + xm + ", y: " + ym)
       let xmi = this.xScale.invert(xm)
+      console.log("xmi: " + xmi)
 
       for (let line of this.enabledLines) {
         // find the closest x index to this point
@@ -465,22 +539,83 @@ export default {
           d3.select("#dot").raise()
         }
       }
-      this.showDot = true
+      // this.showDot = true
     },
-    moved() {
-      d3.event.preventDefault()
-      this.lastMouseX = d3.event.layerX
-      this.lastMouseY = d3.event.layerY
-      this.updateTooltip()
-    },
-    entered() {
-      // console.log("entered")
-      this.isHovering = true
-    },
-    left() {
-      // console.log("left")
-      this.isHovering = false
-      this.showDot = false
+    updateAxes() {
+      console.log("Updating Axes")
+      let firstLeft = true
+      let firstRight = true
+
+      for (let [index, key] of this.keys.entries()) {
+        if (!this.enabledKeys.includes(key)) {
+          continue
+        }
+        // let eIndex = this.enabledKeys.indexOf(key)
+        // TODO set up the y-axis for each line after it is added
+        let yScale = this.yScales[this.keys.indexOf(key)]
+        let numTicks = 8
+        let tickSize = (yScale.domain()[1] - yScale.domain()[0]) / numTicks
+        let tickValues = [...Array(numTicks).keys()].map(
+          a => yScale.domain()[0] + a * tickSize
+        )
+        let axis
+        if (index % 2 === 0) {
+          axis = d3
+            .select("#ya-" + this.keys.indexOf(key))
+            .call(
+              d3
+                .axisLeft(this.yScales[this.keys.indexOf(key)])
+                .tickValues(tickValues)
+            )
+            .attr(
+              "transform",
+              `translate(${this.margin.left}, 0)`
+              // `translate(${this.margin.left * Math.ceil((eIndex + 1) / 2)}, 0)`
+              // `translate(${this.margin.left *
+              //   Math.floor((this.enabledKeys.length - eIndex) / 2)}, 0)`
+            )
+          if (firstLeft) {
+            firstLeft = false
+          } else {
+            axis.selectAll(".tick line").attr("stroke", "none")
+            axis.selectAll("path").attr("stroke", "none")
+          }
+        } else {
+          axis = d3
+            .select("#ya-" + this.keys.indexOf(key))
+            .call(
+              d3
+                .axisRight(this.yScales[this.keys.indexOf(key)])
+                .tickValues(tickValues)
+            )
+            .attr(
+              "transform",
+              `translate(${this.width - this.margin.right}, 0)`
+              // `translate(${this.width -
+              //   this.margin.left *
+              //     Math.floor((this.enabledKeys.length - eIndex) / 2)}, 0)`
+            )
+          if (firstRight) {
+            firstRight = false
+          } else {
+            axis.selectAll(".tick line").attr("stroke", "none")
+            axis.selectAll("path").attr("stroke", "none")
+          }
+        }
+
+        if (index === 0) {
+          axis.call(g =>
+            g
+              .selectAll(".tick line")
+              .clone()
+              .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
+              .attr("x2", this.width - this.margin.left - this.margin.right)
+          )
+        }
+        axis
+          .selectAll("text")
+          .style("fill", this.colors[this.keys.indexOf(key)])
+      }
     },
     toggleKey(key) {
       // TODO also needs to toggle the yAxis for each line

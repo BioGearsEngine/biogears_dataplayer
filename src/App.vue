@@ -2,19 +2,18 @@
   <div id="app">
     <!--    <img alt="BioGears logo" src="./assets/logo_410.png" />-->
     <!--    <prototype />-->
-    <chart />
+    <chart-selection></chart-selection>
+    <!--    <showcase-player></showcase-player>-->
   </div>
 </template>
 
 <script>
-import Chart from "./components/Chart"
-// import Prototype from "./components/Prototype"
+import ChartSelection from "./components/ChartSelection"
 
 export default {
   name: "App",
   components: {
-    Chart
-    // Prototype
+    ChartSelection
   }
 }
 </script>
