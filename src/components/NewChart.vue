@@ -22,7 +22,9 @@
             v-show="series.enabled"
             :key="'ya-' + series.name"
             :id="'ya-' + series.name"
-          ></g>
+          >
+            <text :id="'tl-' + series.name"></text>
+          </g>
           <g id="x-axis"></g>
           <path
             v-for="series in enabledDataSeries"
@@ -208,25 +210,34 @@ export default {
       xAxis: null,
       xAxisNav: null,
       axisWidth: 35,
+      axisBufferWidth: 20,
       numTicks: 8,
-      axesLoaded: false
+      axesLoaded: false,
+      marginLeft: 0,
+      marginRight: 0
     }
   },
   computed: {
-    marginLeft() {
-      // calculate the sum of the label widths
-      return (
-        this.enabledDataSeries.filter(s => s.yAxisLeft).length * this.axisWidth
-      )
-    },
-    marginRight() {
-      // calculate the sum of the label widths
-      return (
-        this.enabledDataSeries.filter(s => !s.yAxisLeft).length * this.axisWidth
-      )
-    },
+    // marginLeft() {
+    //   // calculate the sum of the label widths
+    //   return (
+    //     this.enabledDataSeries.filter(s => s.yAxisLeft).length * this.axisWidth
+    //   )
+    // },
+    // marginRight() {
+    //   // calculate the sum of the label widths
+    //   return (
+    //     this.enabledDataSeries.filter(s => !s.yAxisLeft).length * this.axisWidth
+    //   )
+    // },
     enabledDataSeries() {
       return this.dataSeries.filter(s => s.enabled)
+    },
+    numLeftAxes() {
+      return this.enabledDataSeries.filter(s => s.yAxisLeft).length
+    },
+    numRightAxes() {
+      return this.enabledDataSeries.filter(s => !s.yAxisLeft).length
     }
   },
   watch: {
@@ -311,6 +322,7 @@ export default {
 
         // separate the name and the units
         let [name, units] = key.split("(")
+        // name = name.replace(/([A-Z])/g, " $1").trim()
         units = units ? units.split(")")[0] : ""
 
         // add the lines
@@ -332,7 +344,8 @@ export default {
           currentYDomain: yDomain,
           color: this.colors[(seriesCount - 1) % this.colors.length],
           enabled: seriesCount <= this.defaultNumSeriesEnabled,
-          yAxisLeft: seriesCount % 2 === 1
+          yAxisLeft: seriesCount % 2 === 1,
+          axisWidth: 0
         })
       }
     },
@@ -507,6 +520,9 @@ export default {
       let leftCount = 0
       let rightCount = 0
 
+      this.marginLeft = 6
+      this.marginRight = 6
+
       for (let series of this.enabledDataSeries) {
         let tickSize =
           (series.yScale.domain()[1] - series.yScale.domain()[0]) /
@@ -519,27 +535,63 @@ export default {
           axis = d3
             .select("#ya-" + series.name)
             .call(d3.axisLeft(series.yScale).tickValues(tickValues))
-            .attr(
-              "transform",
-              `translate(${this.marginLeft - this.axisWidth * leftCount}, 0)`
-            )
-          let color = leftCount === 0 ? "#2c3e50" : "none"
+
+          let maxTextWidth = 0
+          axis.selectAll(".tick text").each(function() {
+            if (this.getBBox().width > maxTextWidth) {
+              maxTextWidth = this.getBBox().width
+            }
+          })
+
+          console.log(maxTextWidth)
+
+          this.marginLeft += maxTextWidth + this.axisBufferWidth
+
+          axis.attr("transform", `translate(${this.marginLeft}, 0)`)
+          leftCount++
+          let color = leftCount === this.numLeftAxes ? "#2c3e50" : "none"
           axis.selectAll(".tick line").attr("stroke", color)
           axis.selectAll("path").attr("stroke", color)
-          leftCount++
+
+          axis
+            .select("#tl-" + series.name)
+            .attr("transform", "rotate(-90)")
+            .attr("y", -maxTextWidth - this.axisBufferWidth - 5)
+            .attr("x", -this.height / 2)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text(series.key)
         } else {
           axis = d3
             .select("#ya-" + series.name)
             .call(d3.axisRight(series.yScale).tickValues(tickValues))
-            .attr(
-              "transform",
-              `translate(${this.width -
-                (this.marginRight - this.axisWidth * rightCount)}, 0)`
-            )
-          let color = rightCount === 0 ? "#2c3e50" : "none"
+
+          let maxTextWidth = 0
+          axis.selectAll(".tick text").each(function() {
+            if (this.getBBox().width > maxTextWidth) {
+              maxTextWidth = this.getBBox().width
+            }
+          })
+
+          this.marginRight += maxTextWidth + this.axisBufferWidth
+
+          axis.attr(
+            "transform",
+            `translate(${this.width - this.marginRight}, 0)`
+          )
+          rightCount++
+          let color = rightCount === this.numRightAxes ? "#2c3e50" : "none"
           axis.selectAll(".tick line").attr("stroke", color)
           axis.selectAll("path").attr("stroke", color)
-          rightCount++
+
+          axis
+            .select("#tl-" + series.name)
+            .attr("transform", "rotate(90)")
+            .attr("y", -(maxTextWidth + this.axisBufferWidth + 5))
+            .attr("x", this.height / 2)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text(series.key)
         }
 
         // TODO these re-render if done this way
@@ -556,6 +608,26 @@ export default {
 
         axis.selectAll("text").style("fill", series.color)
       }
+    },
+    drawAxis(d3AxisFunction, series, tickValues, count, maxCount) {
+      let axis = d3
+        .select("#ya-" + series.name)
+        .call(d3AxisFunction(series.yScale).tickValues(tickValues))
+
+      let maxTextWidth = 0
+      axis.selectAll("text").each(function() {
+        if (this.getBBox().width > maxTextWidth) {
+          maxTextWidth = this.getBBox().width
+        }
+      })
+
+      this.marginRight += maxTextWidth + this.axisBufferWidth
+
+      axis.attr("transform", `translate(${this.width - this.marginRight}, 0)`)
+      let color = count === maxCount ? "#2c3e50" : "none"
+      axis.selectAll(".tick line").attr("stroke", color)
+      axis.selectAll("path").attr("stroke", color)
+      axis.selectAll("text").style("fill", series.color)
     },
     updateTooltip() {
       let min = Infinity
