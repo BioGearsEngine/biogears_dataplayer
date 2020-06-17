@@ -29,7 +29,7 @@ import { HEAT_STROKE_DATA } from "../static/heat-stroke"
 import { SEPSIS_DATA } from "../static/sepsis-datafile"
 
 export default {
-  name: "ChartSelection.vue",
+  name: "ChartSelection",
   components: {
     Chart
   },

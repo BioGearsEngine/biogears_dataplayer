@@ -10,19 +10,19 @@
         >
           <clipPath id="clip">
             <rect
-              :x="margin.left"
+              :x="marginLeft"
               :y="margin.top"
-              :width="width - margin.left - margin.right"
+              :width="width - marginLeft - marginRight"
               :height="height - margin.top - margin.bottom"
             ></rect>
           </clipPath>
-          <!--          <g id="y-axis" :transform="'translate(' + margin.left + ',0)'"></g>-->
-          <!--          <g-->
-          <!--            v-for="key in enabledKeys"-->
-          <!--            :key="'ya-' + keys.indexOf(key)"-->
-          <!--            :id="'ya-' + keys.indexOf(key)"-->
-          <!--            :transform="'translate(' + margin.left + ',0)'"-->
-          <!--          ></g>-->
+          <g id="y-axis" :transform="'translate(' + marginLeft + ',0)'"></g>
+          <g
+            v-for="series in dataSeries"
+            v-show="series.enabled"
+            :key="'ya-' + series.name"
+            :id="'ya-' + series.name"
+          ></g>
           <g id="x-axis"></g>
           <path
             v-for="series in enabledDataSeries"
@@ -206,37 +206,64 @@ export default {
       xScale: null,
       xScaleNav: null,
       xAxis: null,
-      xAxisNav: null
+      xAxisNav: null,
+      axisWidth: 35,
+      numTicks: 8,
+      axesLoaded: false
     }
   },
   computed: {
     marginLeft() {
       // calculate the sum of the label widths
-      return 10
+      return (
+        this.enabledDataSeries.filter(s => s.yAxisLeft).length * this.axisWidth
+      )
     },
     marginRight() {
       // calculate the sum of the label widths
-      return 10
+      return (
+        this.enabledDataSeries.filter(s => !s.yAxisLeft).length * this.axisWidth
+      )
     },
     enabledDataSeries() {
       return this.dataSeries.filter(s => s.enabled)
+    }
+  },
+  watch: {
+    marginLeft() {
+      this.updateXScale(this.currentSelectionRange)
+    },
+    marginRight() {
+      this.updateXScale(this.currentSelectionRange)
+    },
+    enabledDataSeries() {
+      this.updateAxes()
     }
   },
   mounted() {
     this.loadData()
     this.setupBrush()
   },
+  updated() {
+    if (!this.axesLoaded) {
+      console.log("updating axes")
+      this.updateAxes()
+      this.axesLoaded = true
+    }
+  },
   methods: {
     loadData() {
       let jsonData = JSON.parse(this.scenario.data)
 
-      console.log()
+      // find the global min and max values for the x axis
       let xMin = Math.min(...Object.entries(jsonData).map(s => s[1][0][0]))
       let xMax = Math.max(
         ...Object.entries(jsonData).map(s => s[1][s[1].length - 1][0])
       )
 
       let xDomain = [xMin, xMax]
+
+      // set up the initial scaling for both charts
       if (!this.xScale) {
         this.updateXScale(xDomain)
       }
@@ -247,13 +274,6 @@ export default {
       let seriesCount = 0
       for (let [key, data] of Object.entries(jsonData)) {
         seriesCount++
-        // let xDomain = d3.extent(data, d => d[0])
-        // if (!this.xScale) {
-        //   this.updateXScale(xDomain)
-        // }
-        // if (!this.xScaleNav) {
-        //   this.updateXScaleNav(xDomain)
-        // }
 
         let yDomain = d3.extent(jsonData[key], d => d[1])
         yDomain[0] -= Math.abs(yDomain[1] - yDomain[0]) * this.dataBuffer
@@ -262,19 +282,6 @@ export default {
           .scaleLinear()
           .domain(yDomain)
           .range([this.height - this.margin.bottom, this.margin.top])
-
-        // TODO add the yAxis for each line
-        // if (this.yScales.length === 1) {
-        //   d3.select("#y-axis")
-        //     .call(d3.axisLeft(yScale).ticks(2))
-        //     .call(g =>
-        //       g
-        //         .selectAll(".tick line")
-        //         .clone()
-        //         .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
-        //         .attr("x2", this.width - this.margin.left - this.margin.right)
-        //     )
-        // }
 
         // set up each lines generator for the full chart
         let lineGenerator = d3
@@ -302,10 +309,12 @@ export default {
           Math.round(this.width / this.navDownscaleFactor)
         )
 
+        // separate the name and the units
         let [name, units] = key.split("(")
         units = units ? units.split(")")[0] : ""
 
         // add the lines
+        // TODO remove any unnecessary values
         this.dataSeries.push({
           key: key,
           name: name,
@@ -325,36 +334,22 @@ export default {
           enabled: seriesCount <= this.defaultNumSeriesEnabled,
           yAxisLeft: seriesCount % 2 === 1
         })
-
-        // // TODO set up the y-axis for each line after it is added
-        // let selector = "#ya-" + this.keys.indexOf(key)
-        // console.log(selector)
-        // let axis = d3.select("#ya-" + this.keys.indexOf(key))
-        // console.log(axis)
-        // d3.select("#ya-" + this.keys.indexOf(key))
-        //   .call(d3.axisLeft(yScale))
-        //   .call(g =>
-        //     g
-        //       .selectAll(".tick line")
-        //       .clone()
-        //       .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
-        //       .attr("x2", this.width - this.margin.left - this.margin.right)
-        //   )
       }
     },
     updateXScale(extents) {
       this.xScale = d3
         .scaleLinear()
         .domain(extents)
-        .range([this.margin.left, this.width - this.margin.right])
+        .range([this.marginLeft, this.width - this.marginRight])
       this.updateXAxis()
+      this.updateEnabledSeries()
     },
     updateXScaleNav(extents) {
       // x scale of nav is static, so keep it separate
       this.xScaleNav = d3
         .scaleLinear()
         .domain(extents)
-        .range([this.margin.left, this.width - this.margin.right])
+        .range([this.marginLeft, this.width - this.marginRight])
       this.updateXAxisNav()
     },
     updateXAxis() {
@@ -392,8 +387,8 @@ export default {
     setupBrush() {
       // set up the brush
       this.brush = d3.brushX().extent([
-        [this.margin.left, this.margin.top],
-        [this.width - this.margin.right, this.navHeight - this.margin.bottom]
+        [this.marginLeft, this.margin.top],
+        [this.width - this.marginRight, this.navHeight - this.margin.bottom]
       ])
 
       this.brush.on("brush", () => {
@@ -465,6 +460,11 @@ export default {
           this.isHovering = false
         })
     },
+    updateEnabledSeries() {
+      for (let series of this.enabledDataSeries) {
+        this.updateSeries(series)
+      }
+    },
     updateSeries(series) {
       // filter to only the portion of the line within the visible time frame, keeping any points that are
       // within the visible range, or where the next point before or after is in the visible range
@@ -502,6 +502,60 @@ export default {
 
       series.dataPoints = points
       series.line = series.lineGenerator(points)
+    },
+    updateAxes() {
+      let leftCount = 0
+      let rightCount = 0
+
+      for (let series of this.enabledDataSeries) {
+        let tickSize =
+          (series.yScale.domain()[1] - series.yScale.domain()[0]) /
+          this.numTicks
+        let tickValues = [...Array(this.numTicks).keys()].map(
+          a => series.yScale.domain()[0] + a * tickSize
+        )
+        let axis
+        if (series.yAxisLeft) {
+          axis = d3
+            .select("#ya-" + series.name)
+            .call(d3.axisLeft(series.yScale).tickValues(tickValues))
+            .attr(
+              "transform",
+              `translate(${this.marginLeft - this.axisWidth * leftCount}, 0)`
+            )
+          let color = leftCount === 0 ? "#2c3e50" : "none"
+          axis.selectAll(".tick line").attr("stroke", color)
+          axis.selectAll("path").attr("stroke", color)
+          leftCount++
+        } else {
+          axis = d3
+            .select("#ya-" + series.name)
+            .call(d3.axisRight(series.yScale).tickValues(tickValues))
+            .attr(
+              "transform",
+              `translate(${this.width -
+                (this.marginRight - this.axisWidth * rightCount)}, 0)`
+            )
+          let color = rightCount === 0 ? "#2c3e50" : "none"
+          axis.selectAll(".tick line").attr("stroke", color)
+          axis.selectAll("path").attr("stroke", color)
+          rightCount++
+        }
+
+        // TODO these re-render if done this way
+        // // if this is the first axis...
+        // if (leftCount + rightCount === 1) {
+        //   axis.call(g =>
+        //     g
+        //       .selectAll(".tick line")
+        //       .clone()
+        //       .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
+        //       .attr("x2", this.width - this.marginLeft - this.marginRight)
+        //   )
+        // }
+
+        axis.selectAll("text").style("fill", series.color)
+      }
     },
     updateTooltip() {
       let min = Infinity
@@ -557,10 +611,6 @@ export default {
     },
     toggleSeries(series) {
       series.enabled = !series.enabled
-      if (series.enabled) {
-        this.updateSeries(series)
-      }
-      // TODO also needs to toggle the yAxis for each line
     },
     togglePlayback() {
       if (this.isPlaying) {
