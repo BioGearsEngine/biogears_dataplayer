@@ -13,7 +13,9 @@ import {
   faPlay,
   faPause,
   faForward,
-  faFastForward
+  faFastForward,
+  faLock,
+  faUnlock
 } from "@fortawesome/free-solid-svg-icons"
 import { faCircle as faCircleRegular } from "@fortawesome/free-regular-svg-icons"
 
@@ -25,7 +27,9 @@ library.add(
   faPause,
   faForward,
   faFastForward,
-  faCircleRegular
+  faCircleRegular,
+  faLock,
+  faUnlock
 )
 Vue.component("fa-icon", FontAwesomeIcon)
 

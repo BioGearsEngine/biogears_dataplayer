@@ -121,6 +121,31 @@
               {{ playbackSpeed }}x
             </b-button>
           </b-button-group>
+          <b-button-group size="sm" class="ml-4 mr-0">
+            <b-button
+              variant="outline-dark"
+              :class="{ active: !yScaleAuto }"
+              @click.stop="yScaleAuto = false"
+            >
+              Full Y-Axis
+            </b-button>
+          </b-button-group>
+          <b-button-group size="sm" class="mx-1">
+            <b-button
+              variant="outline-dark"
+              :class="{ active: yScaleAuto }"
+              @click.stop="yScaleAuto = true"
+            >
+              Scale Y-Axis
+            </b-button>
+            <b-button
+              variant="outline-dark"
+              :class="{ active: yScaleLocked }"
+              :disabled="!yScaleAuto"
+              @click.prevent="yScaleLocked = !yScaleLocked"
+              ><fa-icon :icon="yScaleLocked ? 'lock' : 'unlock'"></fa-icon
+            ></b-button>
+          </b-button-group>
         </b-button-toolbar>
       </b-card-footer>
     </b-card>
@@ -211,6 +236,8 @@ export default {
       xAxisNav: null,
       axisWidth: 35,
       axisBufferWidth: 20,
+      yScaleAuto: false,
+      yScaleLocked: false,
       numTicks: 8,
       axesLoaded: false,
       marginLeft: 0,
@@ -218,18 +245,6 @@ export default {
     }
   },
   computed: {
-    // marginLeft() {
-    //   // calculate the sum of the label widths
-    //   return (
-    //     this.enabledDataSeries.filter(s => s.yAxisLeft).length * this.axisWidth
-    //   )
-    // },
-    // marginRight() {
-    //   // calculate the sum of the label widths
-    //   return (
-    //     this.enabledDataSeries.filter(s => !s.yAxisLeft).length * this.axisWidth
-    //   )
-    // },
     enabledDataSeries() {
       return this.dataSeries.filter(s => s.enabled)
     },
@@ -249,6 +264,10 @@ export default {
     },
     enabledDataSeries() {
       this.updateAxes()
+    },
+    yScaleAuto() {
+      this.updateYScale()
+      this.updateAxes()
     }
   },
   mounted() {
@@ -257,7 +276,6 @@ export default {
   },
   updated() {
     if (!this.axesLoaded) {
-      console.log("updating axes")
       this.updateAxes()
       this.axesLoaded = true
     }
@@ -408,15 +426,10 @@ export default {
         this.currentSelectionRange = d3.event.selection.map(
           this.xScaleNav.invert
         )
-        console.log()
         if (d3.event.selection) {
           let newDomain = this.currentSelectionRange
           this.xScale.domain(newDomain)
-          for (let series of this.dataSeries) {
-            if (series.enabled) {
-              this.updateSeries(series)
-            }
-          }
+          this.updateEnabledSeries()
           // update the X Axis
           d3.select("#x-axis").call(this.xAxis, this.xScale)
 
@@ -434,7 +447,6 @@ export default {
         if (self.currentSelectionRange) {
           range = self.currentSelectionRange[1] - self.currentSelectionRange[0]
         }
-        console.log(range)
         const dx = self.xScaleNav(range) - self.xScaleNav(0)
         const [cx] = d3.mouse(this)
         const [x0, x1] = [cx - dx / 2, cx + dx / 2]
@@ -477,6 +489,9 @@ export default {
       for (let series of this.enabledDataSeries) {
         this.updateSeries(series)
       }
+      if (this.yScaleAuto && !this.yScaleLocked) {
+        this.updateAxes()
+      }
     },
     updateSeries(series) {
       // filter to only the portion of the line within the visible time frame, keeping any points that are
@@ -496,25 +511,93 @@ export default {
           points[index + 1][0] <= newDomain[1]
         ) {
           return true
+        } else if (
+          // previous point in visible range
+          points[index - 1] &&
+          points[index - 1][0] >= newDomain[0] &&
+          points[index - 1][0] <= newDomain[1]
+        ) {
+          return true
+        } else if (
+          // the new domain fits between this point and the next one
+          a[0] < newDomain[0] &&
+          points[index + 1] &&
+          points[index + 1][0] > newDomain[1]
+        ) {
+          return true
         } else {
+          // the new domain fits between this point and the previous one
           return (
-            // previous point in visible range
+            a[0] > newDomain[1] &&
             points[index - 1] &&
-            points[index - 1][0] >= newDomain[0] &&
-            points[index - 1][0] <= newDomain[1]
+            points[index - 1][0] < newDomain[0]
           )
         }
       })
+
       // down sample the lines
       points = this.largestTriangleThreeBuckets(
         points,
         Math.round(this.width / this.downscaleFactor)
       )
 
-      // TODO if dynamic y scaling is enabled, update the line generator (try just updating the yScale first)
+      if (this.yScaleAuto && !this.yScaleLocked) {
+        // get the current y domain of the series and buffer it
+        let currentYDomain = d3.extent(points, d => d[1])
+        let buffer =
+          Math.abs(currentYDomain[1] - currentYDomain[0]) * this.dataBuffer
+        if (buffer === 0) {
+          buffer = Math.abs(currentYDomain[0] * this.dataBuffer)
+        }
+        currentYDomain[0] -= buffer
+        currentYDomain[1] += buffer
+
+        // set up the new scale and line generator
+        let yScale = d3
+          .scaleLinear()
+          .domain(currentYDomain)
+          .range([this.height - this.margin.bottom, this.margin.top])
+        series.yScale = yScale
+        series.lineGenerator = d3
+          .line()
+          .x(d => this.xScale(d[0]))
+          .y(d => yScale(d[1]))
+          .curve(d3.curveMonotoneX)
+      }
 
       series.dataPoints = points
       series.line = series.lineGenerator(points)
+    },
+    updateYScale() {
+      for (let series of this.enabledDataSeries) {
+        let domain
+        if (this.yScaleAuto) {
+          // get the current y domain of the series and buffer it
+          domain = d3.extent(series.dataPoints, d => d[1])
+          let buffer = Math.abs(domain[1] - domain[0]) * this.dataBuffer
+          if (buffer === 0) {
+            buffer = Math.abs(domain[0] * this.dataBuffer)
+          }
+          domain[0] -= buffer
+          domain[1] += buffer
+        } else {
+          domain = series.globalYDomain
+        }
+
+        // set up the new scale and line generator
+        let yScale = d3
+          .scaleLinear()
+          .domain(domain)
+          .range([this.height - this.margin.bottom, this.margin.top])
+        series.yScale = yScale
+        series.lineGenerator = d3
+          .line()
+          .x(d => this.xScale(d[0]))
+          .y(d => yScale(d[1]))
+          .curve(d3.curveMonotoneX)
+
+        series.line = series.lineGenerator(series.dataPoints)
+      }
     },
     updateAxes() {
       let leftCount = 0
@@ -542,8 +625,6 @@ export default {
               maxTextWidth = this.getBBox().width
             }
           })
-
-          console.log(maxTextWidth)
 
           this.marginLeft += maxTextWidth + this.axisBufferWidth
 
