@@ -16,7 +16,7 @@
               :height="height - margin.top - margin.bottom"
             ></rect>
           </clipPath>
-          <g id="y-axis" :transform="'translate(' + marginLeft + ',0)'"></g>
+          <g id="background-ticks" clip-path="url(#clip)"></g>
           <g
             v-for="series in dataSeries"
             v-show="series.enabled"
@@ -239,6 +239,7 @@ export default {
       yScaleAuto: false,
       yScaleLocked: false,
       numTicks: 8,
+      hasBackgroundTicks: false,
       axesLoaded: false,
       marginLeft: 0,
       marginRight: 0
@@ -674,20 +675,27 @@ export default {
             .style("text-anchor", "middle")
             .text(series.key)
         }
-
-        // TODO these re-render if done this way
-        // // if this is the first axis...
-        // if (leftCount + rightCount === 1) {
-        //   axis.call(g =>
-        //     g
-        //       .selectAll(".tick line")
-        //       .clone()
-        //       .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
-        //       .attr("x2", this.width - this.marginLeft - this.marginRight)
-        //   )
-        // }
-
         axis.selectAll("text").style("fill", series.color)
+
+        // render the background tick lines if we haven't added any yet
+        if (!this.hasBackgroundTicks) {
+          console.log("updating background ticks: " + series.name)
+
+          axis = d3
+            .select("#background-ticks")
+            .call(d3.axisRight(series.yScale).tickValues(tickValues))
+
+          axis.selectAll("path").attr("stroke", "none")
+          axis.selectAll(".tick text").style("fill", "none")
+          axis
+            .selectAll(".tick line")
+            .attr("stroke", "#2c3e50")
+            .attr("stroke-opacity", d => (d === 1 ? null : 0.1))
+            .attr("x1", 0)
+            .attr("x2", this.width - this.marginLeft - this.marginRight)
+            .attr("class", "background-tick")
+          this.hasBackgroundTicks = true
+        }
       }
     },
     drawAxis(d3AxisFunction, series, tickValues, count, maxCount) {
@@ -924,6 +932,9 @@ export default {
       }
       return Math.floor(second / 60) + ":" + seconds
     }
+  },
+  beforeDestroy() {
+    this.stopPlayback()
   }
 }
 </script>
