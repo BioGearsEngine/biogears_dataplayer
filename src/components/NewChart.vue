@@ -2,12 +2,14 @@
   <div>
     <b-card class="mb-2" no-body>
       <b-card-body>
+        <!-- the main line chart -->
         <svg
           id="line-chart"
           :viewBox="'0 0 ' + width + ' ' + height"
           style="background: #fff"
           class="mb-2"
         >
+          <!-- clipping path for the data series -->
           <clipPath id="clip">
             <rect
               :x="marginLeft"
@@ -16,7 +18,21 @@
               :height="height - margin.top - margin.bottom"
             ></rect>
           </clipPath>
+
+          <!-- clipping path for the event flags -->
+          <clipPath id="clip2">
+            <rect
+              :x="marginLeft"
+              y="0"
+              :width="width - marginLeft - marginRight"
+              :height="height - margin.bottom"
+            ></rect>
+          </clipPath>
+
+          <!-- the background y-axis lines -->
           <g id="background-ticks" clip-path="url(#clip)"></g>
+
+          <!-- dynamic y-axes for each data series -->
           <g
             v-for="series in dataSeries"
             v-show="series.enabled"
@@ -25,7 +41,10 @@
           >
             <text :id="'tl-' + series.name"></text>
           </g>
+
           <g id="x-axis"></g>
+
+          <!-- data series paths -->
           <path
             v-for="series in enabledDataSeries"
             :key="'l-' + series.name"
@@ -42,6 +61,87 @@
             class="line"
             clip-path="url(#clip)"
           />
+
+          <!-- log event flags -->
+          <g
+            v-for="(event, index) in logEvents"
+            :key="'event-' + index"
+            :transform="'translate(' + xScale(event.time) + ', 0)'"
+          >
+            <rect fill="#3498db" :width="160" height="1.5rem"></rect>
+            <text
+              font-family="sans-serif"
+              font-size="10"
+              x="10"
+              y="1rem"
+              fill="white"
+            >
+              {{ event.name }}
+            </text>
+            <line
+              x1="0"
+              x2="0"
+              y1="0"
+              :y2="height - margin.bottom"
+              stroke="#3498db"
+              stroke-width="2"
+            ></line>
+          </g>
+
+          <!-- log insult flags -->
+          <g
+            v-for="(event, index) in logInsults"
+            :key="'insult-' + index"
+            :transform="'translate(' + xScale(event.time) + ', 0)'"
+          >
+            <rect fill="#e74c3c" :width="160" height="1.5rem"></rect>
+            <text
+              font-family="sans-serif"
+              font-size="10"
+              x="10"
+              y="1rem"
+              fill="white"
+            >
+              {{ event.name }}
+            </text>
+            <line
+              x1="0"
+              x2="0"
+              y1="0"
+              :y2="height - margin.bottom"
+              stroke="#e74c3c"
+              stroke-width="2"
+            ></line>
+          </g>
+
+          <!-- log intervention flags -->
+          <g
+            v-for="(event, index) in logInterventions"
+            :key="'intervention-' + index"
+            :transform="'translate(' + xScale(event.time) + ', 0)'"
+          >
+            <rect fill="#2ecc71" :width="160" height="1.5rem"></rect>
+            <text
+              font-family="sans-serif"
+              font-size="10"
+              x="10"
+              y="1rem"
+              fill="white"
+            >
+              {{ event.time }}
+              {{ event.name }}
+            </text>
+            <line
+              x1="0"
+              x2="0"
+              y1="0"
+              :y2="height - margin.bottom"
+              stroke="#2ecc71"
+              stroke-width="2"
+            ></line>
+          </g>
+
+          <!-- mouse hover tooltip -->
           <g
             id="dot"
             v-if="isHovering && dotPos"
@@ -64,6 +164,8 @@
             </text>
           </g>
         </svg>
+
+        <!-- the nav bar line chart -->
         <svg
           id="nav-bar"
           :viewBox="'0 0 ' + width + ' ' + navHeight"
@@ -85,14 +187,21 @@
           <g id="brush" />
         </svg>
       </b-card-body>
+
+      <!-- playback controls and options toolbar -->
       <b-card-footer>
         <b-button-toolbar class="justify-content-center">
+          <!-- playback controls -->
+
           <b-button-group size="sm" class="mx-1">
+            <!-- jump to beginning -->
             <b-button variant="outline-dark" @click.stop="jumpToBeginning()">
               <fa-icon icon="fast-backward"></fa-icon>
             </b-button>
           </b-button-group>
+
           <b-button-group size="sm" class="mx-1">
+            <!-- decrease playback speed -->
             <b-button
               variant="outline-dark"
               :disabled="playbackSpeed === -maxPlaybackSpeed"
@@ -100,9 +209,13 @@
             >
               <fa-icon icon="backward"></fa-icon>
             </b-button>
+
+            <!-- play/pause -->
             <b-button variant="outline-dark" @click.stop="togglePlayback()">
               <fa-icon :icon="isPlaying ? 'pause' : 'play'"></fa-icon>
             </b-button>
+
+            <!-- increase playback speed -->
             <b-button
               variant="outline-dark"
               :disabled="playbackSpeed === maxPlaybackSpeed"
@@ -111,17 +224,24 @@
               <fa-icon icon="forward"></fa-icon>
             </b-button>
           </b-button-group>
+
           <b-button-group size="sm" class="mx-1">
+            <!-- jump to end -->
             <b-button variant="outline-dark" @click.stop="jumpToEnd()">
               <fa-icon icon="fast-forward"></fa-icon>
             </b-button>
           </b-button-group>
+
+          <!-- current playback speed -->
           <b-button-group size="sm" class="mx-1">
             <b-button variant="outline-dark" style="width: 46px" disabled>
               {{ playbackSpeed }}x
             </b-button>
           </b-button-group>
+
+          <!-- chart options -->
           <b-button-group size="sm" class="ml-4 mr-0">
+            <!-- show the full y-axis (no scaling) -->
             <b-button
               variant="outline-dark"
               :class="{ active: !yScaleAuto }"
@@ -130,7 +250,10 @@
               Full Y-Axis
             </b-button>
           </b-button-group>
+
+          <!-- scale the y-axis -->
           <b-button-group size="sm" class="mx-1">
+            <!-- turn on  scaling -->
             <b-button
               variant="outline-dark"
               :class="{ active: yScaleAuto }"
@@ -138,6 +261,8 @@
             >
               Scale Y-Axis
             </b-button>
+
+            <!-- lock/unlock scaling to the current view -->
             <b-button
               variant="outline-dark"
               :class="{ active: yScaleLocked }"
@@ -149,8 +274,9 @@
         </b-button-toolbar>
       </b-card-footer>
     </b-card>
+
+    <!-- buttons to toggle data series and flags -->
     <b-card>
-      <!-- @click.stop="toggleKey(key)"-->
       <b-button
         v-for="(series, i) in dataSeries"
         :key="'toggle-key-' + i"
@@ -242,7 +368,11 @@ export default {
       hasBackgroundTicks: false,
       axesLoaded: false,
       marginLeft: 0,
-      marginRight: 0
+      marginRight: 0,
+      logEvents: [],
+      logInterventions: [],
+      logActions: [],
+      logInsults: []
     }
   },
   computed: {
@@ -274,6 +404,7 @@ export default {
   mounted() {
     this.loadData()
     this.setupBrush()
+    this.loadLogs()
   },
   updated() {
     if (!this.axesLoaded) {
@@ -366,6 +497,57 @@ export default {
           yAxisLeft: seriesCount % 2 === 1,
           axisWidth: 0
         })
+      }
+    },
+    loadLogs() {
+      let logs = JSON.parse(this.scenario.logs)
+      if (logs["Events"]) {
+        for (const [time, events] of Object.entries(logs["Events"])) {
+          for (const [eName, eDetails] of Object.entries(events)) {
+            this.logEvents.push({
+              name: eName,
+              type: "event",
+              time: time,
+              data: eDetails.data
+            })
+          }
+        }
+      }
+      if (logs["Insults"]) {
+        for (const [time, events] of Object.entries(logs["Insults"])) {
+          for (const [eName, eDetails] of Object.entries(events)) {
+            this.logInsults.push({
+              name: eName,
+              type: "insult",
+              time: time,
+              data: eDetails.data
+            })
+          }
+        }
+      }
+      if (logs["Interventions"]) {
+        for (const [time, events] of Object.entries(logs["Interventions"])) {
+          for (const [eName, eDetails] of Object.entries(events)) {
+            this.logInterventions.push({
+              name: eName,
+              type: "intervention",
+              time: time,
+              data: eDetails.data
+            })
+          }
+        }
+      }
+      if (logs["Actions"]) {
+        for (const [time, events] of Object.entries(logs["Actions"])) {
+          for (const [eName, eDetails] of Object.entries(events)) {
+            this.logActions.push({
+              name: eName,
+              type: "action",
+              time: time,
+              data: eDetails.data
+            })
+          }
+        }
       }
     },
     updateXScale(extents) {

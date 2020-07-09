@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <!--    <img alt="BioGears logo" src="./assets/logo_410.png" />-->
-    <!--    <prototype />-->
     <chart-selection></chart-selection>
-    <!--    <showcase-player></showcase-player>-->
   </div>
 </template>
 
@@ -25,6 +22,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
