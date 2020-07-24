@@ -605,6 +605,7 @@ export default {
         [this.width - this.marginRight, this.navHeight - this.margin.bottom]
       ])
 
+      // update when the brush moves
       this.brush.on("brush", () => {
         this.currentSelectionRange = d3.event.selection.map(
           this.xScaleNav.invert
@@ -679,44 +680,29 @@ export default {
     updateSeries(series) {
       // filter to only the portion of the line within the visible time frame, keeping any points that are
       // within the visible range, or where the next point before or after is in the visible range
-      // TODO try doing the filter based on the number of points/second to get the indices of the new range
-      // TODO or use binary search to find the index
       let newDomain = this.currentSelectionRange
-      let points = series.data
-      points = points.filter((a, index) => {
-        // point in visible range
-        if (a[0] >= newDomain[0] && a[0] <= newDomain[1]) {
-          return true
-        } else if (
-          // next point in visible range
-          points[index + 1] &&
-          points[index + 1][0] >= newDomain[0] &&
-          points[index + 1][0] <= newDomain[1]
-        ) {
-          return true
-        } else if (
-          // previous point in visible range
-          points[index - 1] &&
-          points[index - 1][0] >= newDomain[0] &&
-          points[index - 1][0] <= newDomain[1]
-        ) {
-          return true
-        } else if (
-          // the new domain fits between this point and the next one
-          a[0] < newDomain[0] &&
-          points[index + 1] &&
-          points[index + 1][0] > newDomain[1]
-        ) {
-          return true
-        } else {
-          // the new domain fits between this point and the previous one
-          return (
-            a[0] > newDomain[1] &&
-            points[index - 1] &&
-            points[index - 1][0] < newDomain[0]
-          )
-        }
-      })
+
+      // find the new min/max using binary search
+      let minIndex = this.binarySearch(
+        series.data,
+        newDomain[0],
+        newDomain[1],
+        "start"
+      )
+      let maxIndex = this.binarySearch(
+        series.data,
+        newDomain[0],
+        newDomain[1],
+        "end"
+      )
+
+      // get just the visible points
+      let points
+      if (minIndex === -1 || maxIndex === -1) {
+        points = []
+      } else {
+        points = series.data.slice(minIndex, maxIndex + 1)
+      }
 
       // down sample the lines
       points = this.largestTriangleThreeBuckets(
@@ -790,18 +776,23 @@ export default {
       this.marginRight = 6
 
       for (let series of this.enabledDataSeries) {
+        // set up the tick marks on the axis
         let tickSize =
           (series.yScale.domain()[1] - series.yScale.domain()[0]) /
           this.numTicks
         let tickValues = [...Array(this.numTicks).keys()].map(
           a => series.yScale.domain()[0] + a * tickSize
         )
+
         let axis
         if (series.yAxisLeft) {
+          // axis is on the left
+
           axis = d3
             .select("#ya-" + series.name)
             .call(d3.axisLeft(series.yScale).tickValues(tickValues))
 
+          // figure out the max label width for spacing the axes
           let maxTextWidth = 0
           axis.selectAll(".tick text").each(function() {
             if (this.getBBox().width > maxTextWidth) {
@@ -809,14 +800,17 @@ export default {
             }
           })
 
+          // add this axis's width to the left margin so the next axis is positioned correctly
           this.marginLeft += maxTextWidth + this.axisBufferWidth
 
+          // position and color the axis
           axis.attr("transform", `translate(${this.marginLeft}, 0)`)
           leftCount++
           let color = leftCount === this.numLeftAxes ? "#2c3e50" : "none"
           axis.selectAll(".tick line").attr("stroke", color)
           axis.selectAll("path").attr("stroke", color)
 
+          // add the axis data series label
           axis
             .select("#tl-" + series.name)
             .attr("transform", "rotate(-90)")
@@ -826,10 +820,13 @@ export default {
             .style("text-anchor", "middle")
             .text(series.key)
         } else {
+          // axis is on the right
+
           axis = d3
             .select("#ya-" + series.name)
             .call(d3.axisRight(series.yScale).tickValues(tickValues))
 
+          // figure out the max label width for spacing the axes
           let maxTextWidth = 0
           axis.selectAll(".tick text").each(function() {
             if (this.getBBox().width > maxTextWidth) {
@@ -837,8 +834,10 @@ export default {
             }
           })
 
+          // add this axis's width to the left margin so the next axis is positioned correctly
           this.marginRight += maxTextWidth + this.axisBufferWidth
 
+          // position and color the axis
           axis.attr(
             "transform",
             `translate(${this.width - this.marginRight}, 0)`
@@ -848,6 +847,7 @@ export default {
           axis.selectAll(".tick line").attr("stroke", color)
           axis.selectAll("path").attr("stroke", color)
 
+          // add the axis data series label
           axis
             .select("#tl-" + series.name)
             .attr("transform", "rotate(90)")
@@ -857,6 +857,8 @@ export default {
             .style("text-anchor", "middle")
             .text(series.key)
         }
+
+        // color all the text for this axis
         axis.selectAll("text").style("fill", series.color)
 
         // render the background tick lines if we haven't added any yet
@@ -902,6 +904,8 @@ export default {
     },
     updateTooltip() {
       let min = Infinity
+
+      // get the mouse position
       const xm = this.lastMouseX
       const ym = this.lastMouseY
 
@@ -928,13 +932,15 @@ export default {
         }
         let yDist
 
-        // TODo this only fixes part of the problem... the points can still be outside the margins
+        // get the y distance to the two closest point
+        // TODO the points can still be outside the margins
         if (!series.dataPoints[i]) {
           yDist = Math.Infinity
         } else {
           yDist = Math.abs(series.yScale(series.dataPoints[i][1]) - ym)
         }
 
+        // select the series whose closest point on the x-axis has the smallest y distance from the mouse
         if (yDist < min) {
           min = yDist
           this.activeKey = series.key
@@ -1105,6 +1111,48 @@ export default {
       sampled[sampled_index++] = data[data_length - 1] // Always add last
 
       return sampled
+    },
+    binarySearch(arr, xMin, xMax, mode) {
+      let start = 0,
+        end = arr.length - 1
+
+      // Iterate while start not meets end
+      while (start <= end) {
+        // Find the mid index
+        let mid = Math.floor((start + end) / 2)
+
+        if (mode === "start") {
+          // If this is the element before the first element in the range, or the first element and also within the range
+          if (arr[mid][0] < xMin && arr[mid + 1] && arr[mid + 1][0] >= xMin) {
+            return mid
+          } else if (
+            !arr[mid - 1] &&
+            arr[mid][0] >= xMin &&
+            arr[mid][0] <= xMax
+          ) {
+            return mid
+          }
+          // Else look in left or right half accordingly
+          else if (arr[mid][0] < xMin) start = mid + 1
+          else end = mid - 1
+        } else {
+          // If element is present at mid, return mid
+          if (arr[mid][0] > xMax && arr[mid - 1] && arr[mid - 1][0] <= xMax) {
+            return mid
+          } else if (
+            !arr[mid + 1] &&
+            arr[mid][0] <= xMax &&
+            arr[mid][0] >= xMin
+          ) {
+            return mid
+          }
+          // Else look in left or right half accordingly
+          else if (arr[mid][0] < xMax) start = mid + 1
+          else end = mid - 1
+        }
+      }
+
+      return -1
     },
     toMMSS(second) {
       // second = parseInt(second, 10)
