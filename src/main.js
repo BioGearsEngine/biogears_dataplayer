@@ -15,7 +15,8 @@ import {
   faForward,
   faFastForward,
   faLock,
-  faUnlock
+  faUnlock,
+  faExclamationTriangle
 } from "@fortawesome/free-solid-svg-icons"
 import { faCircle as faCircleRegular } from "@fortawesome/free-regular-svg-icons"
 
@@ -29,7 +30,8 @@ library.add(
   faFastForward,
   faCircleRegular,
   faLock,
-  faUnlock
+  faUnlock,
+  faExclamationTriangle
 )
 Vue.component("fa-icon", FontAwesomeIcon)
 

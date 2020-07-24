@@ -1,301 +1,319 @@
 <template>
   <div>
-    <b-card class="mb-2" no-body>
-      <b-card-body>
-        <!-- the main line chart -->
-        <svg
-          id="line-chart"
-          :viewBox="'0 0 ' + width + ' ' + height"
-          style="background: #fff"
-          class="mb-2"
+    <b-overlay :show="loadingScenario || loadingFailed">
+      <template v-slot:overlay>
+        <h4 v-if="loadingFailed">
+          <fa-icon icon="exclamation-triangle" class="text-warning"></fa-icon>
+          Failed to Load Scenario
+        </h4>
+        <h4 v-else><b-spinner></b-spinner> Loading Scenario</h4>
+      </template>
+
+      <b-card class="mb-2 rounded-0" no-body>
+        <b-card-body>
+          <!-- the main line chart -->
+          <svg
+            id="line-chart"
+            :viewBox="'0 0 ' + width + ' ' + height"
+            style="background: #fff"
+            class="mb-2"
+          >
+            <!-- clipping path for the data series -->
+            <clipPath id="clip">
+              <rect
+                :x="marginLeft"
+                :y="margin.top"
+                :width="width - marginLeft - marginRight"
+                :height="height - margin.top - margin.bottom"
+              ></rect>
+            </clipPath>
+
+            <!-- clipping path for the event flags -->
+            <clipPath id="clip2">
+              <rect
+                :x="marginLeft"
+                y="0"
+                :width="width - marginLeft - marginRight"
+                :height="height - margin.bottom"
+              ></rect>
+            </clipPath>
+
+            <!-- the background y-axis lines -->
+            <g id="background-ticks" clip-path="url(#clip)"></g>
+
+            <!-- dynamic y-axes for each data series -->
+            <g
+              v-for="series in dataSeries"
+              v-show="series.enabled"
+              :key="'ya-' + series.name"
+              :id="'ya-' + series.name"
+            >
+              <text :id="'tl-' + series.name"></text>
+            </g>
+
+            <g id="x-axis"></g>
+
+            <!-- data series paths -->
+            <path
+              v-for="series in enabledDataSeries"
+              :key="'l-' + series.name"
+              :id="'line-' + series.name"
+              :d="series.line"
+              fill="none"
+              opacity="0.75"
+              style="mix-blend-mode: darken"
+              :stroke="
+                isHovering && !(series.key === activeKey)
+                  ? '#ddd'
+                  : series.color
+              "
+              stroke-width="2"
+              stroke-miterlimit="1"
+              class="line"
+              clip-path="url(#clip)"
+            />
+
+            <!-- log event flags -->
+            <g
+              v-for="(event, index) in logEvents"
+              :key="'event-' + index"
+              :transform="'translate(' + xScale(event.time) + ', 0)'"
+            >
+              <rect fill="#3498db" :width="160" height="1.5rem"></rect>
+              <text
+                font-family="sans-serif"
+                font-size="10"
+                x="10"
+                y="1rem"
+                fill="white"
+              >
+                {{ event.name }}
+              </text>
+              <line
+                x1="0"
+                x2="0"
+                y1="0"
+                :y2="height - margin.bottom"
+                stroke="#3498db"
+                stroke-width="2"
+              ></line>
+            </g>
+
+            <!-- log insult flags -->
+            <g
+              v-for="(event, index) in logInsults"
+              :key="'insult-' + index"
+              :transform="'translate(' + xScale(event.time) + ', 0)'"
+            >
+              <rect fill="#e74c3c" :width="160" height="1.5rem"></rect>
+              <text
+                font-family="sans-serif"
+                font-size="10"
+                x="10"
+                y="1rem"
+                fill="white"
+              >
+                {{ event.name }}
+              </text>
+              <line
+                x1="0"
+                x2="0"
+                y1="0"
+                :y2="height - margin.bottom"
+                stroke="#e74c3c"
+                stroke-width="2"
+              ></line>
+            </g>
+
+            <!-- log intervention flags -->
+            <g
+              v-for="(event, index) in logInterventions"
+              :key="'intervention-' + index"
+              :transform="'translate(' + xScale(event.time) + ', 0)'"
+            >
+              <rect fill="#2ecc71" :width="160" height="1.5rem"></rect>
+              <text
+                font-family="sans-serif"
+                font-size="10"
+                x="10"
+                y="1rem"
+                fill="white"
+              >
+                {{ event.time }}
+                {{ event.name }}
+              </text>
+              <line
+                x1="0"
+                x2="0"
+                y1="0"
+                :y2="height - margin.bottom"
+                stroke="#2ecc71"
+                stroke-width="2"
+              ></line>
+            </g>
+
+            <!-- mouse hover tooltip -->
+            <g
+              id="dot"
+              v-if="isHovering && dotPos"
+              :transform="'translate(' + dotPos[0] + ',' + dotPos[1] + ')'"
+            >
+              <circle :r="dotRadius + 4" opacity="0.25"></circle>
+              <circle :r="dotRadius + 1.5" fill="white"></circle>
+              <circle :r="dotRadius" :fill="activeColor"></circle>
+              <text
+                font-family="sans-serif"
+                font-size="10"
+                text-anchor="middle"
+                y="-25"
+                style="background-color: white"
+              >
+                <tspan x="0" dy="0">{{ dotName }}</tspan>
+                <tspan x="0" dy="1.2em" class="font-weight-bold">
+                  {{ dotVal }} {{ dotUnits }}
+                </tspan>
+              </text>
+            </g>
+          </svg>
+
+          <!-- the nav bar line chart -->
+          <svg
+            id="nav-bar"
+            :viewBox="'0 0 ' + width + ' ' + navHeight"
+            style="background: #fff"
+          >
+            <g id="x-axis-nav"></g>
+            <path
+              v-for="series in enabledDataSeries"
+              :key="'nl-' + series.name"
+              :id="'nav-line-' + series.name"
+              :d="series.navLine"
+              fill="none"
+              opacity="0.5"
+              :stroke="series.color"
+              stroke-width="1"
+              stroke-miterlimit="1"
+              class="nav-line"
+            />
+            <g id="brush" />
+          </svg>
+        </b-card-body>
+
+        <!-- playback controls and options toolbar -->
+        <b-card-footer>
+          <b-button-toolbar class="justify-content-center">
+            <!-- playback controls -->
+
+            <b-button-group size="sm" class="mx-1">
+              <!-- jump to beginning -->
+              <b-button variant="outline-dark" @click.stop="jumpToBeginning()">
+                <fa-icon icon="fast-backward"></fa-icon>
+              </b-button>
+            </b-button-group>
+
+            <b-button-group size="sm" class="mx-1">
+              <!-- decrease playback speed -->
+              <b-button
+                variant="outline-dark"
+                :disabled="playbackSpeed === -maxPlaybackSpeed"
+                @click.stop="decreaseSpeed()"
+              >
+                <fa-icon icon="backward"></fa-icon>
+              </b-button>
+
+              <!-- play/pause -->
+              <b-button variant="outline-dark" @click.stop="togglePlayback()">
+                <fa-icon :icon="isPlaying ? 'pause' : 'play'"></fa-icon>
+              </b-button>
+
+              <!-- increase playback speed -->
+              <b-button
+                variant="outline-dark"
+                :disabled="playbackSpeed === maxPlaybackSpeed"
+                @click.stop="increaseSpeed()"
+              >
+                <fa-icon icon="forward"></fa-icon>
+              </b-button>
+            </b-button-group>
+
+            <b-button-group size="sm" class="mx-1">
+              <!-- jump to end -->
+              <b-button variant="outline-dark" @click.stop="jumpToEnd()">
+                <fa-icon icon="fast-forward"></fa-icon>
+              </b-button>
+            </b-button-group>
+
+            <!-- current playback speed -->
+            <b-button-group size="sm" class="mx-1">
+              <b-button variant="outline-dark" style="width: 46px" disabled>
+                {{ playbackSpeed }}x
+              </b-button>
+            </b-button-group>
+
+            <!-- chart options -->
+            <b-button-group size="sm" class="ml-4 mr-0">
+              <!-- show the full y-axis (no scaling) -->
+              <b-button
+                variant="outline-dark"
+                :class="{ active: !yScaleAuto }"
+                @click.stop="yScaleAuto = false"
+              >
+                Full Y-Axis
+              </b-button>
+            </b-button-group>
+
+            <!-- scale the y-axis -->
+            <b-button-group size="sm" class="mx-1">
+              <!-- turn on  scaling -->
+              <b-button
+                variant="outline-dark"
+                :class="{ active: yScaleAuto }"
+                @click.stop="yScaleAuto = true"
+              >
+                Scale Y-Axis
+              </b-button>
+
+              <!-- lock/unlock scaling to the current view -->
+              <b-button
+                variant="outline-dark"
+                :class="{ active: yScaleLocked }"
+                :disabled="!yScaleAuto"
+                @click.prevent="yScaleLocked = !yScaleLocked"
+                ><fa-icon :icon="yScaleLocked ? 'lock' : 'unlock'"></fa-icon
+              ></b-button>
+            </b-button-group>
+          </b-button-toolbar>
+        </b-card-footer>
+      </b-card>
+    </b-overlay>
+
+    <b-overlay :show="loadingScenario || loadingFailed">
+      <template v-slot:overlay><h4></h4></template>
+
+      <!-- buttons to toggle data series and flags -->
+      <b-card class="rounded-0">
+        <b-button
+          v-for="(series, i) in dataSeries"
+          :key="'toggle-key-' + i"
+          variant="light"
+          size="sm"
+          @click.stop="toggleSeries(series)"
         >
-          <!-- clipping path for the data series -->
-          <clipPath id="clip">
-            <rect
-              :x="marginLeft"
-              :y="margin.top"
-              :width="width - marginLeft - marginRight"
-              :height="height - margin.top - margin.bottom"
-            ></rect>
-          </clipPath>
-
-          <!-- clipping path for the event flags -->
-          <clipPath id="clip2">
-            <rect
-              :x="marginLeft"
-              y="0"
-              :width="width - marginLeft - marginRight"
-              :height="height - margin.bottom"
-            ></rect>
-          </clipPath>
-
-          <!-- the background y-axis lines -->
-          <g id="background-ticks" clip-path="url(#clip)"></g>
-
-          <!-- dynamic y-axes for each data series -->
-          <g
-            v-for="series in dataSeries"
-            v-show="series.enabled"
-            :key="'ya-' + series.name"
-            :id="'ya-' + series.name"
-          >
-            <text :id="'tl-' + series.name"></text>
-          </g>
-
-          <g id="x-axis"></g>
-
-          <!-- data series paths -->
-          <path
-            v-for="series in enabledDataSeries"
-            :key="'l-' + series.name"
-            :id="'line-' + series.name"
-            :d="series.line"
-            fill="none"
-            opacity="0.75"
-            style="mix-blend-mode: darken"
-            :stroke="
-              isHovering && !(series.key === activeKey) ? '#ddd' : series.color
-            "
-            stroke-width="2"
-            stroke-miterlimit="1"
-            class="line"
-            clip-path="url(#clip)"
-          />
-
-          <!-- log event flags -->
-          <g
-            v-for="(event, index) in logEvents"
-            :key="'event-' + index"
-            :transform="'translate(' + xScale(event.time) + ', 0)'"
-          >
-            <rect fill="#3498db" :width="160" height="1.5rem"></rect>
-            <text
-              font-family="sans-serif"
-              font-size="10"
-              x="10"
-              y="1rem"
-              fill="white"
-            >
-              {{ event.name }}
-            </text>
-            <line
-              x1="0"
-              x2="0"
-              y1="0"
-              :y2="height - margin.bottom"
-              stroke="#3498db"
-              stroke-width="2"
-            ></line>
-          </g>
-
-          <!-- log insult flags -->
-          <g
-            v-for="(event, index) in logInsults"
-            :key="'insult-' + index"
-            :transform="'translate(' + xScale(event.time) + ', 0)'"
-          >
-            <rect fill="#e74c3c" :width="160" height="1.5rem"></rect>
-            <text
-              font-family="sans-serif"
-              font-size="10"
-              x="10"
-              y="1rem"
-              fill="white"
-            >
-              {{ event.name }}
-            </text>
-            <line
-              x1="0"
-              x2="0"
-              y1="0"
-              :y2="height - margin.bottom"
-              stroke="#e74c3c"
-              stroke-width="2"
-            ></line>
-          </g>
-
-          <!-- log intervention flags -->
-          <g
-            v-for="(event, index) in logInterventions"
-            :key="'intervention-' + index"
-            :transform="'translate(' + xScale(event.time) + ', 0)'"
-          >
-            <rect fill="#2ecc71" :width="160" height="1.5rem"></rect>
-            <text
-              font-family="sans-serif"
-              font-size="10"
-              x="10"
-              y="1rem"
-              fill="white"
-            >
-              {{ event.time }}
-              {{ event.name }}
-            </text>
-            <line
-              x1="0"
-              x2="0"
-              y1="0"
-              :y2="height - margin.bottom"
-              stroke="#2ecc71"
-              stroke-width="2"
-            ></line>
-          </g>
-
-          <!-- mouse hover tooltip -->
-          <g
-            id="dot"
-            v-if="isHovering && dotPos"
-            :transform="'translate(' + dotPos[0] + ',' + dotPos[1] + ')'"
-          >
-            <circle :r="dotRadius + 4" opacity="0.25"></circle>
-            <circle :r="dotRadius + 1.5" fill="white"></circle>
-            <circle :r="dotRadius" :fill="activeColor"></circle>
-            <text
-              font-family="sans-serif"
-              font-size="10"
-              text-anchor="middle"
-              y="-25"
-              style="background-color: white"
-            >
-              <tspan x="0" dy="0">{{ dotName }}</tspan>
-              <tspan x="0" dy="1.2em" class="font-weight-bold">
-                {{ dotVal }} {{ dotUnits }}
-              </tspan>
-            </text>
-          </g>
-        </svg>
-
-        <!-- the nav bar line chart -->
-        <svg
-          id="nav-bar"
-          :viewBox="'0 0 ' + width + ' ' + navHeight"
-          style="background: #fff"
-        >
-          <g id="x-axis-nav"></g>
-          <path
-            v-for="series in enabledDataSeries"
-            :key="'nl-' + series.name"
-            :id="'nav-line-' + series.name"
-            :d="series.navLine"
-            fill="none"
-            opacity="0.5"
-            :stroke="series.color"
-            stroke-width="1"
-            stroke-miterlimit="1"
-            class="nav-line"
-          />
-          <g id="brush" />
-        </svg>
-      </b-card-body>
-
-      <!-- playback controls and options toolbar -->
-      <b-card-footer>
-        <b-button-toolbar class="justify-content-center">
-          <!-- playback controls -->
-
-          <b-button-group size="sm" class="mx-1">
-            <!-- jump to beginning -->
-            <b-button variant="outline-dark" @click.stop="jumpToBeginning()">
-              <fa-icon icon="fast-backward"></fa-icon>
-            </b-button>
-          </b-button-group>
-
-          <b-button-group size="sm" class="mx-1">
-            <!-- decrease playback speed -->
-            <b-button
-              variant="outline-dark"
-              :disabled="playbackSpeed === -maxPlaybackSpeed"
-              @click.stop="decreaseSpeed()"
-            >
-              <fa-icon icon="backward"></fa-icon>
-            </b-button>
-
-            <!-- play/pause -->
-            <b-button variant="outline-dark" @click.stop="togglePlayback()">
-              <fa-icon :icon="isPlaying ? 'pause' : 'play'"></fa-icon>
-            </b-button>
-
-            <!-- increase playback speed -->
-            <b-button
-              variant="outline-dark"
-              :disabled="playbackSpeed === maxPlaybackSpeed"
-              @click.stop="increaseSpeed()"
-            >
-              <fa-icon icon="forward"></fa-icon>
-            </b-button>
-          </b-button-group>
-
-          <b-button-group size="sm" class="mx-1">
-            <!-- jump to end -->
-            <b-button variant="outline-dark" @click.stop="jumpToEnd()">
-              <fa-icon icon="fast-forward"></fa-icon>
-            </b-button>
-          </b-button-group>
-
-          <!-- current playback speed -->
-          <b-button-group size="sm" class="mx-1">
-            <b-button variant="outline-dark" style="width: 46px" disabled>
-              {{ playbackSpeed }}x
-            </b-button>
-          </b-button-group>
-
-          <!-- chart options -->
-          <b-button-group size="sm" class="ml-4 mr-0">
-            <!-- show the full y-axis (no scaling) -->
-            <b-button
-              variant="outline-dark"
-              :class="{ active: !yScaleAuto }"
-              @click.stop="yScaleAuto = false"
-            >
-              Full Y-Axis
-            </b-button>
-          </b-button-group>
-
-          <!-- scale the y-axis -->
-          <b-button-group size="sm" class="mx-1">
-            <!-- turn on  scaling -->
-            <b-button
-              variant="outline-dark"
-              :class="{ active: yScaleAuto }"
-              @click.stop="yScaleAuto = true"
-            >
-              Scale Y-Axis
-            </b-button>
-
-            <!-- lock/unlock scaling to the current view -->
-            <b-button
-              variant="outline-dark"
-              :class="{ active: yScaleLocked }"
-              :disabled="!yScaleAuto"
-              @click.prevent="yScaleLocked = !yScaleLocked"
-              ><fa-icon :icon="yScaleLocked ? 'lock' : 'unlock'"></fa-icon
-            ></b-button>
-          </b-button-group>
-        </b-button-toolbar>
-      </b-card-footer>
-    </b-card>
-
-    <!-- buttons to toggle data series and flags -->
-    <b-card>
-      <b-button
-        v-for="(series, i) in dataSeries"
-        :key="'toggle-key-' + i"
-        variant="light"
-        size="sm"
-        @click.stop="toggleSeries(series)"
-      >
-        <fa-icon
-          :icon="[series.enabled ? 'fas' : 'far', 'circle']"
-          :style="{ color: series.color }"
-        ></fa-icon>
-        {{ series.name }}
-      </b-button>
-    </b-card>
+          <fa-icon
+            :icon="[series.enabled ? 'fas' : 'far', 'circle']"
+            :style="{ color: series.color }"
+          ></fa-icon>
+          {{ series.name }}
+        </b-button>
+      </b-card>
+    </b-overlay>
   </div>
 </template>
 
 <script>
 import * as d3 from "d3"
+
+import axios from "axios"
 
 export default {
   name: "Chart",
@@ -306,6 +324,8 @@ export default {
   },
   data() {
     return {
+      loadingScenario: true,
+      loadingFailed: false,
       width: 1200,
       height: 425,
       navHeight: 115,
@@ -402,9 +422,7 @@ export default {
     }
   },
   mounted() {
-    this.loadData()
-    this.setupBrush()
-    this.loadLogs()
+    this.downloadScenario()
   },
   updated() {
     if (!this.axesLoaded) {
@@ -413,8 +431,25 @@ export default {
     }
   },
   methods: {
-    loadData() {
-      let jsonData = JSON.parse(this.scenario.data)
+    downloadScenario() {
+      axios
+        .get(
+          "https://biogearsengine.com/scenarios/" +
+            this.scenario.filename +
+            "-datafile.json"
+        )
+        .then(response => {
+          this.loadingScenario = false
+          this.loadData(response.data)
+          this.setupBrush()
+        })
+        .catch(error => {
+          this.loadingFailed = true
+          console.error(error)
+        })
+    },
+    loadData(jsonData) {
+      // let jsonData = JSON.parse(data)
 
       // find the global min and max values for the x axis
       let xMin = Math.min(...Object.entries(jsonData).map(s => s[1][0][0]))
@@ -863,8 +898,6 @@ export default {
 
         // render the background tick lines if we haven't added any yet
         if (!this.hasBackgroundTicks) {
-          console.log("updating background ticks: " + series.name)
-
           axis = d3
             .select("#background-ticks")
             .call(d3.axisRight(series.yScale).tickValues(tickValues))
@@ -1169,4 +1202,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.no-rounding > a {
+  border-radius: 0;
+}
+</style>
