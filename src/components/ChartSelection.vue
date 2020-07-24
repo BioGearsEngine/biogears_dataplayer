@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <h3 class="mt-2">Explore a Scenario</h3>
+    <h2 class="my-3 font-weight-lighter text-left">Explore a Scenario</h2>
     <b-nav pills class="mb-0">
       <b-nav-item
         v-for="(scenario, i) in tabScenarios"
