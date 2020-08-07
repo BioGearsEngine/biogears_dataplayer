@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-overlay :show="loadingScenario || loadingFailed">
+    <b-overlay :show="downloadingScenario || loadingFailed">
       <template v-slot:overlay>
         <h4 v-if="loadingFailed">
           <fa-icon icon="exclamation-triangle" class="text-warning"></fa-icon>
@@ -73,83 +73,41 @@
               clip-path="url(#clip)"
             />
 
-            <!-- log event flags -->
+            <!-- log entry flags -->
             <g
-              v-for="(event, index) in logEvents"
-              :key="'event-' + index"
-              :transform="'translate(' + xScale(event.time) + ', 0)'"
+              v-for="category in enabledLogCategories"
+              :key="'log-' + category.name"
+              clip-path="url(#clip2)"
             >
-              <rect fill="#3498db" :width="160" height="1.5rem"></rect>
-              <text
-                font-family="sans-serif"
-                font-size="10"
-                x="10"
-                y="1rem"
-                fill="white"
+              <g
+                v-for="(entry, index) in category.entries"
+                :key="'log-' + category.name + '-' + index"
+                :id="'log-' + category.name + '-' + index"
+                :transform="'translate(' + xScale(entry.time) + ', 0)'"
               >
-                {{ event.name }}
-              </text>
-              <line
-                x1="0"
-                x2="0"
-                y1="0"
-                :y2="height - margin.bottom"
-                stroke="#3498db"
-                stroke-width="2"
-              ></line>
-            </g>
-
-            <!-- log insult flags -->
-            <g
-              v-for="(event, index) in logInsults"
-              :key="'insult-' + index"
-              :transform="'translate(' + xScale(event.time) + ', 0)'"
-            >
-              <rect fill="#e74c3c" :width="160" height="1.5rem"></rect>
-              <text
-                font-family="sans-serif"
-                font-size="10"
-                x="10"
-                y="1rem"
-                fill="white"
-              >
-                {{ event.name }}
-              </text>
-              <line
-                x1="0"
-                x2="0"
-                y1="0"
-                :y2="height - margin.bottom"
-                stroke="#e74c3c"
-                stroke-width="2"
-              ></line>
-            </g>
-
-            <!-- log intervention flags -->
-            <g
-              v-for="(event, index) in logInterventions"
-              :key="'intervention-' + index"
-              :transform="'translate(' + xScale(event.time) + ', 0)'"
-            >
-              <rect fill="#2ecc71" :width="160" height="1.5rem"></rect>
-              <text
-                font-family="sans-serif"
-                font-size="10"
-                x="10"
-                y="1rem"
-                fill="white"
-              >
-                {{ event.time }}
-                {{ event.name }}
-              </text>
-              <line
-                x1="0"
-                x2="0"
-                y1="0"
-                :y2="height - margin.bottom"
-                stroke="#2ecc71"
-                stroke-width="2"
-              ></line>
+                <rect
+                  :fill="category.color"
+                  :width="getFlagWidth('log-' + category.name + '-' + index)"
+                  height="1.5rem"
+                ></rect>
+                <text
+                  font-family="sans-serif"
+                  font-size="10"
+                  :x="flagMargin"
+                  y="1rem"
+                  fill="white"
+                >
+                  {{ entry.name }}
+                </text>
+                <line
+                  x1="0"
+                  x2="0"
+                  y1="0"
+                  :y2="height - margin.bottom"
+                  :stroke="category.color"
+                  stroke-width="2"
+                ></line>
+              </g>
             </g>
 
             <!-- mouse hover tooltip -->
@@ -287,7 +245,7 @@
       </b-card>
     </b-overlay>
 
-    <b-overlay :show="loadingScenario || loadingFailed">
+    <b-overlay :show="downloadingScenario || loadingFailed">
       <template v-slot:overlay><h4></h4></template>
 
       <!-- buttons to toggle data series and flags -->
@@ -304,6 +262,19 @@
             :style="{ color: series.color }"
           ></fa-icon>
           {{ series.name }}
+        </b-button>
+        <b-button
+          v-for="(category, i) in logCategoriesWithEntries"
+          :key="'toggle-category-' + i"
+          variant="light"
+          size="sm"
+          @click.stop="category.enabled = !category.enabled"
+        >
+          <fa-icon
+            :icon="[category.enabled ? 'fas' : 'far', 'square']"
+            :style="{ color: category.color }"
+          ></fa-icon>
+          {{ category.name }}
         </b-button>
       </b-card>
     </b-overlay>
@@ -324,7 +295,8 @@ export default {
   },
   data() {
     return {
-      loadingScenario: true,
+      downloadingScenario: true,
+      downloadingLogs: true,
       loadingFailed: false,
       width: 1200,
       height: 425,
@@ -389,15 +361,44 @@ export default {
       axesLoaded: false,
       marginLeft: 0,
       marginRight: 0,
-      logEvents: [],
-      logInterventions: [],
-      logActions: [],
-      logInsults: []
+      flagMargin: 10,
+      logCategories: [
+        {
+          name: "Events",
+          color: "#3498db",
+          entries: [],
+          enabled: true
+        },
+        {
+          name: "Actions",
+          color: "#432ec8",
+          entries: [],
+          enabled: true
+        },
+        {
+          name: "Insults",
+          color: "#e74c3c",
+          entries: [],
+          enabled: true
+        },
+        {
+          name: "Interventions",
+          color: "#2ecc71",
+          entries: [],
+          enabled: true
+        }
+      ]
     }
   },
   computed: {
     enabledDataSeries() {
       return this.dataSeries.filter(s => s.enabled)
+    },
+    enabledLogCategories() {
+      return this.logCategoriesWithEntries.filter(c => c.enabled)
+    },
+    logCategoriesWithEntries() {
+      return this.logCategories.filter(c => c.entries.length)
     },
     numLeftAxes() {
       return this.enabledDataSeries.filter(s => s.yAxisLeft).length
@@ -439,12 +440,29 @@ export default {
             "-datafile.json"
         )
         .then(response => {
-          this.loadingScenario = false
+          this.downloadingScenario = false
           this.loadData(response.data)
           this.setupBrush()
+          this.downloadLog()
         })
         .catch(error => {
           this.loadingFailed = true
+          console.error(error)
+        })
+    },
+    downloadLog() {
+      axios
+        .get(
+          "https://biogearsengine.com/scenarios/" +
+            this.scenario.filename.replace("Results", "") +
+            "-log.json"
+        )
+        .then(response => {
+          this.downloadingLogs = false
+          console.log(response)
+          this.loadLogs(response.data)
+        })
+        .catch(error => {
           console.error(error)
         })
     },
@@ -534,53 +552,21 @@ export default {
         })
       }
     },
-    loadLogs() {
-      let logs = JSON.parse(this.scenario.logs)
-      if (logs["Events"]) {
-        for (const [time, events] of Object.entries(logs["Events"])) {
-          for (const [eName, eDetails] of Object.entries(events)) {
-            this.logEvents.push({
-              name: eName,
-              type: "event",
-              time: time,
-              data: eDetails.data
-            })
-          }
-        }
-      }
-      if (logs["Insults"]) {
-        for (const [time, events] of Object.entries(logs["Insults"])) {
-          for (const [eName, eDetails] of Object.entries(events)) {
-            this.logInsults.push({
-              name: eName,
-              type: "insult",
-              time: time,
-              data: eDetails.data
-            })
-          }
-        }
-      }
-      if (logs["Interventions"]) {
-        for (const [time, events] of Object.entries(logs["Interventions"])) {
-          for (const [eName, eDetails] of Object.entries(events)) {
-            this.logInterventions.push({
-              name: eName,
-              type: "intervention",
-              time: time,
-              data: eDetails.data
-            })
-          }
-        }
-      }
-      if (logs["Actions"]) {
-        for (const [time, events] of Object.entries(logs["Actions"])) {
-          for (const [eName, eDetails] of Object.entries(events)) {
-            this.logActions.push({
-              name: eName,
-              type: "action",
-              time: time,
-              data: eDetails.data
-            })
+    loadLogs(logData) {
+      // let logs = JSON.parse(this.scenario.logs)
+      for (const category of this.logCategories) {
+        if (logData[category.name]) {
+          for (const [time, entries] of Object.entries(
+            logData[category.name]
+          )) {
+            for (const [eName, eDetails] of Object.entries(entries)) {
+              category.entries.push({
+                name: eName,
+                // type: "event",
+                time: time,
+                data: eDetails.data
+              })
+            }
           }
         }
       }
@@ -915,26 +901,6 @@ export default {
         }
       }
     },
-    drawAxis(d3AxisFunction, series, tickValues, count, maxCount) {
-      let axis = d3
-        .select("#ya-" + series.name)
-        .call(d3AxisFunction(series.yScale).tickValues(tickValues))
-
-      let maxTextWidth = 0
-      axis.selectAll("text").each(function() {
-        if (this.getBBox().width > maxTextWidth) {
-          maxTextWidth = this.getBBox().width
-        }
-      })
-
-      this.marginRight += maxTextWidth + this.axisBufferWidth
-
-      axis.attr("transform", `translate(${this.width - this.marginRight}, 0)`)
-      let color = count === maxCount ? "#2c3e50" : "none"
-      axis.selectAll(".tick line").attr("stroke", color)
-      axis.selectAll("path").attr("stroke", color)
-      axis.selectAll("text").style("fill", series.color)
-    },
     updateTooltip() {
       let min = Infinity
 
@@ -1071,6 +1037,16 @@ export default {
         this.brush.move,
         [domain[1] - rangeSize, domain[1]].map(this.xScaleNav)
       )
+    },
+    getFlagWidth(id) {
+      let self = this
+      let textWidth = 0
+      d3.select("#" + id)
+        .selectAll("text")
+        .each(function() {
+          textWidth = this.getBBox().width + self.flagMargin * 2
+        })
+      return textWidth
     },
     largestTriangleThreeBuckets(data, threshold) {
       let floor = Math.floor

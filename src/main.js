@@ -8,6 +8,7 @@ import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import {
   faCircle,
+  faSquare,
   faFastBackward,
   faBackward,
   faPlay,
@@ -18,10 +19,14 @@ import {
   faUnlock,
   faExclamationTriangle
 } from "@fortawesome/free-solid-svg-icons"
-import { faCircle as faCircleRegular } from "@fortawesome/free-regular-svg-icons"
+import {
+  faCircle as faCircleRegular,
+  faSquare as faSquareRegular
+} from "@fortawesome/free-regular-svg-icons"
 
 library.add(
   faCircle,
+  faSquare,
   faFastBackward,
   faBackward,
   faPlay,
@@ -29,6 +34,7 @@ library.add(
   faForward,
   faFastForward,
   faCircleRegular,
+  faSquareRegular,
   faLock,
   faUnlock,
   faExclamationTriangle
