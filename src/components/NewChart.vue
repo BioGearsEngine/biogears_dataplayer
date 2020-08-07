@@ -75,7 +75,8 @@
 
             <!-- log entry flags -->
             <g
-              v-for="category in enabledLogCategories"
+              v-for="category in logCategories"
+              v-show="category.enabled"
               :key="'log-' + category.name"
               clip-path="url(#clip2)"
             >
@@ -83,11 +84,18 @@
                 v-for="(entry, index) in category.entries"
                 :key="'log-' + category.name + '-' + index"
                 :id="'log-' + category.name + '-' + index"
-                :transform="'translate(' + xScale(entry.time) + ', 0)'"
+                :transform="
+                  'translate(' +
+                    xScale(entry.time) +
+                    ', ' +
+                    entry.offset * 26 +
+                    ')'
+                "
               >
                 <rect
                   :fill="category.color"
                   :width="getFlagWidth('log-' + category.name + '-' + index)"
+                  @show="loadMessage()"
                   height="1.5rem"
                 ></rect>
                 <text
@@ -105,7 +113,7 @@
                   y1="0"
                   :y2="height - margin.bottom"
                   :stroke="category.color"
-                  stroke-width="2"
+                  stroke-width="1"
                 ></line>
               </g>
             </g>
@@ -394,9 +402,6 @@ export default {
     enabledDataSeries() {
       return this.dataSeries.filter(s => s.enabled)
     },
-    enabledLogCategories() {
-      return this.logCategoriesWithEntries.filter(c => c.enabled)
-    },
     logCategoriesWithEntries() {
       return this.logCategories.filter(c => c.entries.length)
     },
@@ -459,7 +464,6 @@ export default {
         )
         .then(response => {
           this.downloadingLogs = false
-          console.log(response)
           this.loadLogs(response.data)
         })
         .catch(error => {
@@ -559,13 +563,16 @@ export default {
           for (const [time, entries] of Object.entries(
             logData[category.name]
           )) {
+            let offset = 0
             for (const [eName, eDetails] of Object.entries(entries)) {
               category.entries.push({
                 name: eName,
                 // type: "event",
                 time: time,
-                data: eDetails.data
+                data: eDetails.data,
+                offset: offset
               })
+              offset++
             }
           }
         }
