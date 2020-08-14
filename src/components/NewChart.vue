@@ -80,42 +80,15 @@
               :key="'log-' + category.name"
               clip-path="url(#clip2)"
             >
-              <g
+              <log-flag
                 v-for="(entry, index) in category.entries"
                 :key="'log-' + category.name + '-' + index"
-                :id="'log-' + category.name + '-' + index"
-                :transform="
-                  'translate(' +
-                    xScale(entry.time) +
-                    ', ' +
-                    entry.offset * 26 +
-                    ')'
-                "
-              >
-                <rect
-                  :fill="category.color"
-                  :width="getFlagWidth('log-' + category.name + '-' + index)"
-                  @show="loadMessage()"
-                  height="1.5rem"
-                ></rect>
-                <text
-                  font-family="sans-serif"
-                  font-size="10"
-                  :x="flagMargin"
-                  y="1rem"
-                  fill="white"
-                >
-                  {{ entry.name }}
-                </text>
-                <line
-                  x1="0"
-                  x2="0"
-                  y1="0"
-                  :y2="height - margin.bottom"
-                  :stroke="category.color"
-                  stroke-width="1"
-                ></line>
-              </g>
+                :x-pos="xScale(entry.time)"
+                :height="height - margin.bottom"
+                :category="category"
+                :entry="entry"
+                :index="index"
+              ></log-flag>
             </g>
 
             <!-- mouse hover tooltip -->
@@ -293,9 +266,11 @@
 import * as d3 from "d3"
 
 import axios from "axios"
+import LogFlag from "./LogFlag"
 
 export default {
   name: "Chart",
+  components: { LogFlag },
   props: {
     scenario: {
       required: true
@@ -369,7 +344,6 @@ export default {
       axesLoaded: false,
       marginLeft: 0,
       marginRight: 0,
-      flagMargin: 10,
       logCategories: [
         {
           name: "Events",
@@ -1044,16 +1018,6 @@ export default {
         this.brush.move,
         [domain[1] - rangeSize, domain[1]].map(this.xScaleNav)
       )
-    },
-    getFlagWidth(id) {
-      let self = this
-      let textWidth = 0
-      d3.select("#" + id)
-        .selectAll("text")
-        .each(function() {
-          textWidth = this.getBBox().width + self.flagMargin * 2
-        })
-      return textWidth
     },
     largestTriangleThreeBuckets(data, threshold) {
       let floor = Math.floor
