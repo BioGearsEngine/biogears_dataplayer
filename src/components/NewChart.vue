@@ -45,10 +45,10 @@
             <g
               v-for="series in dataSeries"
               v-show="series.enabled"
-              :key="'ya-' + series.name"
-              :id="'ya-' + series.name"
+              :key="`ya-${series.index}-${series.name}`"
+              :id="`ya-${series.index}-${series.name}`"
             >
-              <text :id="'tl-' + series.name"></text>
+              <text :id="`tl-${series.index}-${series.name}`"></text>
             </g>
 
             <g id="x-axis"></g>
@@ -56,8 +56,8 @@
             <!-- data series paths -->
             <path
               v-for="series in enabledDataSeries"
-              :key="'l-' + series.name"
-              :id="'line-' + series.name"
+              :key="`l-${series.index}-${series.name}`"
+              :id="`line-${series.index}-${series.name}`"
               :d="series.line"
               fill="none"
               opacity="0.75"
@@ -122,8 +122,8 @@
             <g id="x-axis-nav"></g>
             <path
               v-for="series in enabledDataSeries"
-              :key="'nl-' + series.name"
-              :id="'nav-line-' + series.name"
+              :key="`nl-${series.index}-${series.name}`"
+              :id="`nav-line-${series.index}-${series.name}`"
               :d="series.navLine"
               fill="none"
               opacity="0.5"
@@ -509,6 +509,7 @@ export default {
         this.dataSeries.push({
           key: key,
           name: name,
+          index: seriesCount - 1,
           units: units,
           line: lineGenerator(data),
           lineGenerator: lineGenerator,
@@ -787,7 +788,7 @@ export default {
           // axis is on the left
 
           axis = d3
-            .select("#ya-" + series.name)
+            .select(`#ya-${series.index}-${series.name}`)
             .call(d3.axisLeft(series.yScale).tickValues(tickValues))
 
           // figure out the max label width for spacing the axes
@@ -810,7 +811,7 @@ export default {
 
           // add the axis data series label
           axis
-            .select("#tl-" + series.name)
+            .select(`#tl-${series.index}-${series.name}`)
             .attr("transform", "rotate(-90)")
             .attr("y", -maxTextWidth - this.axisBufferWidth - 5)
             .attr("x", -this.height / 2)
@@ -821,7 +822,7 @@ export default {
           // axis is on the right
 
           axis = d3
-            .select("#ya-" + series.name)
+            .select(`#ya-${series.index}-${series.name}`)
             .call(d3.axisRight(series.yScale).tickValues(tickValues))
 
           // figure out the max label width for spacing the axes
@@ -847,7 +848,7 @@ export default {
 
           // add the axis data series label
           axis
-            .select("#tl-" + series.name)
+            .select(`#tl-${series.index}-${series.name}`)
             .attr("transform", "rotate(90)")
             .attr("y", -(maxTextWidth + this.axisBufferWidth + 5))
             .attr("x", this.height / 2)
