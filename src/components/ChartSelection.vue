@@ -46,8 +46,7 @@
 </template>
 
 <script>
-// import Chart from "./Chart"
-import Chart from "./NewChart"
+import Chart from "./Chart"
 
 export default {
   name: "ChartSelection",
