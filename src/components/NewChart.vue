@@ -74,21 +74,19 @@
             />
 
             <!-- log entry flags -->
-            <g
-              v-for="category in logCategories"
-              v-show="category.enabled"
-              :key="'log-' + category.name"
-              clip-path="url(#clip2)"
-            >
-              <log-flag
-                v-for="(entry, index) in category.entries"
-                :key="'log-' + category.name + '-' + index"
-                :x-pos="xScale(entry.time)"
-                :height="height - margin.bottom"
-                :category="category"
-                :entry="entry"
-                :index="index"
-              ></log-flag>
+            <g clip-path="url(#clip2)">
+              <template v-for="category in logCategories">
+                <log-flag
+                  v-for="(entry, index) in category.entries"
+                  v-show="category.enabled"
+                  :key="'log-' + category.name + '-' + index"
+                  :x-pos="xScale(entry.time)"
+                  :height="height - margin.bottom"
+                  :category="category"
+                  :entry="entry"
+                  :index="index"
+                ></log-flag>
+              </template>
             </g>
 
             <!-- mouse hover tooltip -->
@@ -531,7 +529,6 @@ export default {
       }
     },
     loadLogs(logData) {
-      // let logs = JSON.parse(this.scenario.logs)
       for (const category of this.logCategories) {
         if (logData[category.name]) {
           for (const [time, entries] of Object.entries(
@@ -541,7 +538,6 @@ export default {
             for (const [eName, eDetails] of Object.entries(entries)) {
               category.entries.push({
                 name: eName,
-                // type: "event",
                 time: time,
                 data: eDetails.data,
                 offset: offset
