@@ -422,9 +422,8 @@ export default {
           this.setupBrush()
           this.downloadLog()
         })
-        .catch(error => {
+        .catch(() => {
           this.loadingFailed = true
-          console.error(error)
         })
     },
     downloadLog() {
@@ -437,9 +436,6 @@ export default {
         .then(response => {
           this.downloadingLogs = false
           this.loadLogs(response.data)
-        })
-        .catch(error => {
-          console.error(error)
         })
     },
     loadData(jsonData) {
