@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid>
+  <b-container fluid="xl">
     <h2 class="my-3 font-weight-lighter text-left">Explore a Scenario</h2>
     <b-nav pills class="mb-0">
       <b-nav-item
