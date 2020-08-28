@@ -439,8 +439,6 @@ export default {
         })
     },
     loadData(jsonData) {
-      // let jsonData = JSON.parse(data)
-
       // find the global min and max values for the x axis
       let xMin = Math.min(...Object.entries(jsonData).map(s => s[1][0][0]))
       let xMax = Math.max(
