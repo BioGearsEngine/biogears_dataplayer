@@ -412,7 +412,7 @@ export default {
     downloadScenario() {
       axios
         .get(
-          "https://biogearsengine.com/scenarios/" +
+          "https://biogearsengine.com/showcase/scenarios/" +
             this.scenario.filename +
             "-datafile.json"
         )
@@ -429,7 +429,7 @@ export default {
     downloadLog() {
       axios
         .get(
-          "https://biogearsengine.com/scenarios/" +
+          "https://biogearsengine.com/showcase/scenarios/" +
             this.scenario.filename.replace("Results", "") +
             "-log.json"
         )
