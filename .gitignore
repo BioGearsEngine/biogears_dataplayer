@@ -21,3 +21,6 @@ yarn-error.log*
 *.sw?
 
 converters/lttb.pyc
+
+#Electron-builder output
+/dist_electron
