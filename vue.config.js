@@ -1,4 +1,11 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "/showcase/" : "/",
-  indexPath: "showcase.html"
+  indexPath: "showcase.html",
+  pluginOptions: {
+    electronBuilder: {
+      builderOptions: {
+        productName: "BioGears Showcase Player"
+      }
+    }
+  }
 }
