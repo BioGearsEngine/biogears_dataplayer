@@ -1,5 +1,7 @@
 "use strict"
 
+/* global __static */
+import path from "path"
 import { app, protocol, BrowserWindow } from "electron"
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib"
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer"
@@ -19,6 +21,9 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    title: "BioGears Showcase Player",
+    icon: path.join(__static, "icon.png"),
+    autoHideMenuBar: true,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -33,7 +38,7 @@ function createWindow() {
   } else {
     createProtocol("app")
     // Load the index.html when not in development
-    win.loadURL("app://./index.html")
+    win.loadURL("app://./showcase.html")
   }
 
   win.on("closed", () => {
