@@ -1,0 +1,143 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "40.64": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "51.24": {
+            "Patient has Bradypnea": {
+                "name": "Patient has Bradypnea"
+            }
+        }, 
+        "132.24": {
+            "Patient has exited state : RespiratoryAlkalosis": {
+                "name": "Patient has exited state : RespiratoryAlkalosis"
+            }
+        }, 
+        "55.24": {
+            "Patient no longer has Bradypnea": {
+                "name": "Patient no longer has Bradypnea"
+            }
+        }, 
+        "110.38": {
+            "Patient no longer has Bradypnea": {
+                "name": "Patient no longer has Bradypnea"
+            }
+        }, 
+        "74.26": {
+            "Patient has exited state : RespiratoryAlkalosis": {
+                "name": "Patient has exited state : RespiratoryAlkalosis"
+            }
+        }, 
+        "96.2": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "106.28": {
+            "Patient has Bradypnea": {
+                "name": "Patient has Bradypnea"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Conscious Respiration": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ExpiratoryReserveVolumeFraction"
+                    }, 
+                    {
+                        "value": "3(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "1", 
+                        "label": "InspiratoryCapacityFraction"
+                    }, 
+                    {
+                        "value": "5(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "10(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "0", 
+                        "label": "ExpiratoryReserveVolumeFraction"
+                    }, 
+                    {
+                        "value": "3(s)", 
+                        "label": "Period"
+                    }
+                ], 
+                "name": "Conscious Respiration"
+            }, 
+            "Inhaler Configuration": {
+                "data": [
+                    {
+                        "value": "Not Set", 
+                        "label": "State"
+                    }, 
+                    {
+                        "value": "90(ug)", 
+                        "label": "Metered Dose"
+                    }, 
+                    {
+                        "value": "0.04", 
+                        "label": "Nozzle Loss"
+                    }, 
+                    {
+                        "value": "NaN", 
+                        "label": "SpacerVolume"
+                    }, 
+                    {
+                        "value": "Albuterol", 
+                        "label": "Substance"
+                    }
+                ], 
+                "name": "Inhaler Configuration"
+            }
+        }, 
+        "85.06": {
+            "Conscious Respiration": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ExpiratoryReserveVolumeFraction"
+                    }, 
+                    {
+                        "value": "3(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "1", 
+                        "label": "InspiratoryCapacityFraction"
+                    }, 
+                    {
+                        "value": "5(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "10(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "0", 
+                        "label": "ExpiratoryReserveVolumeFraction"
+                    }, 
+                    {
+                        "value": "3(s)", 
+                        "label": "Period"
+                    }
+                ], 
+                "name": "Conscious Respiration"
+            }
+        }
+    }, 
+    "Insults": {}
+}

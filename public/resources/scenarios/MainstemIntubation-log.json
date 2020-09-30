@@ -1,0 +1,211 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "66.2": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }, 
+        "612.8": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "614.92": {
+            "Patient no longer has Hypoxia": {
+                "name": "Patient no longer has Hypoxia"
+            }
+        }, 
+        "583.62": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "145.54": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "135.36": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "185.38": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "151.54": {
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "194.02": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "574.02": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "583.94": {
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "60.04": {
+            "Patient has Bradypnea": {
+                "name": "Patient has Bradypnea"
+            }
+        }, 
+        "606.5": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "62.04": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }, 
+            "Patient no longer has Bradypnea": {
+                "name": "Patient no longer has Bradypnea"
+            }
+        }, 
+        "30.06": {
+            "Patient has Fasciculation": {
+                "name": "Patient has Fasciculation"
+            }
+        }, 
+        "195.42": {
+            "Patient no longer has Hypoxia": {
+                "name": "Patient no longer has Hypoxia"
+            }
+        }
+    }, 
+    "Actions": {
+        "600.1": {
+            "Intubation": {
+                "data": [
+                    {
+                        "value": "Tracheal", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Intubation"
+            }
+        }, 
+        "60.04": {
+            "Anesthesia Machine Configuration": {
+                "data": [
+                    {
+                        "value": "Tube", 
+                        "label": "Connection"
+                    }, 
+                    {
+                        "value": "5(L/min)", 
+                        "label": "Inlet Flow Rate"
+                    }, 
+                    {
+                        "value": "0.5", 
+                        "label": "InspiratoryExpiratory Ratio"
+                    }, 
+                    {
+                        "value": "0.23", 
+                        "label": "Oxygen Fraction"
+                    }, 
+                    {
+                        "value": "Wall", 
+                        "label": "Oxygen Source"
+                    }, 
+                    {
+                        "value": "1(cmH2O)", 
+                        "label": "Positive End Expired Pressure"
+                    }, 
+                    {
+                        "value": "Nitrogen", 
+                        "label": "Primary Gas"
+                    }, 
+                    {
+                        "value": "NaN", 
+                        "label": "Relief Valve Pressure"
+                    }, 
+                    {
+                        "value": "16(1/min)", 
+                        "label": "Respiratory Rate"
+                    }, 
+                    {
+                        "value": "10.5(cmH2O)", 
+                        "label": "Ventilator Pressure"
+                    }, 
+                    {
+                        "value": "660(L)", 
+                        "label": "OxygenBottleOneVolume"
+                    }, 
+                    {
+                        "value": "660(L)", 
+                        "label": "OxygenBottleTwoVolume"
+                    }
+                ], 
+                "name": "Anesthesia Machine Configuration"
+            }, 
+            "Intubation": {
+                "data": [
+                    {
+                        "value": "RightMainstem", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Intubation"
+            }
+        }, 
+        "30.02": {
+            "Substance Bolus": {
+                "data": [
+                    {
+                        "value": "30(mL)", 
+                        "label": "Dose"
+                    }, 
+                    {
+                        "value": "4820(ug/mL)", 
+                        "label": "Concentration"
+                    }, 
+                    {
+                        "value": "Succinylcholine", 
+                        "label": "Substance"
+                    }, 
+                    {
+                        "value": "Intravenous", 
+                        "label": "Administration Route"
+                    }
+                ], 
+                "name": "Substance Bolus"
+            }
+        }, 
+        "480.08": {
+            "Intubation": {
+                "data": [
+                    {
+                        "value": "LeftMainstem", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Intubation"
+            }
+        }, 
+        "180.06": {
+            "Intubation": {
+                "data": [
+                    {
+                        "value": "Tracheal", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Intubation"
+            }
+        }
+    }, 
+    "Insults": {}
+}

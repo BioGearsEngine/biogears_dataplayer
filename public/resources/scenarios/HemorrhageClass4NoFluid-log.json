@@ -1,0 +1,62 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "587.28": {
+            "Patient is in Hypovolemic Shock": {
+                "name": "Patient is in Hypovolemic Shock"
+            }
+        }, 
+        "573.04": {
+            "Patient has Hypoglycemia": {
+                "name": "Patient has Hypoglycemia"
+            }
+        }, 
+        "471.4": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "334.68": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "671": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "1072.46": {
+            "Patient has entered irreversible state": {
+                "name": "Patient has entered irreversible state"
+            }
+        }, 
+        "586.06": {
+            "Patient has fatigue": {
+                "name": "Patient has fatigue"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Hemorrhage": {
+                "data": [
+                    {
+                        "value": "200(mL/min)", 
+                        "label": "Initial Bleeding Rate"
+                    }, 
+                    {
+                        "value": "Aorta", 
+                        "label": "Compartment"
+                    }, 
+                    {
+                        "value": "42640", 
+                        "label": "Injury Code"
+                    }
+                ], 
+                "name": "Hemorrhage"
+            }
+        }
+    }, 
+    "Insults": {}
+}

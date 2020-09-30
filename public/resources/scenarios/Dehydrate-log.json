@@ -1,0 +1,53 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "173.04": {
+            "Patient has entered state : MildHypernatremia": {
+                "name": "Patient has entered state : MildHypernatremia"
+            }, 
+            "Patient has entered state : RespiratoryAcidosis": {
+                "name": "Patient has entered state : RespiratoryAcidosis"
+            }, 
+            "Patient has entered state : SevereHypernatremia": {
+                "name": "Patient has entered state : SevereHypernatremia"
+            }
+        }, 
+        "3.06": {
+            "Patient has exited state : RespiratoryAcidosis": {
+                "name": "Patient has exited state : RespiratoryAcidosis"
+            }
+        }, 
+        "178.76": {
+            "Patient no longer has Hypercapnia": {
+                "name": "Patient no longer has Hypercapnia"
+            }
+        }, 
+        "173.42": {
+            "Patient has Hypercapnia": {
+                "name": "Patient has Hypercapnia"
+            }
+        }, 
+        "173.46": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "177": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "177.82": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "172.84": {
+            "Patient has entered state of Dehydration": {
+                "name": "Patient has entered state of Dehydration"
+            }
+        }
+    }, 
+    "Actions": {}, 
+    "Insults": {}
+}

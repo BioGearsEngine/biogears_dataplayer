@@ -1,0 +1,87 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "62.82": {
+            "Patient has exited state : RespiratoryAlkalosis": {
+                "name": "Patient has exited state : RespiratoryAlkalosis"
+            }
+        }, 
+        "42.66": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "116.96": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Tension Pneumothorax": {
+                "data": [
+                    {
+                        "value": "0.5", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Closed", 
+                        "label": "Type"
+                    }, 
+                    {
+                        "value": "Right", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Tension Pneumothorax"
+            }
+        }, 
+        "420.08": {
+            "Needle Decompression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "State"
+                    }, 
+                    {
+                        "value": "Right", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Needle Decompression"
+            }
+        }, 
+        "390.06": {
+            "Needle Decompression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "State"
+                    }, 
+                    {
+                        "value": "Left", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Needle Decompression"
+            }
+        }, 
+        "330.04": {
+            "Chest Occlusive Dressing": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "State"
+                    }, 
+                    {
+                        "value": "Left", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Chest Occlusive Dressing"
+            }
+        }
+    }, 
+    "Insults": {}
+}

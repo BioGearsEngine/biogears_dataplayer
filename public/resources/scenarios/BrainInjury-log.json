@@ -1,0 +1,103 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "2567.94": {
+            "Oxygen tension in the brain is dangerously low": {
+                "name": "Oxygen tension in the brain is dangerously low"
+            }
+        }, 
+        "3101.8": {
+            "Patient has Intracranial Hypertension": {
+                "name": "Patient has Intracranial Hypertension"
+            }
+        }, 
+        "4367.96": {
+            "Patient has entered irreversible state": {
+                "name": "Patient has entered irreversible state"
+            }
+        }, 
+        "2802.24": {
+            "Patient has fatigue": {
+                "name": "Patient has fatigue"
+            }
+        }
+    }, 
+    "Actions": {
+        "1720.08": {
+            "Brain Injury": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Diffuse", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Brain Injury"
+            }
+        }, 
+        "20.02": {
+            "Brain Injury": {
+                "data": [
+                    {
+                        "value": "0.2", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Diffuse", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Brain Injury"
+            }
+        }, 
+        "620.04": {
+            "Brain Injury": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Diffuse", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Brain Injury"
+            }
+        }, 
+        "2020.1": {
+            "Brain Injury": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "RightFocal", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Brain Injury"
+            }
+        }, 
+        "920.06": {
+            "Brain Injury": {
+                "data": [
+                    {
+                        "value": "0.75", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "LeftFocal", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Brain Injury"
+            }
+        }
+    }, 
+    "Insults": {}
+}

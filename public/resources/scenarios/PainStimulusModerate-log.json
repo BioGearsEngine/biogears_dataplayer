@@ -1,0 +1,54 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "67.8": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "17.78": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "8.04": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "67.52": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }
+    }, 
+    "Actions": {
+        "1.02": {
+            "Pain Stimulus": {
+                "data": [
+                    {
+                        "value": "0.5", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Leg", 
+                        "label": "Location"
+                    }
+                ], 
+                "name": "Pain Stimulus"
+            }
+        }, 
+        "61.04": {
+            "Stop Pain Stimulus": {
+                "data": [
+                    {
+                        "value": "Leg", 
+                        "label": "Location"
+                    }
+                ], 
+                "name": "Stop Pain Stimulus"
+            }
+        }
+    }, 
+    "Insults": {}
+}

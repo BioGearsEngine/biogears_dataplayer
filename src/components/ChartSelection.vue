@@ -74,15 +74,21 @@ export default {
     }
   },
   mounted() {
-    axios
-      .get("https://biogearsengine.com/showcase/scenario_list.json")
-      .then(response => {
-        this.loadingScenarioList = false
-        this.scenarios = response.data.scenarios
-      })
-      .catch(() => {
-        this.loadingFailed = true
-      })
+    if (this.isElectron) {
+      let scenarioList = require("../resources/scenario_list.json")
+      this.loadingScenarioList = false
+      this.scenarios = scenarioList.scenarios
+    } else {
+      axios
+        .get("https://biogearsengine.com/showcase/scenario_list.json")
+        .then(response => {
+          this.loadingScenarioList = false
+          this.scenarios = response.data.scenarios
+        })
+        .catch(() => {
+          this.loadingFailed = true
+        })
+    }
   },
   computed: {
     tabScenarios() {
@@ -90,6 +96,9 @@ export default {
     },
     dropdownScenarios() {
       return this.scenarios.slice(this.numTabs)
+    },
+    isElectron() {
+      return process.env.IS_ELECTRON
     }
   }
 }

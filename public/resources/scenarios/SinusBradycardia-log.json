@@ -1,0 +1,12 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "315.1": {
+            "Patient has Bradycardia": {
+                "name": "Patient has Bradycardia"
+            }
+        }
+    }, 
+    "Actions": {}, 
+    "Insults": {}
+}

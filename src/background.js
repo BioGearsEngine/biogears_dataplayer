@@ -27,12 +27,18 @@ function createWindow() {
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+      enableRemoteModule: true,
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
     }
   })
-
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
+    // The timeout here fixes a mysterious bug with how fs works with electron...
+    // Unfortunately refreshing the page will still break things, but this at least gets it to work
+    // See here for more info: https://github.com/electron/electron/issues/19554
+    setTimeout(() => {
+      win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+    }, 100)
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {

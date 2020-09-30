@@ -1,0 +1,63 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "572.58": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "730.22": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }
+        }, 
+        "651.18": {
+            "Patient has Hypoglycemia": {
+                "name": "Patient has Hypoglycemia"
+            }
+        }, 
+        "384.98": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "940.48": {
+            "Patient no longer has Hypoglycemia": {
+                "name": "Patient no longer has Hypoglycemia"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Hemorrhage": {
+                "data": [
+                    {
+                        "value": "175(mL/min)", 
+                        "label": "Initial Bleeding Rate"
+                    }, 
+                    {
+                        "value": "Aorta", 
+                        "label": "Compartment"
+                    }, 
+                    {
+                        "value": "42640", 
+                        "label": "Injury Code"
+                    }
+                ], 
+                "name": "Hemorrhage"
+            }
+        }, 
+        "630.04": {
+            "Stop Hemorrhage": {
+                "data": [
+                    {
+                        "value": "Aorta", 
+                        "label": "Compartment"
+                    }
+                ], 
+                "name": "Stop Hemorrhage"
+            }
+        }
+    }, 
+    "Insults": {}
+}

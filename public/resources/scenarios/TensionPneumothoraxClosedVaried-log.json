@@ -1,0 +1,180 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "975.76": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "974.16": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "380.18": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "268.78": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "78.78": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "727.56": {
+            "The patient has Moderate Acute Respiratory Distress": {
+                "name": "The patient has Moderate Acute Respiratory Distress"
+            }, 
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "966.52": {
+            "Patient no longer has a Moderate Acute Respiratory Distress": {
+                "name": "Patient no longer has a Moderate Acute Respiratory Distress"
+            }, 
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "975.68": {
+            "Patient no longer has Hypoxia": {
+                "name": "Patient no longer has Hypoxia"
+            }
+        }, 
+        "374.98": {
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "749.16": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "354.84": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "113.22": {
+            "Patient has exited state : RespiratoryAlkalosis": {
+                "name": "Patient has exited state : RespiratoryAlkalosis"
+            }
+        }, 
+        "355.98": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "988.26": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }, 
+        "387.96": {
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }
+    }, 
+    "Actions": {
+        "60.04": {
+            "Tension Pneumothorax": {
+                "data": [
+                    {
+                        "value": "0.3", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Closed", 
+                        "label": "Type"
+                    }, 
+                    {
+                        "value": "Right", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Tension Pneumothorax"
+            }
+        }, 
+        "30.02": {
+            "Tension Pneumothorax": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Closed", 
+                        "label": "Type"
+                    }, 
+                    {
+                        "value": "Right", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Tension Pneumothorax"
+            }
+        }, 
+        "660.08": {
+            "Tension Pneumothorax": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Closed", 
+                        "label": "Type"
+                    }, 
+                    {
+                        "value": "Right", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Tension Pneumothorax"
+            }
+        }, 
+        "960.1": {
+            "Needle Decompression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "State"
+                    }, 
+                    {
+                        "value": "Right", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Needle Decompression"
+            }
+        }, 
+        "360.06": {
+            "Tension Pneumothorax": {
+                "data": [
+                    {
+                        "value": "0.6", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Closed", 
+                        "label": "Type"
+                    }, 
+                    {
+                        "value": "Right", 
+                        "label": "Side"
+                    }
+                ], 
+                "name": "Tension Pneumothorax"
+            }
+        }
+    }, 
+    "Insults": {}
+}

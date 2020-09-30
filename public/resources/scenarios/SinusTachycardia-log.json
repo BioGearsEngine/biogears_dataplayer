@@ -1,0 +1,17 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "247.2": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "238.1": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }
+    }, 
+    "Actions": {}, 
+    "Insults": {}
+}

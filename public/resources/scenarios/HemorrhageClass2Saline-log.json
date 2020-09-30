@@ -1,0 +1,92 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "752.06": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "651.18": {
+            "Patient has Hypoglycemia": {
+                "name": "Patient has Hypoglycemia"
+            }
+        }, 
+        "572.58": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "1052.64": {
+            "Patient no longer has Hypoglycemia": {
+                "name": "Patient no longer has Hypoglycemia"
+            }
+        }, 
+        "384.98": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "776.8": {
+            "The patient is in a state of metabolic alkalosis": {
+                "name": "The patient is in a state of metabolic alkalosis"
+            }
+        }, 
+        "730.22": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Hemorrhage": {
+                "data": [
+                    {
+                        "value": "175(mL/min)", 
+                        "label": "Initial Bleeding Rate"
+                    }, 
+                    {
+                        "value": "Aorta", 
+                        "label": "Compartment"
+                    }, 
+                    {
+                        "value": "42640", 
+                        "label": "Injury Code"
+                    }
+                ], 
+                "name": "Hemorrhage"
+            }
+        }, 
+        "630.04": {
+            "Stop Hemorrhage": {
+                "data": [
+                    {
+                        "value": "Aorta", 
+                        "label": "Compartment"
+                    }
+                ], 
+                "name": "Stop Hemorrhage"
+            }
+        }, 
+        "750.06": {
+            "Compound Infusion": {
+                "data": [
+                    {
+                        "value": "100(mL/min)", 
+                        "label": "Rate"
+                    }, 
+                    {
+                        "value": "500(mL)", 
+                        "label": "Bag Volume"
+                    }, 
+                    {
+                        "value": "Saline", 
+                        "label": "Substance Compound"
+                    }
+                ], 
+                "name": "Compound Infusion"
+            }
+        }
+    }, 
+    "Insults": {}
+}

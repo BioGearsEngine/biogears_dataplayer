@@ -1,0 +1,37 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "1269.46": {
+            "Patient has Bradycardia": {
+                "name": "Patient has Bradycardia"
+            }
+        }, 
+        "901.9": {
+            "The patient is in a state of metabolic alkalosis": {
+                "name": "The patient is in a state of metabolic alkalosis"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Compound Infusion": {
+                "data": [
+                    {
+                        "value": "2000(mL/hr)", 
+                        "label": "Rate"
+                    }, 
+                    {
+                        "value": "2000(mL)", 
+                        "label": "Bag Volume"
+                    }, 
+                    {
+                        "value": "Saline", 
+                        "label": "Substance Compound"
+                    }
+                ], 
+                "name": "Compound Infusion"
+            }
+        }
+    }, 
+    "Insults": {}
+}

@@ -1,0 +1,86 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "213.32": {
+            "Patient has entered state : RespiratoryAcidosis": {
+                "name": "Patient has entered state : RespiratoryAcidosis"
+            }
+        }, 
+        "90.1": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "193.14": {
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "139.94": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "593.7": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "592.26": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "596.9": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }, 
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "591.48": {
+            "Patient has exited state : RespiratoryAcidosis": {
+                "name": "Patient has exited state : RespiratoryAcidosis"
+            }, 
+            "Patient no longer has Hypoxia": {
+                "name": "Patient no longer has Hypoxia"
+            }
+        }, 
+        "139.4": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "591.06": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "AsthmaAttack": {
+                "data": [
+                    {
+                        "value": "0.9", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "AsthmaAttack"
+            }
+        }, 
+        "580.04": {
+            "AsthmaAttack": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "AsthmaAttack"
+            }
+        }
+    }, 
+    "Insults": {}
+}

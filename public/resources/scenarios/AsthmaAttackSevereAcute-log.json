@@ -1,0 +1,40 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "714.46": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }, 
+        "103.08": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "AsthmaAttack": {
+                "data": [
+                    {
+                        "value": "0.7", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "AsthmaAttack"
+            }
+        }, 
+        "580.04": {
+            "AsthmaAttack": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "AsthmaAttack"
+            }
+        }
+    }, 
+    "Insults": {}
+}

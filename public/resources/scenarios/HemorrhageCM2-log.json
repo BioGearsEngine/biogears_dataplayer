@@ -1,0 +1,160 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "841.78": {
+            "Patient is no longer in Hypovolemic Shock": {
+                "name": "Patient is no longer in Hypovolemic Shock"
+            }
+        }, 
+        "1315.34": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }
+        }, 
+        "723.78": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "1372.42": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "719.28": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "563.88": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "209.9": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "712.44": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }
+        }, 
+        "826.72": {
+            "Patient is in Hypovolemic Shock": {
+                "name": "Patient is in Hypovolemic Shock"
+            }
+        }, 
+        "721.96": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }
+        }
+    }, 
+    "Actions": {
+        "530.04": {
+            "Hemorrhage": {
+                "data": [
+                    {
+                        "value": "40(mL/min)", 
+                        "label": "Initial Bleeding Rate"
+                    }, 
+                    {
+                        "value": "Spleen", 
+                        "label": "Compartment"
+                    }, 
+                    {
+                        "value": "12820", 
+                        "label": "Injury Code"
+                    }
+                ], 
+                "name": "Hemorrhage"
+            }
+        }, 
+        "1070.1": {
+            "Substance Bolus": {
+                "data": [
+                    {
+                        "value": "20(mL)", 
+                        "label": "Dose"
+                    }, 
+                    {
+                        "value": "4250(ug/mL)", 
+                        "label": "Concentration"
+                    }, 
+                    {
+                        "value": "Morphine", 
+                        "label": "Substance"
+                    }, 
+                    {
+                        "value": "Intravenous", 
+                        "label": "Administration Route"
+                    }
+                ], 
+                "name": "Substance Bolus"
+            }
+        }, 
+        "590.06": {
+            "Stop Hemorrhage": {
+                "data": [
+                    {
+                        "value": "RightLeg", 
+                        "label": "Compartment"
+                    }
+                ], 
+                "name": "Stop Hemorrhage"
+            }
+        }, 
+        "1080.12": {
+            "Compound Infusion": {
+                "data": [
+                    {
+                        "value": "100(mL/min)", 
+                        "label": "Rate"
+                    }, 
+                    {
+                        "value": "500(mL)", 
+                        "label": "Bag Volume"
+                    }, 
+                    {
+                        "value": "Saline", 
+                        "label": "Substance Compound"
+                    }
+                ], 
+                "name": "Compound Infusion"
+            }
+        }, 
+        "30.02": {
+            "Hemorrhage": {
+                "data": [
+                    {
+                        "value": "125(mL/min)", 
+                        "label": "Initial Bleeding Rate"
+                    }, 
+                    {
+                        "value": "RightLeg", 
+                        "label": "Compartment"
+                    }, 
+                    {
+                        "value": "34000", 
+                        "label": "Injury Code"
+                    }
+                ], 
+                "name": "Hemorrhage"
+            }
+        }, 
+        "830.08": {
+            "Stop Hemorrhage": {
+                "data": [
+                    {
+                        "value": "Spleen", 
+                        "label": "Compartment"
+                    }
+                ], 
+                "name": "Stop Hemorrhage"
+            }
+        }
+    }, 
+    "Insults": {}
+}

@@ -261,10 +261,14 @@
 </template>
 
 <script>
+/* global __static */
 import * as d3 from "d3"
 
 import axios from "axios"
 import LogFlag from "./LogFlag"
+import path from "path"
+
+const fs = require("fs")
 
 export default {
   name: "Chart",
@@ -400,7 +404,11 @@ export default {
     }
   },
   mounted() {
-    this.downloadScenario()
+    if (process.env.IS_ELECTRON) {
+      this.loadLocalScenario()
+    } else {
+      this.downloadScenario()
+    }
   },
   updated() {
     if (!this.axesLoaded) {
@@ -409,6 +417,40 @@ export default {
     }
   },
   methods: {
+    loadLocalScenario() {
+      fs.readFile(
+        path.join(
+          __static,
+          "resources",
+          "scenarios",
+          this.scenario.filename + "-datafile.json"
+        ),
+        null,
+        (err, data) => {
+          if (err) throw err
+          this.loadData(JSON.parse(data))
+          this.setupBrush()
+          this.downloadingScenario = false
+          this.loadLocalLog()
+        }
+      )
+    },
+    loadLocalLog() {
+      fs.readFile(
+        path.join(
+          __static,
+          "resources",
+          "scenarios",
+          this.scenario.filename + "-log.json"
+        ),
+        null,
+        (err, data) => {
+          if (err) throw err
+          this.loadLogs(data)
+          this.downloadingLogs = false
+        }
+      )
+    },
     downloadScenario() {
       axios
         .get(
