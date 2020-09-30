@@ -1,0 +1,37 @@
+{
+    "Interventions": {}, 
+    "Events": {}, 
+    "Actions": {
+        "60.04": {
+            "Stop Hemorrhage": {
+                "data": [
+                    {
+                        "value": "VenaCava", 
+                        "label": "Compartment"
+                    }
+                ], 
+                "name": "Stop Hemorrhage"
+            }
+        }, 
+        "30.02": {
+            "Hemorrhage": {
+                "data": [
+                    {
+                        "value": "1250(mL/min)", 
+                        "label": "Initial Bleeding Rate"
+                    }, 
+                    {
+                        "value": "VenaCava", 
+                        "label": "Compartment"
+                    }, 
+                    {
+                        "value": "52660", 
+                        "label": "Injury Code"
+                    }
+                ], 
+                "name": "Hemorrhage"
+            }
+        }
+    }, 
+    "Insults": {}
+}

@@ -1,0 +1,73 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "25200.8": {
+            "Patient has involuntarily emptied their bladder": {
+                "name": "Patient has involuntarily emptied their bladder"
+            }
+        }, 
+        "31937.9": {
+            "Patient is Hyperthermic": {
+                "name": "Patient is Hyperthermic"
+            }
+        }
+    }, 
+    "Actions": {
+        "0": {
+            "Hemorrhage": {
+                "data": [
+                    {
+                        "value": "5(mL/min)", 
+                        "label": "Initial Bleeding Rate"
+                    }, 
+                    {
+                        "value": "RightLeg", 
+                        "label": "Compartment"
+                    }, 
+                    {
+                        "value": "14000", 
+                        "label": "Injury Code"
+                    }
+                ], 
+                "name": "Hemorrhage"
+            }, 
+            "Substance Infusion": {
+                "data": [
+                    {
+                        "value": "0.111(mL/s)", 
+                        "label": "Rate"
+                    }, 
+                    {
+                        "value": "0.02(g/mL)", 
+                        "label": "Concentration"
+                    }, 
+                    {
+                        "value": "TranexamicAcid", 
+                        "label": "Substance"
+                    }
+                ], 
+                "name": "Substance Infusion"
+            }
+        }, 
+        "900.02": {
+            "Substance Infusion": {
+                "data": [
+                    {
+                        "value": "0(mL/s)", 
+                        "label": "Rate"
+                    }, 
+                    {
+                        "value": "0(g/mL)", 
+                        "label": "Concentration"
+                    }, 
+                    {
+                        "value": "TranexamicAcid", 
+                        "label": "Substance"
+                    }
+                ], 
+                "name": "Substance Infusion"
+            }
+        }
+    }, 
+    "Insults": {}
+}

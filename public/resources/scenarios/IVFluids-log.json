@@ -1,0 +1,37 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "134.18": {
+            "The patient is in a state of metabolic alkalosis": {
+                "name": "The patient is in a state of metabolic alkalosis"
+            }
+        }, 
+        "148.26": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Compound Infusion": {
+                "data": [
+                    {
+                        "value": "100(mL/min)", 
+                        "label": "Rate"
+                    }, 
+                    {
+                        "value": "500(mL)", 
+                        "label": "Bag Volume"
+                    }, 
+                    {
+                        "value": "Saline", 
+                        "label": "Substance Compound"
+                    }
+                ], 
+                "name": "Compound Infusion"
+            }
+        }
+    }, 
+    "Insults": {}
+}

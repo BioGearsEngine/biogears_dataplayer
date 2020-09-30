@@ -1,0 +1,1105 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "66.12": {
+            "Patient has Cardiogenic Shock": {
+                "name": "Patient has Cardiogenic Shock"
+            }
+        }, 
+        "31.22": {
+            "Patient has Intracranial Hypotension": {
+                "name": "Patient has Intracranial Hypotension"
+            }
+        }, 
+        "53.1": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "40.72": {
+            "Patient no longer has Bradycardia": {
+                "name": "Patient no longer has Bradycardia"
+            }
+        }, 
+        "44.54": {
+            "Oxygen tension in the brain is dangerously low": {
+                "name": "Oxygen tension in the brain is dangerously low"
+            }
+        }, 
+        "30.06": {
+            "Patient has Cardiac Arrest": {
+                "name": "Patient has Cardiac Arrest"
+            }, 
+            "Patient has Bradycardia": {
+                "name": "Patient has Bradycardia"
+            }, 
+            "Patient has Asystole": {
+                "name": "Patient has Asystole"
+            }
+        }
+    }, 
+    "Actions": {
+        "59.26": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "46.86": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "66.7": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "75.38": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "72.9": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "65.46": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "51.82": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "79.72": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "74.76": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "67.94": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "82.2": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "56.16": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "53.06": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "51.2": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "61.12": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "77.24": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "78.48": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "70.42": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "77.86": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "48.72": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "53.68": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "41.28": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "43.76": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "45": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "45.62": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "80.34": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "66.08": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "73.52": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "71.66": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "67.32": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "43.14": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "62.98": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "69.8": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "81.58": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "74.14": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "58.64": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "64.84": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "41.9": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "76.62": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "62.36": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "68.56": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "79.1": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "76": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "80.96": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "54.92": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "58.02": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "64.22": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "47.48": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "60.5": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "69.18": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "30.02": {
+            "Cardiac Arrest": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "State"
+                    }
+                ], 
+                "name": "Cardiac Arrest"
+            }
+        }, 
+        "40.04": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "52.44": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "49.96": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "56.78": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "49.34": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "71.04": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "72.28": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "63.6": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "61.74": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "50.58": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "40.66": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "44.38": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "57.4": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "48.1": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "46.24": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "59.88": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "54.3": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "42.52": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "55.54": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }, 
+        "82.82": {
+            "Chest Compression": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ForceScale"
+                    }, 
+                    {
+                        "value": "0.2(s)", 
+                        "label": "ForcePeriod"
+                    }
+                ], 
+                "name": "Chest Compression"
+            }
+        }
+    }, 
+    "Insults": {}
+}

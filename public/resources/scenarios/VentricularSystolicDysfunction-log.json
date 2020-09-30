@@ -1,0 +1,81 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "357.84": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "369.18": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }
+        }, 
+        "357.2": {
+            "Patient no longer has Diuresis": {
+                "name": "Patient no longer has Diuresis"
+            }
+        }, 
+        "184.34": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "173.86": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "355.98": {
+            "Patient has entered Diuresis": {
+                "name": "Patient has entered Diuresis"
+            }
+        }, 
+        "196.1": {
+            "Patient no longer is in Antidiuresis": {
+                "name": "Patient no longer is in Antidiuresis"
+            }
+        }, 
+        "356.7": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "356.16": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "174.76": {
+            "Patient has Intracranial Hypotension": {
+                "name": "Patient has Intracranial Hypotension"
+            }
+        }
+    }, 
+    "Actions": {
+        "1200.02": {
+            "Substance Bolus": {
+                "data": [
+                    {
+                        "value": "10(mL)", 
+                        "label": "Dose"
+                    }, 
+                    {
+                        "value": "4000(ug/mL)", 
+                        "label": "Concentration"
+                    }, 
+                    {
+                        "value": "Furosemide", 
+                        "label": "Substance"
+                    }, 
+                    {
+                        "value": "Intravenous", 
+                        "label": "Administration Route"
+                    }
+                ], 
+                "name": "Substance Bolus"
+            }
+        }
+    }, 
+    "Insults": {}
+}

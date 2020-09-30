@@ -1,0 +1,169 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "241.12": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "180.06": {
+            "Patient has Bradypnea": {
+                "name": "Patient has Bradypnea"
+            }
+        }, 
+        "204.18": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "96.98": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "93.8": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "181.62": {
+            "The patient has Moderate Acute Respiratory Distress": {
+                "name": "The patient has Moderate Acute Respiratory Distress"
+            }
+        }, 
+        "185.38": {
+            "Patient no longer has a Moderate Acute Respiratory Distress": {
+                "name": "Patient no longer has a Moderate Acute Respiratory Distress"
+            }, 
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "184.12": {
+            "Patient no longer has Bradypnea": {
+                "name": "Patient no longer has Bradypnea"
+            }
+        }, 
+        "146.94": {
+            "Patient has entered state : RespiratoryAcidosis": {
+                "name": "Patient has entered state : RespiratoryAcidosis"
+            }
+        }, 
+        "243.86": {
+            "Patient no longer has Hypoxia": {
+                "name": "Patient no longer has Hypoxia"
+            }
+        }, 
+        "489.28": {
+            "Patient has exited state : RespiratoryAcidosis": {
+                "name": "Patient has exited state : RespiratoryAcidosis"
+            }
+        }, 
+        "30.06": {
+            "Patient has Fasciculation": {
+                "name": "Patient has Fasciculation"
+            }
+        }
+    }, 
+    "Actions": {
+        "60.04": {
+            "Anesthesia Machine Configuration": {
+                "data": [
+                    {
+                        "value": "Tube", 
+                        "label": "Connection"
+                    }, 
+                    {
+                        "value": "5(L/min)", 
+                        "label": "Inlet Flow Rate"
+                    }, 
+                    {
+                        "value": "0.5", 
+                        "label": "InspiratoryExpiratory Ratio"
+                    }, 
+                    {
+                        "value": "0.23", 
+                        "label": "Oxygen Fraction"
+                    }, 
+                    {
+                        "value": "Wall", 
+                        "label": "Oxygen Source"
+                    }, 
+                    {
+                        "value": "1(cmH2O)", 
+                        "label": "Positive End Expired Pressure"
+                    }, 
+                    {
+                        "value": "Nitrogen", 
+                        "label": "Primary Gas"
+                    }, 
+                    {
+                        "value": "NaN", 
+                        "label": "Relief Valve Pressure"
+                    }, 
+                    {
+                        "value": "16(1/min)", 
+                        "label": "Respiratory Rate"
+                    }, 
+                    {
+                        "value": "10.5(cmH2O)", 
+                        "label": "Ventilator Pressure"
+                    }, 
+                    {
+                        "value": "660(L)", 
+                        "label": "OxygenBottleOneVolume"
+                    }, 
+                    {
+                        "value": "660(L)", 
+                        "label": "OxygenBottleTwoVolume"
+                    }
+                ], 
+                "name": "Anesthesia Machine Configuration"
+            }, 
+            "Intubation": {
+                "data": [
+                    {
+                        "value": "Esophageal", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Intubation"
+            }
+        }, 
+        "30.02": {
+            "Substance Bolus": {
+                "data": [
+                    {
+                        "value": "30(mL)", 
+                        "label": "Dose"
+                    }, 
+                    {
+                        "value": "4820(ug/mL)", 
+                        "label": "Concentration"
+                    }, 
+                    {
+                        "value": "Succinylcholine", 
+                        "label": "Substance"
+                    }, 
+                    {
+                        "value": "Intravenous", 
+                        "label": "Administration Route"
+                    }
+                ], 
+                "name": "Substance Bolus"
+            }
+        }, 
+        "180.06": {
+            "Intubation": {
+                "data": [
+                    {
+                        "value": "Tracheal", 
+                        "label": "Type"
+                    }
+                ], 
+                "name": "Intubation"
+            }
+        }
+    }, 
+    "Insults": {}
+}

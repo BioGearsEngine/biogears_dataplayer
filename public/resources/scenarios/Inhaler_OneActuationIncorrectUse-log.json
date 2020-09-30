@@ -1,0 +1,98 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "40.98": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "51.26": {
+            "Patient has Bradypnea": {
+                "name": "Patient has Bradypnea"
+            }
+        }, 
+        "72.52": {
+            "Patient has Bradypnea": {
+                "name": "Patient has Bradypnea"
+            }
+        }, 
+        "56.16": {
+            "Patient no longer has Bradypnea": {
+                "name": "Patient no longer has Bradypnea"
+            }
+        }, 
+        "84.74": {
+            "Patient no longer has Bradypnea": {
+                "name": "Patient no longer has Bradypnea"
+            }
+        }, 
+        "75.42": {
+            "Patient has exited state : RespiratoryAlkalosis": {
+                "name": "Patient has exited state : RespiratoryAlkalosis"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Conscious Respiration": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "ExpiratoryReserveVolumeFraction"
+                    }, 
+                    {
+                        "value": "3(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "1", 
+                        "label": "InspiratoryCapacityFraction"
+                    }, 
+                    {
+                        "value": "5(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "10(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "0", 
+                        "label": "ExpiratoryReserveVolumeFraction"
+                    }, 
+                    {
+                        "value": "3(s)", 
+                        "label": "Period"
+                    }
+                ], 
+                "name": "Conscious Respiration"
+            }, 
+            "Inhaler Configuration": {
+                "data": [
+                    {
+                        "value": "Not Set", 
+                        "label": "State"
+                    }, 
+                    {
+                        "value": "90(ug)", 
+                        "label": "Metered Dose"
+                    }, 
+                    {
+                        "value": "0.04", 
+                        "label": "Nozzle Loss"
+                    }, 
+                    {
+                        "value": "NaN", 
+                        "label": "SpacerVolume"
+                    }, 
+                    {
+                        "value": "Albuterol", 
+                        "label": "Substance"
+                    }
+                ], 
+                "name": "Inhaler Configuration"
+            }
+        }
+    }, 
+    "Insults": {}
+}

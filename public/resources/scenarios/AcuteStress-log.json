@@ -1,0 +1,73 @@
+{
+    "Interventions": {}, 
+    "Events": {}, 
+    "Actions": {
+        "1220.1": {
+            "Acute Stress": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Acute Stress"
+            }
+        }, 
+        "1420.12": {
+            "Acute Stress": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Acute Stress"
+            }
+        }, 
+        "220.04": {
+            "Acute Stress": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Acute Stress"
+            }
+        }, 
+        "820.08": {
+            "Acute Stress": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Acute Stress"
+            }
+        }, 
+        "20.02": {
+            "Acute Stress": {
+                "data": [
+                    {
+                        "value": "0.4", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Acute Stress"
+            }
+        }, 
+        "620.06": {
+            "Acute Stress": {
+                "data": [
+                    {
+                        "value": "0.8", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Acute Stress"
+            }
+        }
+    }, 
+    "Insults": {}
+}

@@ -1,0 +1,49 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "30.1": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "35.36": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Conscious Respiration": {
+                "data": [
+                    {
+                        "value": "0.25", 
+                        "label": "InspiratoryCapacityFraction"
+                    }, 
+                    {
+                        "value": "0.7(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "0.25(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "0", 
+                        "label": "ExpiratoryReserveVolumeFraction"
+                    }, 
+                    {
+                        "value": "0.05(s)", 
+                        "label": "Period"
+                    }, 
+                    {
+                        "value": "0.5(s)", 
+                        "label": "Period"
+                    }
+                ], 
+                "name": "Conscious Respiration"
+            }
+        }
+    }, 
+    "Insults": {}
+}

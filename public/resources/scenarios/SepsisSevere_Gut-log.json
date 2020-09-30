@@ -1,0 +1,33 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "1065.26": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "1405.3": {
+            "Patient is Hyperthermic": {
+                "name": "Patient is Hyperthermic"
+            }
+        }
+    }, 
+    "Actions": {
+        "30.02": {
+            "Sepsis": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "Gut", 
+                        "label": "Compartment"
+                    }
+                ], 
+                "name": "Sepsis"
+            }
+        }
+    }, 
+    "Insults": {}
+}

@@ -1,0 +1,2091 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "153413": {
+            "Patient has entered state : MildHyponatremia": {
+                "name": "Patient has entered state : MildHyponatremia"
+            }
+        }, 
+        "24854.1": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "22338.4": {
+            "Patient has involuntarily emptied their bladder": {
+                "name": "Patient has involuntarily emptied their bladder"
+            }
+        }, 
+        "75729.4": {
+            "Patient is Hyperthermic": {
+                "name": "Patient is Hyperthermic"
+            }
+        }, 
+        "140907": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }
+    }, 
+    "Actions": {
+        "61200.3": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "14400.1": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "130(g)", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "27(g)", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "20(g)", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "0.5(g)", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "0.75(g)", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.5(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "169201": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "100801": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "130(g)", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "27(g)", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "20(g)", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "0.5(g)", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "0.75(g)", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.5(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "28800.2": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "136801": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "122401": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "68400.4": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "147601": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "133201": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "108001": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "90000.5": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "86400.5": {
+            "./states/InfectionStates/ModerateInfection@24hr.xml": {
+                "data": [], 
+                "name": "./states/InfectionStates/ModerateInfection@24hr.xml"
+            }, 
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "130(g)", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "27(g)", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "20(g)", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "0.5(g)", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "0.75(g)", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.5(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "158401": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "0": {
+            "Infection": {
+                "data": [
+                    {
+                        "value": "Moderate", 
+                        "label": "Severity"
+                    }, 
+                    {
+                        "value": "8(mg/L)", 
+                        "label": "Minimum Inhibitory Concentration"
+                    }, 
+                    {
+                        "value": "Skin", 
+                        "label": "Location"
+                    }
+                ], 
+                "name": "Infection"
+            }
+        }, 
+        "43200.2": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }, 
+            "./states/InfectionStates/ModerateInfection@12hr.xml": {
+                "data": [], 
+                "name": "./states/InfectionStates/ModerateInfection@12hr.xml"
+            }
+        }, 
+        "3600.02": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "72000.4": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "140401": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "172801": {
+            "./states/InfectionStates/ModerateInfection@48hr.xml": {
+                "data": [], 
+                "name": "./states/InfectionStates/ModerateInfection@48hr.xml"
+            }
+        }, 
+        "64800.4": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "115201": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "82800.5": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "57600.3": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "144001": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "21600.1": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "111601": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "162001": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "97200.5": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "79200.4": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "50400.3": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "18000.1": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "54000.3": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "154801": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "93600.5": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "126001": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "39600.2": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "46800.3": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "25200.1": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "151201": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "118801": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "130(g)", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "27(g)", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "20(g)", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "0.5(g)", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "0.75(g)", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.5(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "36000.2": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "75600.4": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "7200.04": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "10800.1": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "165601": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "104401": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "32400.2": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "130(g)", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "27(g)", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "20(g)", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "0.5(g)", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "0.75(g)", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.5(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }
+        }, 
+        "129601": {
+            "Consume Nutrients": {
+                "data": [
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Charbohydrates Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Fat Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Protein Digestion Rate"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Calcium"
+                    }, 
+                    {
+                        "value": "None", 
+                        "label": "Sodium"
+                    }, 
+                    {
+                        "value": "0.15(L)", 
+                        "label": "Water"
+                    }
+                ], 
+                "name": "Consume Nutrients"
+            }, 
+            "./states/InfectionStates/ModerateInfection@36hr.xml": {
+                "data": [], 
+                "name": "./states/InfectionStates/ModerateInfection@36hr.xml"
+            }
+        }
+    }, 
+    "Insults": {}
+}

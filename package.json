@@ -59,5 +59,16 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "win": {
+    "extraResources": [
+      {
+        "from": "./src/resources/",
+        "to": "extraResources",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
   }
 }

@@ -1,0 +1,27 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "180.44": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }, 
+        "558.2": {
+            "Patient has entered state : RespiratoryAcidosis": {
+                "name": "Patient has entered state : RespiratoryAcidosis"
+            }
+        }, 
+        "220.32": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "173.64": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }
+    }, 
+    "Actions": {}, 
+    "Insults": {}
+}

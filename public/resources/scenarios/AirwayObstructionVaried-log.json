@@ -1,0 +1,236 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "690.66": {
+            "The patient has Moderate Acute Respiratory Distress": {
+                "name": "The patient has Moderate Acute Respiratory Distress"
+            }, 
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "1119.16": {
+            "Patient has entered state : RespiratoryAcidosis": {
+                "name": "Patient has entered state : RespiratoryAcidosis"
+            }
+        }, 
+        "1217.02": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }, 
+        "1177.4": {
+            "Patient no longer has a Moderate Acute Respiratory Distress": {
+                "name": "Patient no longer has a Moderate Acute Respiratory Distress"
+            }, 
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "131.56": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "1053.26": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "705.54": {
+            "Patient no longer has Hypoxia": {
+                "name": "Patient no longer has Hypoxia"
+            }
+        }, 
+        "247.1": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }, 
+        "1070.76": {
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "1053.2": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "1186.64": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "1228.26": {
+            "Patient has exited state : RespiratoryAlkalosis": {
+                "name": "Patient has exited state : RespiratoryAlkalosis"
+            }
+        }, 
+        "699.28": {
+            "Patient has exited state : RespiratoryAcidosis": {
+                "name": "Patient has exited state : RespiratoryAcidosis"
+            }
+        }, 
+        "706.32": {
+            "Patient no longer has Tachycardia": {
+                "name": "Patient no longer has Tachycardia"
+            }
+        }, 
+        "739.62": {
+            "Patient no longer has Tachypnea": {
+                "name": "Patient no longer has Tachypnea"
+            }
+        }, 
+        "704.88": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "650.56": {
+            "Patient has entered state : RespiratoryAcidosis": {
+                "name": "Patient has entered state : RespiratoryAcidosis"
+            }
+        }, 
+        "1128.28": {
+            "The patient has Moderate Acute Respiratory Distress": {
+                "name": "The patient has Moderate Acute Respiratory Distress"
+            }, 
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "1177.54": {
+            "Patient has exited state : RespiratoryAcidosis": {
+                "name": "Patient has exited state : RespiratoryAcidosis"
+            }
+        }, 
+        "696.78": {
+            "Patient no longer has a Moderate Acute Respiratory Distress": {
+                "name": "Patient no longer has a Moderate Acute Respiratory Distress"
+            }, 
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "1186.56": {
+            "Patient no longer has Hypoxia": {
+                "name": "Patient no longer has Hypoxia"
+            }
+        }, 
+        "705.24": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "606.38": {
+            "The patient has Mild Acute Respiratory Distress": {
+                "name": "The patient has Mild Acute Respiratory Distress"
+            }
+        }, 
+        "748.38": {
+            "Patient has exited state : RespiratoryAlkalosis": {
+                "name": "Patient has exited state : RespiratoryAlkalosis"
+            }
+        }, 
+        "577.82": {
+            "Patient has Hypoxia": {
+                "name": "Patient has Hypoxia"
+            }
+        }, 
+        "1185.54": {
+            "Patient no longer has a Mild Acute Respiratory Distress": {
+                "name": "Patient no longer has a Mild Acute Respiratory Distress"
+            }
+        }, 
+        "577.88": {
+            "Patient has Tachycardia": {
+                "name": "Patient has Tachycardia"
+            }
+        }, 
+        "1181.94": {
+            "Patient has entered state : RespiratoryAlkalosis": {
+                "name": "Patient has entered state : RespiratoryAlkalosis"
+            }
+        }, 
+        "1036.94": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }, 
+        "560.42": {
+            "Patient has Tachypnea": {
+                "name": "Patient has Tachypnea"
+            }
+        }
+    }, 
+    "Actions": {
+        "510.06": {
+            "Airway Obstruction": {
+                "data": [
+                    {
+                        "value": "0.6", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Airway Obstruction"
+            }
+        }, 
+        "990.1": {
+            "Airway Obstruction": {
+                "data": [
+                    {
+                        "value": "1", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Airway Obstruction"
+            }
+        }, 
+        "210.04": {
+            "Airway Obstruction": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Airway Obstruction"
+            }
+        }, 
+        "1170.12": {
+            "Airway Obstruction": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Airway Obstruction"
+            }
+        }, 
+        "30.02": {
+            "Airway Obstruction": {
+                "data": [
+                    {
+                        "value": "0.3", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Airway Obstruction"
+            }
+        }, 
+        "690.08": {
+            "Airway Obstruction": {
+                "data": [
+                    {
+                        "value": "0", 
+                        "label": "Severity"
+                    }
+                ], 
+                "name": "Airway Obstruction"
+            }
+        }
+    }, 
+    "Insults": {}
+}

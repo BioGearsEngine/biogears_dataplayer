@@ -1,0 +1,22 @@
+{
+    "Interventions": {}, 
+    "Events": {
+        "173.04": {
+            "Patient has Renal Hypoperfusion": {
+                "name": "Patient has Renal Hypoperfusion"
+            }
+        }, 
+        "173.86": {
+            "Patient has Antidiuresis": {
+                "name": "Patient has Antidiuresis"
+            }
+        }, 
+        "304.18": {
+            "Patient has Bradycardia": {
+                "name": "Patient has Bradycardia"
+            }
+        }
+    }, 
+    "Actions": {}, 
+    "Insults": {}
+}
