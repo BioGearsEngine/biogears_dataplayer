@@ -441,12 +441,12 @@ export default {
           __static,
           "resources",
           "scenarios",
-          this.scenario.filename + "-log.json"
+          this.scenario.filename.replace("Results", "") + "-log.json"
         ),
         null,
         (err, data) => {
           if (err) throw err
-          this.loadLogs(data)
+          this.loadLogs(JSON.parse(data))
           this.downloadingLogs = false
         }
       )
