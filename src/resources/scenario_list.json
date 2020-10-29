@@ -197,6 +197,26 @@
       "filename": "SalineInfusionResults"
     },
     {
+      "name": "Sarin Lethal",
+      "filename": "SarinLethalResults"
+    },
+    {
+      "name": "Sarin Moderate Long",
+      "filename": "SarinModerateLongResults"
+    },
+    {
+      "name": "Sarin Moderate Short",
+      "filename": "SarinModerateShortResults"
+    },
+    {
+      "name": "Sarin Severe",
+      "filename": "SarinSevereResults"
+    },
+    {
+      "name": "Sarin Severe With Intervensions",
+      "filename": "SarinSevereWithInterventionResults"
+    },
+    {
       "name": "Sepsis Severe - Gut",
       "filename": "SepsisSevere_GutResults"
     },
