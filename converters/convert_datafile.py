@@ -14,7 +14,7 @@ downsample_amounts = {
     'SystolicArterialPressure(mmHg)': 0.03,
     'DiastolicArterialPressure(mmHg)': 0.03,
     'CardiacOutput(L/min)': 0.03,
-    'HemoglobinContent(g)': 0.001,
+    'HemoglobinContent(g)': 0.01,
     'CentralVenousPressure(mmHg)': 0.02,
     'PulmonaryCapillariesWedgePressure(mmHg)': 0.01,
     'RespirationRate(1/min)': 0.01,
